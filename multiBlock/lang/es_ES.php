@@ -11,11 +11,18 @@ $i18n = [
 	'BACKBTN'		=> 'Volver a la lista de Secciones', 
 	'ADDNEWBTN' 	=> 'Añadir nuevo campo', 
 	'ADDNEWBTN2' 	=> 'Añadir Nuevo', 
+	'ADDNEWMBBTN' 	=> 'Agregar nuevo MultiBlock', 
+	'ADDNEWOBBTN' 	=> 'Agregar nuevo OneBlock', 
+	'ADDNEWCATEGORY' 	=> 'Agregar nuevo  OneBlock', 
+	'BLOCKOPTIONSBTN' 	=> 'Opciones de bloque', 
+	'MBLIST' 		=> 'Listado de Multiblock', 
+	'OBLIST' 		=> 'Listado de Oneblock', 
 	'ID' 			=> 'ID', 
 	'FIELDNAME' 	=> 'Nombre del Campo', 
 	'SLUG' 			=> 'Slug', 
 	'DEFAULTVALUE' 	=> 'Valor por Defecto', 
 	'FIELDTYPE' 	=> 'Tipo de Campo', 
+	'TEMPLATE' 		=> 'Tu plantilla', 
 	'TEMPLATE1' 	=> 'Códigos de marcador de posición para mostrar en plantillas de páginas', 
 	'TEMPLATE2' 	=> 'Marcador de posición predeterminado:', 
 	'TEMPLATE3' 	=> 'Marcador de posición Wysiwyg:', 
@@ -38,7 +45,15 @@ $i18n = [
 	'THUMBNAILPLACEHOLDER' 	=> 'Marcador de posición de miniaturas:', 
 	'DROPDOWNVALUE' => '  Si desea utilizar un menú desplegable, el valor predeterminado es: ', 
 	'DROPDOWPLACEHOLDER' 	=> 'Marcador de posición desplegable:',
-	'CACHETHUMB' 	=> 'Borrar caché de miniaturas 🗑️'
+	'CACHETHUMB' 	=> 'Borrar caché de miniaturas 🗑️',
+	'ONEBLOCKHELP' 	=> 'OneBlock, creado para la configuración de la plantilla cuando no desea usar el bucle.<br>Agregue marcadores de posición directamente a su plantilla de tema.',
+
+	
+	'DISABLEDELSECTION' => 'Disable Delete sections',
+	'DISABLEADDSECTION' => 'Disable Add new sections',
+	'MULTIBLOCKSETTINGSHIDE' => 'MultiBlock settings',
+	'ONEBLOCKSETTINGSHIDE' => 'OneBlock settings',
+	'SAVESETTINGS'=>'Save Settings'
 ];
 
 ;?>

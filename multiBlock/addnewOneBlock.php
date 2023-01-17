@@ -9,7 +9,6 @@
 		height: 400px;
 		padding: 10px ;
 		box-sizing: border-box;
-		border: solid 2px #676767;
 	}
 
 	.mb_submit{
@@ -51,7 +50,6 @@
 		list-style-type: none;
 		width: 100%;
 		display: block;
-	 
 		box-sizing: border-box !important;
 	}
 
@@ -68,7 +66,7 @@
 	.info{
 		text-align: center;
 		background: #fafafa;
-		border:solid 1px #ddd;  
+		border:solid 1px #ddd;
 		margin-top:20px;
 	}
 
@@ -125,16 +123,14 @@
 	}
 </style>
 
-<h3><?php echo i18n_r("multiBlock/MULTIBLOCK");?> - <?php echo i18n_r("multiBlock/ADDNEWCATEGORY");?></h3>
+<h3>OneBlock - <?php echo i18n_r("multiBlock/ADDNEWCATEGORY");?></h3>
 
 <form method="post" >
-	<input type="text" style="display:none" value="<?php echo str_replace(" ","-",@$_GET['categoryname']);?>" name="check">
-	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER");?>" class="mb_title" name="categoryname" value="<?php echo str_replace('-',' ',@$_GET['categoryname']??'');?>"        
-	 pattern="[A-Za-z0-9]+">
+	<input type="text" style="display:none" value="<?php echo str_replace(" ","-",@$_GET['categoryname']);?>"  name="check">
+	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER");?>" class="mb_title" pattern="[A-Za-z0-9]+" name="categoryname" value="<?php echo str_replace('-',' ',@$_GET['categoryname']??'');?>">
+	<p style="font-size:12px;margin:5px 0;font-style:italic; padding:0;color:#444;">*name without spacebar required</p>
 
-	 <p style="font-size:12px;margin:5px 0;font-style:italic; padding:0;color:#444;">*name without spacebar required</p>
-
-	<br><hr><br>
+	<hr>
 
 	<div class="mb_buttons"  style="width:100%;background:#fafafa;display:flex; justify-content:flex-end;padding:5px;box-sizing:border-box;border:solid 1px #ddd;margin-bottom:20px;">
 		<button class="mb_btngeneral"><?php echo i18n_r("multiBlock/GENERALBTN");?></button>
@@ -143,6 +139,7 @@
 	</div>
 
 	<div class="mb_general">
+	
 		<div class="mb_addbtndiv">
 			<button class="mb_newinput"><?php echo i18n_r("multiBlock/ADDNEWBTN");?> ➕</button>
 		</div>
@@ -158,104 +155,63 @@
 		<ul id="mb_inputs" class="mb_inputs">
 			<?php
 				if(isset($_GET['categoryname'])){
-					$cat = file_get_contents(GSDATAOTHERPATH.'multiBlock/category/'.str_replace(" ","-",$_GET['categoryname']).'.json');
-				 
+					$cat = file_get_contents(GSDATAOTHERPATH.'oneBlock/category/'.str_replace(" ","-",$_GET['categoryname']).'.json');
+
 					$multicategory = json_decode($cat);
 
 					$count = 0;
-
+				 
 					foreach ($multicategory as $category){
 						echo '
 						<li>
-						<p>'.@$category->key.'</p>
-						<input type="text" required class="mb_input" placeholder="'.i18n_r("multiBlock/FIELDNAME").'" value="'.@$category->title.'" name="title[]">
-						<input type="text" required class="mb_input" placeholder="'.i18n_r("multiBlock/SLUG").'" value="'.@$category->label.'" name="label[]">
-						<input type="text" class="mb_input" value="'.@$category->value.'" placeholder="'.i18n_r("multiBlock/DEFAULTVALUE").'" name="value[]" >
-						<select class="mb_input meselect-'.$count.'" name="select[]"  >
-						<option>text</option>
-						<option>wysywig</option>
-						<option>textarea</option>
-						<option>color</option>
-						<option>date</option>
-						<option>image</option>
-						<option>dropdown</option>
-						<option>link</option>
-						</select>
-						<button class="mb_close">X</button>
+							<p>'.@$category->key.'</p>
+							<input type="text" required class="mb_input" placeholder="'.i18n_r("multiBlock/FIELDNAME").'" value="'.@$category->title.'" name="title[]">
+							<input type="text" required class="mb_input" placeholder="'.i18n_r("multiBlock/SLUG").'" value="'.@$category->label.'" name="label[]">
+							<input type="text" class="mb_input" value="'.@$category->value.'" placeholder="'.i18n_r("multiBlock/DEFAULTVALUE").'" name="value[]" >
+							<select class="mb_input meselect-'.$count.'" name="select[]"  >
+								<option>text</option>
+								<option>wysywig</option>
+								<option>textarea</option>
+								<option>color</option>
+								<option>date</option>
+								<option>image</option>
+								<option>dropdown</option>
+								<option>link</option>
+							</select>
+							<button class="mb_close">X</button>
 						</li>
-						 <script>document.querySelector(".meselect-'.$count.'").value="'.@$category->select.'"</script>
-						 ';
+						<script>document.querySelector(".meselect-'.$count.'").value="'.@$category->select.'"</script>
+						';
 
-						 $count++;
+						$count++;
 					}
-
 				};
 			;?>
-
 		</ul>
 	</div>
-
-	<div class="mb_template">
-		<h3><?php echo i18n_r("multiBlock/TEMPLATE");?></h3>
-		
-		<textarea name="template" class="mb_textarea">
-			<?php
-				if(isset($_GET['categoryname'])){
-				   echo file_get_contents(GSDATAOTHERPATH.'multiBlock/category/'.str_replace(" ","-",$_GET['categoryname']).'.txt');
-				}
-			;?>
-		</textarea><br><br>
-
 	
-		
-		<br><br>
-		
-		<h3><?php echo i18n_r("multiBlock/TEMPLATE1");?></h3>
+	<div class="mb_template">
+		<p><?php echo i18n_r("multiBlock/ONEBLOCKHELP");?></p>
+
+		<b><?php echo i18n_r("multiBlock/TEMPLATE1");?></b>
 
 		<div style="width:100%;height:auto;padding:15px;background:#fafafa;border:solid 1px #ddd;margin:10px 0;font-size:12px !important;box-sizing:border-box">
-
 			<b><?php echo i18n_r("multiBlock/TEMPLATE2");?></b><br>
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php mbvaluetext('valuename');?&#62; </code> <br>
+			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php getOneBlock('nameCategoryBlock','NameBlock','slugname');?&#62; </code> <br>
 
 			<b><?php echo i18n_r("multiBlock/TEMPLATE3");?></b><br>
 
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php mbvalue('valuename');?&#62; </code> <br>
-
-			<b><?php echo i18n_r("multiBlock/TEMPLATE4");?></b><br>
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php mborder();?&#62; </code> <br>
-
-			<b><?php echo i18n_r("multiBlock/DROPDOWPLACEHOLDER");?></b><br>
-
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php mbdropdown('valuename');?&#62; </code><br>
-
-			<b><?php echo i18n_r("multiBlock/DROPDOWNVALUE");?></b>
-			<br>
-
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;">    example 1|example 2|example 3</code> <br>
+			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php getOneBlockWysywig('nameCategoryBlock','NameBlock','slugname');?&#62; </code> <br>
 
 			<b><?php echo i18n_r("multiBlock/THUMBNAILPLACEHOLDER");?></b><br>
 
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php mbthumb('imageslug',300 or different number width);?&#62; </code> <br>
-			
-			<br><hr><br>
-
-			<b><?php echo i18n_r("multiBlock/TEMPLATE5");?></b><br>
-
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php getMultiBlock('categoryname');?&#62; </code><br> 
-
-			<b><?php echo i18n_r("multiBlock/TEMPLATE6");?></b><br>
-
-			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php getMultiBlock('categoryname' , '#idContainer or .classContainer');?&#62; </code> 
-			
-			<br>
-
+			<code style="border:solid 1px #ddd;background:#fafafa;padding:5px;display:inline-block;margin:10px 0;"> &#60;?php getOneBlockThumb('nameCategoryBlock','NameBlock','slugname','width');?&#62; </code> <br>
 		</div>
-		
 	</div>
 
 	<div style="width:100%;background:#fafafa;display:flex; justify-content:flex-end;padding:5px;box-sizing:border-box;border:solid 1px #ddd;margin-top:20px;">
-			<input type="submit"  name="savecat" class="mb_submit" value="<?php echo i18n_r("multiBlock/SAVECAT");?>">
-		</div>
+		<input type="submit"  name="savecat" class="mb_submit" value="<?php echo i18n_r("multiBlock/SAVECAT");?>">
+	</div>
 
 </form>
 
@@ -266,12 +222,11 @@
 	btn.preventDefault();
 
 	if(document.querySelector('.mb_template').style.display=="none"){
-	document.querySelector('.mb_template').style.display="block";
-	document.querySelector('.mb_general').style.display="none";
+		document.querySelector('.mb_template').style.display="block";
+		document.querySelector('.mb_general').style.display="none";
 	}else if( document.querySelector('.mb_template').style.display=="block"){
 		document.querySelector('.mb_template').style.display="none";
 		document.querySelector('.mb_general').style.display="block";
-
 	}
 
 	});
@@ -280,12 +235,11 @@
 	btn.preventDefault();
 
 	if(document.querySelector('.mb_template').style.display=="block"){
-	document.querySelector('.mb_template').style.display="none";
-	document.querySelector('.mb_general').style.display="block";
+		document.querySelector('.mb_template').style.display="none";
+		document.querySelector('.mb_general').style.display="block";
 	}else if( document.querySelector('.mb_template').style.display=="none"){
 		document.querySelector('.mb_template').style.display="block";
 		document.querySelector('.mb_general').style.display="none";
-
 	}
 
 	});
@@ -295,23 +249,25 @@
 	document.querySelector('.mb_newinput').addEventListener('click',(btn)=>{
 	btn.preventDefault();
 
-	const former = `<li>
-		<p>auto</p>
-		<input type="text" required class="mb_input" placeholder="title" name="title[]">
-		<input type="text" required class="mb_input" placeholder="slug" name="label[]">
-		<input type="text" class="mb_input" placeholder="default value" name="value[]" >
-		<select class="mb_input" name="select[]" >
-			<option>text</option>
-			<option>wysywig</option>
-			<option>textarea</option>
-			<option>color</option>
-			<option>date</option>
-			<option>image</option>
-			<option>dropdown</option>
-			<option>link</option>
-		</select>
-		<button class="mb_close">X</button>
-	</li>`;
+	const former = `
+		<li>
+			<p>auto</p>
+			<input type="text" required class="mb_input" placeholder="title" name="title[]">
+			<input type="text" required class="mb_input" placeholder="slug" name="label[]">
+			<input type="text" class="mb_input" placeholder="default value" name="value[]" >
+			<select class="mb_input" name="select[]" >
+				<option>text</option>
+				<option>wysywig</option>
+				<option>textarea</option>
+				<option>color</option>
+				<option>date</option>
+				<option>image</option>
+				<option>dropdown</option>
+				<option>link</option>
+			</select>
+			<button class="mb_close">X</button>
+		</li>
+	`;
 
 	count++;
 
@@ -352,11 +308,8 @@
 	});
 
 	document.querySelector('.mb_title').addEventListener('keyup',x=>{
-
-		document.querySelector('form').setAttribute('action', '<?php global $SITEURL;echo $SITEURL;?>admin/load.php?id=multiBlock&addnew&categoryname='+document.querySelector('.mb_title').value)
-	
+		document.querySelector('form').setAttribute('action', '<?php global $SITEURL;echo $SITEURL;?>admin/load.php?id=multiBlock&addnewOneBlock&categoryname='+document.querySelector('.mb_title').value)
 	})
-
 </script>
 
 <?php 
@@ -377,11 +330,11 @@
 				'value' => $_POST['value'][$key],
 				'select' => $_POST['select'][$key],
 			],true);
-		 
+			
 		};
 
 		$costa .=']';
-
+	 
 		if(isset($_POST['savecat'])){
 			$categoryname = str_replace(" ","-",$_POST['categoryname']);
 		}else{
@@ -390,24 +343,20 @@
 
 		$templatedata = @$_POST['template'];
 
-
-
-		$folder        = GSDATAOTHERPATH . '/multiBlock/category/';
+		$folder        = GSDATAOTHERPATH . '/oneBlock/category/';
 		$filename      = $folder . $categoryname.'.json';
-		$template    = $folder . $categoryname.'.txt';
+
 		$chmod_mode    = 0755;
 		$folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode,true);
-		 
+	 
 		// Save the file (assuming that the folder indeed exists)
 		if ($folder_exists) {
-			file_put_contents($filename, $costa);
-			file_put_contents($template, $templatedata);
-			echo("<meta http-equiv='refresh' content='0'>");
+		  file_put_contents($filename, $costa);
+		  echo("<meta http-equiv='refresh' content='0'>");
 		}
 
 		if($_POST['check']!==$_POST['categoryname'] ){
-			rename(GSDATAOTHERPATH . '/multiBlock/category/'.str_replace(" ","-",$_POST['check']).'.json', GSDATAOTHERPATH . '/multiBlock/category/'.str_replace(" ","-",$_POST['categoryname']).'.json');
-			rename(GSDATAOTHERPATH . '/multiBlock/category/'.str_replace(" ","-",$_POST['check']).'.txt', GSDATAOTHERPATH . '/multiBlock/category/'.str_replace(" ","-",$_POST['categoryname']).'.txt');
+			rename(GSDATAOTHERPATH . '/oneBlock/category/'.str_replace(" ","-",$_POST['check']).'.json', GSDATAOTHERPATH . '/oneBlock/category/'.str_replace(" ","-",$_POST['categoryname']).'.json');
 		};
 
 		echo("<meta http-equiv='refresh' content='0'>");
