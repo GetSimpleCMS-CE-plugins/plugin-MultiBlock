@@ -1,20 +1,20 @@
-<?php
+z<?php
 
 $i18n = [
 	'MULTIBLOCK' 	=> 'MutliBlock', 
-	'MULTIBLOCKSETTINGS' 	=> 'Configuración de MutliBlock', 
+	'MULTIBLOCKSETTINGS' 	=> 'Adjustes de MutliBlock', 
 	'SECTION' 		=> 'Sección', 
 	'ADDNEWCATEGORY'=> 'Añadir Nueva Sección', 
 	'CATEGORYNAMEPLACEHOLDER'=> 'Nombre de la Sección', 
 	'GENERALBTN'	=> 'General', 
 	'TEMPLATEBTN' 	=> 'Plantilla', 
 	'BACKBTN'		=> 'Volver a la lista de Secciones', 
-	'ADDNEWBTN' 	=> 'Añadir nuevo campo', 
+	'ADDNEWBTN' 	=> 'Añadir Nuevo Campo', 
 	'ADDNEWBTN2' 	=> 'Añadir Nuevo', 
-	'ADDNEWMBBTN' 	=> 'Agregar nuevo MultiBlock', 
-	'ADDNEWOBBTN' 	=> 'Agregar nuevo OneBlock', 
-	'ADDNEWCATEGORY' 	=> 'Agregar nuevo  OneBlock', 
-	'BLOCKOPTIONSBTN' 	=> 'Opciones de bloque', 
+	'ADDNEWMBBTN' 	=> 'Agregar Nuevo MultiBlock', 
+	'ADDNEWOBBTN' 	=> 'Agregar Nuevo OneBlock', 
+	'ADDNEWCATEGORY' 	=> 'Agregar / Actualizar', 
+	'BLOCKOPTIONSBTN' 	=> 'Opciones de Bloques', 
 	'MBLIST' 		=> 'Listado de Multiblock', 
 	'OBLIST' 		=> 'Listado de Oneblock', 
 	'ID' 			=> 'ID', 
@@ -30,14 +30,14 @@ $i18n = [
 	'TEMPLATE5' 	=> 'Coloque esto en la plantilla de página:', 
 	'TEMPLATE6' 	=> 'Coloque esto si desea forzar el orden de la lista:', 
 	'SAVECAT' 		=> 'Guardar Sección', 
-	'DELETE' 		=> 'Suprimir', 
+	'DELETE' 		=> 'Eliminar', 
 	'EDIT' 			=> 'Editar', 
 	'EDITBLOCK' 	=> 'Editar Bloque', 
 	'BLOCKTITLE' 	=> 'Título del Bloque', 
 	'OPTIONS' 		=> 'Opciones', 
-	'CHOOSEIMAGE' 	=> 'Elegir imagen...', 
+	'CHOOSEIMAGE' 	=> 'Elegir Imagen...', 
 	'UPDATE' 		=> 'Actualizar', 
-	'SAVEORDER' 	=> 'Guardar orden', 
+	'SAVEORDER' 	=> 'Guardar Orden', 
 	'MULTIBLOCKSECTION' => 'Secciones MultiBlock', 
 	'MULTIBLOCKIN' 	=> 'Bloques en esta Sección:', 
 	'CHOOSESECTION' => 'Elija Sección', 
@@ -47,13 +47,33 @@ $i18n = [
 	'DROPDOWPLACEHOLDER' 	=> 'Marcador de posición desplegable:',
 	'CACHETHUMB' 	=> 'Borrar caché de miniaturas 🗑️',
 	'ONEBLOCKHELP' 	=> 'OneBlock, creado para la configuración de la plantilla cuando no desea usar el bucle.<br>Agregue marcadores de posición directamente a su plantilla de tema.',
+	'MIGRATEBTN' => 'Migrar',
+	
+	'DISABLEDELSECTION' => 'Deshabilitar Eliminar Secciones',
+	'DISABLEADDSECTION' => 'Deshabilitar Agregar Nuevas Secciones',
+	'MULTIBLOCKSETTINGSHIDE' => 'Adjustes de MultiBlock',
+	'ONEBLOCKSETTINGSHIDE' => 'Adjustes de OneBlock',
+	'SAVESETTINGS'=>'Guardar',
+
+	'SLUGTITLE' => 'Slug (sin espacios ni caracteres especiales)',
+
+	'NAMEREQUIRED'  => 'Nombre Requerido (sin espacios)',
+	'TEXT'  		=> 'Texto',
+	'WYSIWYG'  		=> 'Wysiwyg',
+	'TEXTAREA'  	=> 'Área de Texto',
+	'COLOR'  		=> 'Color',
+	'DATE'  		=> 'Fecha',
+	'IMAGE'  		=> 'Imagen',
+	'DROPDOWN'  	=> 'Desplegable',
+	'LINK'  		=> 'Enlace',
 
 	
-	'DISABLEDELSECTION' => 'Disable Delete sections',
-	'DISABLEADDSECTION' => 'Disable Add new sections',
-	'MULTIBLOCKSETTINGSHIDE' => 'MultiBlock settings',
-	'ONEBLOCKSETTINGSHIDE' => 'OneBlock settings',
-	'SAVESETTINGS'=>'Save Settings'
+	'OLDDOMAIN' => 'URL Antigua',
+	'NEWDOMAIN' => 'Nueva URL',
+	'REPLACEURL' => 'Actualizar URL',
+	'REPLACEDURL' => 'MultiBlock ha sido actualizado',
+	'DELETEQUESTION' => '¿Quieres eliminar este artículo?'
+
 ];
 
 ;?>

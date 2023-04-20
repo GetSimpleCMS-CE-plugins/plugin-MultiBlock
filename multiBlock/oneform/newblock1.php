@@ -36,10 +36,10 @@
 </style>
 
 <?php
-	if (isset($_GET['namefile'])) {
-		$datas = file_get_contents(GSDATAOTHERPATH . 'oneBlock/' . str_replace(" ", "-", @$_GET['newmulticategory']) . '/' . @str_replace(" ", "-", $_GET['namefile']) . '.json');
-		$dater = json_decode($datas);
-	}; 
+if (isset($_GET['namefile'])) {
+    $datas = file_get_contents(GSDATAOTHERPATH . 'oneBlock/' . str_replace(" ", "-", @$_GET['newmulticategory']) . '/' . @str_replace(" ", "-", $_GET['namefile']) . '.json');
+    $dater = json_decode($datas);
+};
 ?>
 
 <style>
@@ -75,6 +75,7 @@
         border: none;
         background: #000;
         color: #fff;
+        cursor: pointer;
     }
 </style>
 
@@ -89,11 +90,12 @@
     <input type="text" style="display:none" name="nameolder" class="namefileolder" placeholder="title" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>">
 
     <h4 style="margin-top:20px"><?php echo i18n_r("multiBlock/BLOCKTITLE"); ?></h4>
+    <input type="text" required="required" name="nametitle" class="nametitle" placeholder="<?php echo i18n_r("multiBlock/BLOCKTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['nametitle'] ?? ''); ?>">
 
-    <input type="text" required="required" name="name" class="namefile" placeholder="title" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>" pattern="[A-Za-z0-9]+">
-    <p style="font-size:12px;margin:5px 0;font-style:italic; padding:0;color:#444;">*name without spacebar required</p>
+    <input type="text" required="required" name="name" class="namefile" placeholder="<?php echo i18n_r('multiBlock/SLUGTITLE'); ?>" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>" pattern="[A-Za-z0-9]+">
+    <p style="font-size:12px;margin:5px 0;font-style:italic; padding:0;color:#444;"><?php echo i18n_r("multiBlock/NAMEREQUIRED"); ?></p>
 
-    <hr>
+    <hr style="margin: 20px 0; border: 0; border-bottom: 2px dashed #ddd; background: #999;">
 
     <h4 style="margin-top:20px;margin-bottom:10px;"><?php echo i18n_r("multiBlock/OPTIONS"); ?></h4>
 
@@ -119,8 +121,16 @@
 
             if ($category->select == 'wysywig') {
                 echo '
-				<p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px; margin-bottom:5px;">' . $category->title . ' :</p>
- 
+				<p style="margin: 0; margin:0;margin-bottom:10px !important;display: flex;
+                justify-content: space-between; margin-top: 20px; font-weight: 400px; font-size: 15px; margin-bottom:5px;align-items:center;">' . $category->title;
+
+                if (isset($_GET['namefile'])) {
+                    echo ' : <span style="font-style:italic;margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
+                };
+
+
+                echo ' </p>
+
 				<textarea id="post-content" name="' . str_replace(" ", "", $category->label) . '" style="width:100%;display:block;height:250px;" class="mbinput">' . html_entity_decode($valer) . '</textarea>
 				';
             } elseif ($category->select == 'image') {
@@ -128,7 +138,17 @@
                 global $SITEURL;
 
                 echo '<span class="formedit">';
-                echo '<p style="margin: 0; margin-top: 0px; margin-top: 20px; font-weight: 400px; font-size: 15px;">' . $category->title . ' :</p>
+                echo '<p style="margin: 0; margin-top: 0px; margin-top: 20px; margin-bottom:20px !important;
+                 font-weight: 400px; font-size: 15px;margin-bottom:20px !important;display: flex;
+                 justify-content: space-between;align-items:center;">' . $category->title;
+
+
+                if (isset($_GET['namefile'])) {
+                    echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
+                };
+
+
+                echo '</p>
 
 		<div class="mb_img">';
 
@@ -147,14 +167,31 @@
         ';
             } elseif ($category->select == 'textarea') {
 
-                echo '<p style="margin: 0; margin-top: 0px; margin-top: 20px; font-weight: 400px; font-size: 15px;display:inline-block;">' . $category->title . ' :</p>
+                echo '<p style="margin: 0; margin-top: 0px; margin-top: 20px; font-weight: 400px; font-size: 15px;display: flex;
+                justify-content: space-between;margin-bottom:10px !important;align-items:center;">' . $category->title;
 
-            <textarea class="mbinput" style="width:100%;height:250px;" name="' . str_replace(" ", "", $category->label) . '">' . html_entity_decode($valer) . '</textarea>';
+                if (isset($_GET['namefile'])) {
+                    echo ': <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlockWysywig("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
+                };
+
+
+                echo ' </p>
+
+            <textarea class="mbinput" style="width:100%;height:250px;box-sizing:border-box;" name="' . str_replace(" ", "", $category->label) . '">' . html_entity_decode($valer) . '</textarea>';
             } elseif ($category->select == 'dropdown') {
 
                 $ars = explode('|', $category->value);
 
-                echo '<p style="margin: 0; margin-top: 0px; margin-top: 20px; font-weight: 400px; font-size: 15px;display:inline-block;">' . $category->title . ' :</p>';
+                echo '<p style="margin: 0; margin-top: 0px; margin-top: 20px; font-weight: 400px; font-size: 15px;display:flex; justify-content:space-between;width:100%; 
+                margin-bottom:20px !important;align-items:center;">' . $category->title;
+
+
+                if (isset($_GET['namefile'])) {
+                    echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
+                };
+
+
+                echo ' </p>';
 
                 echo '<select style="width:100%;padding:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
 
@@ -170,9 +207,19 @@
  document.querySelector("select.' . str_replace(" ", "", $category->label) . '").value = "' . str_replace(" ", "^", $valer) . '"; </script>';
             } elseif ($category->select == 'link') {
 
+
                 echo '
-        <p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px;">' . $category->title . ' :</p> 
-        <select style="width:100%;padding:15px;display:block;border:solid 1px #ddd; background:#fff;margin-top:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
+        <p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px; margin-bottom:20px !important;display: flex;
+        justify-content: space-between;align-items:center;">' . $category->title;
+
+
+                if (isset($_GET['namefile'])) {
+                    echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
+                };
+
+
+                echo '</p> 
+        <select style="width:100%;padding:15px;display:block;border:solid 1px #ddd; background:#fff;margin-top:10px; margin-bottom:20px !important;display:block;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
 
                 foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
 
@@ -189,9 +236,15 @@
                 echo '<script> document.querySelector("select.' . $category->label . '").value = "' . $valer . '"; </script>';
             } else {
 
-                echo '<p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px;">' . $category->title . ' :</p>
+                echo '<p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px; display: flex;
+                justify-content: space-between;align-items:center;">' . $category->title;
 
-        <input class="mbinput" type="' . $category->select . '" name="' . str_replace(" ", "", $category->label) . '" value="' . html_entity_decode($valer) . '">
+                if (isset($_GET['namefile'])) {
+                    echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
+                };
+
+                echo '</p>
+                 <input class="mbinput" type="' . $category->select . '" name="' . str_replace(" ", "", $category->label) . '" value="' . html_entity_decode($valer) . '">
         
         ';
             }
@@ -199,7 +252,7 @@
     };; ?>
 
     <div style="backgorund:#fafafa;border:solid 1px #ddd;padding:10px;box-sizing:border-box;display:flex;margin-top:10px;">
-        <input type="submit" name="saveblock" style="width:200px;background:#000;color:#fff;margin:0; border:none;" value="<?php echo i18n_r("multiBlock/UPDATE"); ?>">
+        <input type="submit" name="saveblock" style="width:200px;background:#000;color:#fff;margin:0; border:none;cursor: pointer;" value="<?php echo i18n_r("multiBlock/UPDATE"); ?>">
     </div>
 </form>
 
@@ -210,7 +263,7 @@
             'action',
             '<?php global $SITEURL;
                 echo $SITEURL; ?>admin/load.php?id=multiBlock&newblock1&newmulticategory=' + document.querySelector('.cat').value +
-            '&namefile=' + document.querySelector('.namefile').value
+            '&namefile=' + document.querySelector('.namefile').value + '&nametitle=' + document.querySelector('.nametitle').value
         );
 
     document
@@ -223,7 +276,22 @@
                     'action',
                     '<?php global $SITEURL;
                         echo $SITEURL; ?>admin/load.php?id=multiBlock&newblock1&newmulticategory=' + document.querySelector('.cat').value +
-                    '&namefile=' + document.querySelector('.namefile').value.replace(/ /g, "-")
+                    '&namefile=' + document.querySelector('.namefile').value.replace(/ /g, "-") + '&nametitle=' + document.querySelector('.nametitle').value
+                );
+
+        });
+
+    document
+        .querySelector('.nametitle')
+        .addEventListener('keyup', () => {
+
+            document
+                .querySelector('form')
+                .setAttribute(
+                    'action',
+                    '<?php global $SITEURL;
+                        echo $SITEURL; ?>admin/load.php?id=multiBlock&newblock1&newmulticategory=' + document.querySelector('.cat').value +
+                    '&namefile=' + document.querySelector('.namefile').value.replace(/ /g, "-") + '&nametitle=' + document.querySelector('.nametitle').value
                 );
 
         });
@@ -235,45 +303,8 @@ $coner = 0;
 
 if (isset($_POST['saveblock'])) {
 
-    $costa = '{';
-
-    foreach ($_POST as $key => $value) {
-
-        if ($coner > 0) {
-            $costa .= ',';
-        }
-
-        $costa .= '"' . $key . '":"' . trim(preg_replace('/\s\s+/', ' ', htmlentities($value))) . '"';
-
-        $coner++;
-    };
-
-    $costa .= '}';
-
-    $owncategory = $_GET['newmulticategory'];
-
-    $name = str_replace(" ", "-", $_POST['name']);
-
-    $folder        = GSDATAOTHERPATH . 'oneBlock/' . $owncategory . '/';
-    $filename      = $folder . $name . '.json';
-    $chmod_mode    = 0755;
-    $folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode);
-
-    // Save the file (assuming that the folder indeed exists)
-    if ($folder_exists) {
-        file_put_contents($filename, $costa);
-
-        echo ("<meta http-equiv='refresh' content='0'>");
-    }
-
-    if ($_POST['nameolder'] !== '') {
-        if ($_POST['nameolder'] !== $_POST['name']) {
-
-            rename($folder . str_replace(" ", "-", $_POST['nameolder']) . '.json', $folder . str_replace(" ", "-", $_POST['name']) . '.json');
-        };
-    }
-
-    echo ("<meta http-equiv='refresh' content='0'>");
+    global $bb;
+    $bb->saveOneBlock();
 }; ?>
 
 <script type="text/javascript" src="template/js/ckeditor/ckeditor.js?t=3.3.16"></script>
@@ -304,7 +335,6 @@ if (isset($_POST['saveblock'])) {
 </script>
 
 <script>
-
     if (document.querySelector('.mb_foto') !== null) {
 
         let data = 0;
@@ -318,10 +348,11 @@ if (isset($_POST['saveblock'])) {
                     .addEventListener('click', y => {
                         y.preventDefault();
 
-                        const url ="<?php global $SITEURL; echo $SITEURL . "plugins/multiBlock/files/imagebrowser.php?"; ?>&func="+e.querySelector('input[type="text"]').getAttribute('name');
-        
-                        const win = window.open(url,"myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
-                      
+                        const url = "<?php global $SITEURL;
+                                        echo $SITEURL . "plugins/multiBlock/files/imagebrowser.php?"; ?>&func=" + e.querySelector('input[type="text"]').getAttribute('name');
+
+                        const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
+
                         win.window.focus();
                     });
 

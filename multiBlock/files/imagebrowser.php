@@ -1,126 +1,8 @@
 <?php
 
-/**
- * Basic File Browser from I18N Gallery
- *
- * Displays and selects file link to insert
- 
- *edited by multicolor
- 
- */
 
- 
 
-function i18n_gallery_exif_text($text, $defEnc = null)
-{
-  if (!$defEnc) $defEnc = 'ISO-8859-15';
-  if (function_exists('mb_convert_encoding') && function_exists('mb_detect_encoding')) {
-    return mb_convert_encoding($text, "UTF-8", mb_detect_encoding($text, 'UTF-8, ' . $defEnc));
-  } else {
-    return $text;
-  }
-}
-
-function i18n_gallery_image_info($file, $defEnc = null, $debug = false)
-{
-  $info = [];
-  if ($debug) $info['debug'] = '';
-  // 1. get XMP meta data (it's in UTF-8 and we shouldn't have problems)
-  try {
-    $content = file_get_contents($file);
-    $xmpdata_start = strpos($content, "<x:xmpmeta");
-    if ($xmpdata_start !== false) {
-      $xmpdata_end = strpos($content, "</x:xmpmeta>");
-      $xmpdata = substr($content, $xmpdata_start, $xmpdata_end - $xmpdata_start + 12);
-      if ($debug) $info['debug'] .= $xmpdata . "\r\n";
-      $xmp = @simplexml_load_string($xmpdata);
-      if ($xmp != null) {
-        #$xmp->registerXPathNamespace("x", "adobe:ns:meta/");
-        $xmp->registerXPathNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-        $xmp->registerXPathNamespace("dc", "http://purl.org/dc/elements/1.1/");
-        $elems = $xmp->xpath("//dc:title/rdf:Alt/rdf:li");
-        if ($elems && count($elems) > 0) {
-          $info['title'] = '';
-          foreach ($elems as $elem) $info['title'] .= ($info['title'] ? "\r\n" : '') . ((string) $elem);
-        }
-        $elems = $xmp->xpath("//dc:description/rdf:Alt/rdf:li");
-        if ($elems && count($elems) > 0) {
-          $info['description'] = '';
-          foreach ($elems as $elem) $info['description'] .= ($info['description'] ? "\r\n" : '') . ((string) $elem);
-          if ($info['description'] == @$info['title']) unset($info['description']);
-        }
-        $elems = $xmp->xpath("//dc:subject/rdf:Bag/rdf:li");
-        if ($elems && count($elems) > 0) {
-          $info['tags'] = [];
-          foreach ($elems as $elem) $info['tags'][] = (string) $elem;
-        }
-      }
-    }
-  } catch (Exception $e) {
-    # ignore
-  }
-  if (!$debug && count($info) == 4) return $info;
-  # 2. get IPTC data, if not in XMP data (assume ISO-8859-1)
-  try {
-    getimagesize($file, $arrInfo);
-    if (function_exists('iptcparse')) {
-      $iptc = $arrInfo && isset($arrInfo['APP13']) ? @iptcparse($arrInfo['APP13']) : null;
-      if ($debug) $info['debug'] .= print_r($iptc, true) . "\r\n";
-      if (!isset($info['title']) && @$iptc['2#005']) { # document title
-        $info['title'] = i18n_gallery_exif_text(implode("\r\n", $iptc['2#005']));
-      }
-      if (!isset($info['title']) && @$iptc['2#105']) { # title
-        $info['title'] = i18n_gallery_exif_text(implode("\r\n", $iptc['2#105']));
-      }
-      if (!isset($info['description']) && @$iptc['2#120']) { # description
-        $info['description'] = i18n_gallery_exif_text(implode("\r\n", $iptc['2#120']));
-        if ($info['description'] == @$info['title']) unset($info['description']);
-      }
-      if (!isset($info['tags']) && @$iptc['2#025']) { # keywords
-        $info['tags'] = [];
-        foreach ($iptc['2#025'] as $t) $info['tags'][] = i18n_gallery_exif_text($t);
-      }
-      if (!isset($info['author']) && @$iptc['2#080']) { # author
-        $info['author'] = i18n_gallery_exif_text(implode("\r\n", $iptc['2#080']));
-      }
-    }
-  } catch (Exception $e) {
-    # ignore
-  }
-  if (!$debug && count($info) == 4) return $info;
-  # 3. get EXIF data, if neither in XMP nor in IPTC data (assume ISO-8859-1)
-  try {
-    if (function_exists('exif_read_data')) {
-      $exif = @exif_read_data($file, null, true);
-      if ($debug) $info['debug'] .= print_r($exif, true) . "\r\n";
-      if (!isset($info['title'])) {
-        if (@$exif['IFD0']['ImageDescription']) $info['title'] = i18n_gallery_exif_text($exif['IFD0']['ImageDescription']);
-        else if (@$exif['IFD0']['Title']) $info['title'] = i18n_gallery_exif_text($exif['IFD0']['Title']);
-      }
-      if (!isset($info['description'])) {
-        if (@$exif['IFD0']['Comments']) {
-          $info['description'] = i18n_gallery_exif_text($exif['IFD0']['Comments']);
-          if ($info['description'] == @$info['title']) unset($info['description']);
-        }
-        if (@$exif['EXIF']['UserComment']) {
-          $info['description'] = i18n_gallery_exif_text($exif['EXIF']['UserComment']);
-          if ($info['description'] == @$info['title']) unset($info['description']);
-        }
-      }
-      if (!isset($info['tags']) && @$exif['IFD0']['Keywords']) {
-        $info['tags'] = preg_split('/;/', i18n_gallery_exif_text($exif['IFD0']['Keywords']));
-      }
-      if (!isset($info['author'])) {
-        if (@$exif['IFD0']['Author']) $info['author'] = i18n_gallery_exif_text($exif['IFD0']['Author']);
-        else if (@$exif['IFD0']['Artist']) $info['author'] = i18n_gallery_exif_text($exif['IFD0']['Artist']);
-      }
-    }
-  } catch (Exception $e) {
-    # ignore
-  }
-  return $info;
-}
-
+  
 include('../../../gsconfig.php');
 $admin = defined('GSADMIN') ? GSADMIN : 'admin';
 include("../../../${admin}/inc/common.php");
@@ -182,7 +64,6 @@ while ($file = readdir($dir_handle)) {
     if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png') {
       $ss = @stat($path . $file);
       list($width, $height) = getimagesize($path . $file);
-      $info = i18n_gallery_image_info($path . $file, null, @$debug);
       $filesArray[] = ['name' => $file, 'date' => @date('M j, Y', $ss['ctime']), 'size' => fSize($ss['size']), 'bytes' => $ss['size'], 'width' => $width, 'height' => $height, 'title' => @$info['title'], 'tags' => @$info['tags'], 'description' => @$info['description'], 'debug' => @$info['debug']];
       $totalsize = $totalsize + $ss['size'];
       $count++;
@@ -240,7 +121,7 @@ $urlPath = "";
                 <tr class="All">
                   <td class="" colspan="5">
                     <img src="../../../<?php echo $admin; ?>/template/images/folder.png" width="11" />
-                    <a href="imagebrowser.php?path=<?php echo $p; ?>&amp;func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&autoclose=1" title="<?php echo $upload['name']; ?>"><strong><?php echo $upload['name']; ?></strong></a>
+                    <a href="imagebrowser.php?path=<?php echo $p; ?>&amp;func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&autoclose=1&CKEditor=post-content&func=<?php echo $_GET['func'];?>" title="<?php echo $upload['name']; ?>"><strong><?php echo $upload['name']; ?></strong></a>
                   </td>
                 </tr>
               <?php
@@ -260,7 +141,7 @@ $urlPath = "";
                 <tr class="All images">
                   <td>
                     <a href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>">
-                      <img src="pic.php?p=<?php echo $subPath . $upload['name']; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>" />
+                      <img style="width:60px;height:60px;object-fit: cover" src="<?php echo $SITEURL.'data/uploads/'.$subPath . $upload['name']; ?>" />
                     </a>
                   </td>
                   <td>
@@ -287,8 +168,10 @@ $urlPath = "";
             ?>
           </tbody>
         </table>
+
+ 
         <p><em><b><?php echo count((array)$filesSorted); ?></b> <?php i18n('TOTAL_FILES'); ?> (<?php echo fSize($totalsize); ?>)</em></p>
-        <p style="display:none"><a href="javascript:void(0)" onclick="submitAllLinks()"><?php i18n('i18n_gallery/ADD_ALL_IMAGES'); ?></a></p>
+         
         <?php // foreach ($metadata as &$m) if (!@$m['title']) $m['title'] = basename($m['url']); 
         ?>
         <script type='text/javascript'>
@@ -299,19 +182,21 @@ $urlPath = "";
         </script>
 
 
+   
+
+
+
         <script>
           function submitLink(e) {
         
       
 
-              let linker = document.querySelectorAll('.images img')[e].getAttribute('src').slice(10,-12);
+              let linker = document.querySelectorAll('.images img')[e].getAttribute('src');
             console.log(linker);
-window.opener.document.querySelector(`input[name="<?php echo $_GET['func'];?>"]`).value = "<?php echo $SITEURL;?>data/uploads/"+linker;
+window.opener.document.querySelector(`input[name="<?php echo $_GET['func'];?>"]`).value = linker;
          window.close();
           }
         </script>
-
-
 
       </div>
     </div>

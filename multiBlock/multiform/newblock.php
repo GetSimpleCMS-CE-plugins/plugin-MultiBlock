@@ -1,0 +1,331 @@
+<style>
+	/*listfile */
+
+	.listfile {
+		width: 100%;
+		height: 300px;
+		overflow-y: scroll;
+		background: #ddd;
+		margin-top: 20px;
+		color: #000;
+		padding: 10px;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(200px, 1fr));
+		gap: 10px;
+		align-items: flex-start;
+	}
+
+	.thisphoto {
+		text-align: center;
+		cursor: pointer;
+		width: 100%;
+		display: block;
+		word-break: break-all;
+		color: #000 !important;
+		text-decoration: none !important;
+		font-weight: 300 !important;
+		font-size: 12px !important;
+	}
+
+	.thisphoto:hover {
+		background: rgba(0, 0, 0, 0.1);
+		font-weight: 300 !important;
+		font-weight: normal !important;
+		text-decoration: none !important;
+	}
+</style>
+
+<?php
+if (isset($_GET['namefile'])) {
+	$datas = file_get_contents(GSDATAOTHERPATH . 'multiBlock/' . str_replace(" ", "-", @$_GET['newmulticategory']) . '/' . @str_replace(" ", "-", $_GET['namefile']) . '.json');
+	$dater = json_decode($datas);
+};
+?>
+
+<style>
+	.mbformer input {
+		width: 100%;
+		padding: 10px;
+		box-sizing: border-box;
+		margin: 10px 0;
+	}
+
+	.mbformer h4 {
+		font-size: 1.2rem;
+		font-weight: 400;
+
+	}
+
+	.mb_img {
+		display: grid;
+		grid-template-columns: 80px 1fr 200px;
+		align-items: center;
+		gap: 10px;
+		margin-top: 10px;
+	}
+
+	.mb_img img {
+		outline: 1px solid #BABABA;
+		outline-offset: 3px;
+		background-color: #ddd;
+		border: none;
+	}
+
+	.mb_img .mb_fotobtn {
+		height: 40px;
+		border: none;
+		background: #000;
+		color: #fff;
+		cursor: pointer;
+	}
+</style>
+
+<h3><?php echo i18n_r("multiBlock/EDITBLOCK"); ?></h3>
+
+<form method="POST" class="mbformer">
+
+	<div style="background:#fafafa;border:solid 1px #ddd; padding:10px;">
+		<?php echo i18n_r('multiBlock/SECTION'); ?>: <input type="text" name="cat" class="cat" disabled="disabled" style="width:200px;border:none;margin:0;font-size:13px;padding:0;" value="<?php echo @$_GET['newmulticategory']; ?>">
+	</div>
+
+	<input type="text" style="display:none" name="nameolder" class="namefileolder" placeholder="title" pattern="[A-Za-z0-9]+" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>">
+
+
+	<h4 style="margin-top:20px"><?php echo i18n_r("multiBlock/BLOCKTITLE"); ?></h4>
+
+	<input type="text" required="required" name="nametitle" class="nametitle" placeholder="<?php echo i18n_r("multiBlock/BLOCKTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['nametitle'] ?? ''); ?>">
+	<input type="text" required="required" name="name" class="namefile" placeholder="<?php echo i18n_r("multiBlock/SLUGTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>" pattern="[A-Za-z0-9]+">
+
+	<p style="font-size:12px;margin:5px 0;font-style:italic; padding:0;color:#444;"><?php echo i18n_r("multiBlock/NAMEREQUIRED"); ?></p>
+
+	<hr style="margin: 20px 0; border: 0; border-bottom: 2px dashed #ddd; background: #999;">
+
+	<h4 style="margin-top:20px;margin-bottom:10px;"><?php echo i18n_r("multiBlock/OPTIONS"); ?></h4>
+
+	<?php
+	if (isset($_GET['newmulticategory'])) {
+
+		$cat = @file_get_contents(GSDATAOTHERPATH . 'multiBlock/category/' . str_replace(" ", "-", $_GET['newmulticategory']) . '.json');
+		$multicategory = json_decode($cat);
+
+		$multicategory = $multicategory == '' ? [] : $multicategory;
+
+		$count = 0;
+
+		foreach ($multicategory as $category) {
+			$nis = str_replace(" ", "", $category->label);
+
+			if (isset($dater)) {
+				$valer = $dater->$nis;
+			} else {
+				$valer = $category->value;
+			}
+
+			if ($category->select == 'wysywig') {
+
+				echo '<p style="margin: 0;
+					margin:0;
+					margin-top: 20px;
+					font-weight: 400px;
+					font-size: 15px;
+					margin-bottom:5px;">' . $category->title . ' :</p>
+			 
+					<textarea id="post-content" name="' . str_replace(" ", "", $category->label) . '" style="width:100%;display:block;height:250px;" class="mbinput">' . html_entity_decode($valer) . '</textarea>
+					';
+			} elseif ($category->select == 'image') {
+
+				global $SITEURL;
+
+				echo '<span class="formedit">';
+				echo '<p style="margin: 0;
+						margin-top: 0px;
+						margin-top: 20px;
+						font-weight: 400px;
+						font-size: 15px;">' . $category->title . ' :</p>
+
+						<div class="mb_img">';
+				if ($valer !== 'undefined') {
+					echo ' <img src="' . $valer . '" style="width:80px;height:80px;object-fit:cover;">';
+				};
+
+				echo '
+							<input type="text" class="mb_foto foto mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
+							<button class="mb_fotobtn choose-image">' . i18n_r("multiBlock/CHOOSEIMAGE") . '</button>
+						</div>
+						';
+
+				echo "</span>";
+			} elseif ($category->select == 'textarea') {
+
+				echo '<p style="margin: 0;
+					margin-top: 0px;
+					margin-top: 20px;
+					font-weight: 400px;
+					font-size: 15px;display:inline-block;">' . $category->title . ' :</p>.
+					
+					<textarea class="mbinput" style="width:100%;height:250px;" name="' . str_replace(" ", "", $category->label) . '">' . html_entity_decode($valer) . '</textarea>';
+			} elseif ($category->select == 'dropdown') {
+
+				$ars = explode('|', $category->value);
+
+				echo '<p style="margin: 0;
+					margin-top: 0px;
+					margin-top: 20px;
+					font-weight: 400px;
+					font-size: 15px;display:inline-block;">' . $category->title . ' :</p>';
+
+				echo '<select style="width:100%;padding:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
+
+				foreach ($ars as $sel) {
+					echo '<option value="' . str_replace(" ", "^", $sel) . '" >' . $sel . '</option>';
+				}
+
+				echo '</select>';
+
+				echo '<script>
+						document.querySelector("select.' . str_replace(" ", "", $category->label) . '").value = "' . str_replace(" ", "^", $valer) . '"; 
+					</script>';
+			} elseif ($category->select == 'link') {
+
+				echo '
+					<p style="margin: 0;
+					margin:0;
+					margin-top: 20px;
+					font-weight: 400px;
+					font-size: 15px;">' . $category->title . ' :</p> 
+					<select style="width:100%;padding:15px;display:block;border:solid 1px #ddd; background:#fff;margin-top:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
+
+				foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
+
+					$path_parts = pathinfo($page);
+
+					global $SITEURL;
+
+					echo "<option value='" . $SITEURL . $path_parts['filename'] . "'  >" . $path_parts['filename'] . "</option>";
+				};
+
+				echo '</select>';
+
+				echo '<script> document.querySelector("select.' . $category->label . '").value = "' . $valer . '"; </script>';
+			} else {
+
+				echo '<p style="margin: 0;
+					margin:0;
+					margin-top: 20px;
+					font-weight: 400px;
+					font-size: 15px;">' . $category->title . ' :</p>
+
+					<input class="mbinput" type="' . $category->select . '" name="' . str_replace(" ", "", $category->label) . '" value="' . html_entity_decode($valer) . '">
+					';
+			}
+		}
+	};; ?>
+
+	<div style="backgorund:#fafafa;border:solid 1px #ddd;padding:10px;box-sizing:border-box;display:flex;margin-top:10px;">
+		<input type="submit" name="saveblock" style="width:200px;background:#000;color:#fff;margin:0; border:none;cursor: pointer;" value="<?php echo i18n_r("multiBlock/UPDATE"); ?>">
+	</div>
+</form>
+
+<script>
+	document
+		.querySelector('form')
+		.setAttribute(
+			'action',
+			'<?php global $SITEURL;
+				echo $SITEURL; ?>admin/load.php?id=multiBlock&newblock&nametitle=' + document.querySelector('.nametitle').value + '&newmulticategory=' + document.querySelector('.cat').value +
+			'&namefile=' + document.querySelector('.namefile').value
+		);
+
+	document
+		.querySelector('.namefile')
+		.addEventListener('keyup', () => {
+
+			document
+				.querySelector('form')
+				.setAttribute(
+					'action',
+					'<?php global $SITEURL;
+						echo $SITEURL; ?>admin/load.php?id=multiBlock&newblock&nametitle=' + document.querySelector('.nametitle').value + '&newmulticategory=' + document.querySelector('.cat').value +
+					'&namefile=' + document.querySelector('.namefile').value.replace(/ /g, "-")
+				);
+
+		});
+
+
+	document
+		.querySelector('.nametitle')
+		.addEventListener('keyup', () => {
+
+			document
+				.querySelector('form')
+				.setAttribute(
+					'action',
+					'<?php global $SITEURL;
+						echo $SITEURL; ?>admin/load.php?id=multiBlock&newblock&nametitle=' + document.querySelector('.nametitle').value + '&newmulticategory=' + document.querySelector('.cat').value +
+					'&namefile=' + document.querySelector('.namefile').value.replace(/ /g, "-")
+				);
+
+		});
+</script>
+
+<?php
+$coner = 0;
+
+if (isset($_POST['saveblock'])) {
+
+	global $bb;
+	$bb->saveMultiBlock();
+}; ?>
+
+<script type="text/javascript" src="template/js/ckeditor/ckeditor.js?t=3.3.16"></script>
+
+<script type="text/javascript">
+	document
+		.querySelectorAll(`#post-content`)
+		.forEach(c => {
+
+			var editor = CKEDITOR.replace(c, {
+				skin: 'getsimple',
+				forcePasteAsPlainText: true,
+				language: 'en',
+				defaultLanguage: 'en',
+				entities: true,
+				// uiColor : '#FFFFFF',
+				height: '300px',
+				baseHref: '<?php global $SITEURL;
+							echo $SITEURL; ?>',
+				tabSpaces: 10,
+				filebrowserBrowseUrl: 'filebrowser.php?type=all',
+				filebrowserImageBrowseUrl: 'filebrowser.php?type=images',
+				filebrowserWindowWidth: '730',
+				filebrowserWindowHeight: '500',
+				toolbar: 'advanced'
+			});
+		});
+</script>
+
+<script>
+	if (document.querySelector('.mb_foto') !== null) {
+
+		let data = 0;
+
+		document
+			.querySelectorAll('.formedit')
+			.forEach((e, i) => {
+
+				e
+					.querySelector('.choose-image')
+					.addEventListener('click', y => {
+						y.preventDefault();
+
+						const url = "<?php global $SITEURL;
+										echo $SITEURL . "plugins/multiBlock/files/imagebrowser.php?"; ?>&func=" + e.querySelector('input[type="text"]').getAttribute('name');
+
+						const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
+
+						win.window.focus();
+					});
+
+			})
+	}
+</script>
