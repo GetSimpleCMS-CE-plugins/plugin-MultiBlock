@@ -125,7 +125,7 @@ if (isset($_GET['namefile'])) {
                 justify-content: space-between; margin-top: 20px; font-weight: 400px; font-size: 15px; margin-bottom:5px;align-items:center;">' . $category->title;
 
                 if (isset($_GET['namefile'])) {
-                    echo ' : <span style="font-style:italic;margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
+                    echo ' : <span style="font-style:italic;margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlockWysywig("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
                 };
 
 
