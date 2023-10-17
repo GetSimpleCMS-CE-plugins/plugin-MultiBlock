@@ -192,7 +192,7 @@ class BackBlock
 					<textarea class="mbinput" style="width:100%;height:250px;" name="' . str_replace(" ", "", $category->label) . '">' . html_entity_decode($valer) . '</textarea>';
             } elseif ($category->select == 'dropdown') {
 
-                $ars = explode('|', $category->value);
+                $ars = explode('|', trim($category->value));
 
                 echo '<p style="margin: 0;
 					margin-top: 0px;

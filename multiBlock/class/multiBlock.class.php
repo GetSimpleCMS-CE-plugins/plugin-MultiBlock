@@ -42,7 +42,7 @@ class MultiBlock
     public function mbdropdown($value)
     {
         global $getmb;
-        echo  str_replace("^", " ", $getmb->$value);
+        echo  @str_replace("^", " ", $getmb->$value);
     }
 
     //thumb
