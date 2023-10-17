@@ -1,4 +1,4 @@
-<?php
+z<?php
 
 $i18n = [
 	'MULTIBLOCK' 	=> 'MutliBlock', 
