@@ -28,14 +28,14 @@ class MultiBlock
         }
     }
 
-    public function date($value)
+    public function date($value, $format)
     {
         global $getmb;
         if (isset($getmb->$value)) {
 
             $string = $getmb->$value;
             $timestamp = strtotime($string);
-            $newFormat = date("d.m.Y", $timestamp);
+            $newFormat = date($format, $timestamp);
             echo $newFormat;
         }
     }
@@ -44,7 +44,7 @@ class MultiBlock
     public function r_text($value)
     {
         global $getmb;
-        return $getmb->$value;
+        return (string)$getmb->$value;
     }
 
 

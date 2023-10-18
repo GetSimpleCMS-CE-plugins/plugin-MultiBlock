@@ -137,10 +137,10 @@ function mbvaluetext($value)
 	$mb->text($value);
 };
 
-function mbdate($value)
+function mbdate($value, $format = "d.m.Y")
 {
 	global $mb;
-	$mb->date($value);
+	$mb->date($value, $format);
 };
 
 

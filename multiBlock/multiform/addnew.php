@@ -291,7 +291,7 @@
 
 			<b>Date function</b><br>
 
-			<code style=""> &#60;?php mbdate('valuename');?&#62; </code> <br>
+			<code style=""> &#60;?php mbdate('valuename','d.m.Y');?&#62; </code> <br>
 
 
 			<b><?php echo i18n_r("multiBlock/DROPDOWPLACEHOLDER"); ?></b><br>
