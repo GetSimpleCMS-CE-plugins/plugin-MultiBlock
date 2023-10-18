@@ -108,7 +108,7 @@
 		color: #fff;
 		border: none;
 		height: 100%;
-		cursor:pointer;
+		cursor: pointer;
 	}
 
 	.mb_newinput {
@@ -275,9 +275,18 @@
 			<b><?php echo i18n_r("multiBlock/TEMPLATE2"); ?></b><br>
 			<code style=""> &#60;?php mbvaluetext('valuename');?&#62; </code> <br>
 
+
+
+			<b><?php echo i18n_r("multiBlock/TEMPLATE2"); ?> (return)</b><br>
+			<code style=""> &#60;?php r_mbvaluetext('valuename');?&#62; </code> <br>
+
 			<b><?php echo i18n_r("multiBlock/TEMPLATE3"); ?></b><br>
 
 			<code style=""> &#60;?php mbvalue('valuename');?&#62; </code> <br>
+
+			<b><?php echo i18n_r("multiBlock/TEMPLATE3"); ?> (return)</b><br>
+
+			<code style=""> &#60;?php r_mbvalue('valuename');?&#62; </code> <br>
 
 			<b><?php echo i18n_r("multiBlock/DROPDOWPLACEHOLDER"); ?></b><br>
 
@@ -420,15 +429,15 @@
 																echo $SITEURL; ?>admin/load.php?id=multiBlock&addnew&categorytitle=' + document.querySelector('.mb_title_name').value + '&categoryname=' + document.querySelector('.mb_title').value)
 
 	})
-	
-	
+
+
 	document.querySelector('.mb_title_name').addEventListener('keyup', x => {
 
-document.querySelector('form').setAttribute('action', '<?php global $SITEURL;
-														echo $SITEURL; ?>admin/load.php?id=multiBlock&addnew&categorytitle=' + document.querySelector('.mb_title_name').value + '&categoryname=' + document.querySelector('.mb_title').value)
+		document.querySelector('form').setAttribute('action', '<?php global $SITEURL;
+																echo $SITEURL; ?>admin/load.php?id=multiBlock&addnew&categorytitle=' + document.querySelector('.mb_title_name').value + '&categoryname=' + document.querySelector('.mb_title').value)
 
-})
-	</script>
+	})
+</script>
 
 <?php
 if (isset($_POST['savecat'])) {

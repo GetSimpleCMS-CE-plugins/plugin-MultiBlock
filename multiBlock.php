@@ -11,7 +11,7 @@ i18n_merge($plugin_id) || i18n_merge($plugin_id, 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MultiBlock 🧱', 	//Plugin name
-	'5.1', 		//Plugin version
+	'5.2', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://discord.gg/d5s83yk4R6', //author website
 	'create block what you want', //Plugin description
@@ -138,11 +138,27 @@ function mbvaluetext($value)
 };
 
 
+function r_mbvaluetext($value)
+{
+	global $mb;
+	$mb->r_text($value);
+};
+
+
+
 function mbvalue($value)
 {
 	global $mb;
 	$mb->value($value);
 };
+
+
+function r_mbvalue($value)
+{
+	global $mb;
+	$mb->r_value($value);
+};
+
 
 
 function mbdropdown($value)

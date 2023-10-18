@@ -26,6 +26,13 @@ class MultiBlock
         echo $getmb->$value;
     }
 
+    public function r_text($value)
+    {
+        global $getmb;
+        return $getmb->$value;
+    }
+
+
     //mbvalue 
 
     public function value($value)
@@ -36,6 +43,14 @@ class MultiBlock
         };
     }
 
+
+    public function r_value($value)
+    {
+        global $getmb;
+        if (isset($getmb->$value)) {
+            echo html_entity_decode($getmb->$value);
+        };
+    }
 
     //dropdown 
 
