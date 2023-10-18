@@ -23,7 +23,9 @@ class MultiBlock
     public function text($value)
     {
         global $getmb;
-        echo $getmb->$value;
+        if (isset($getmb->$value)) {
+            echo $getmb->$value;
+        }
     }
 
     public function r_text($value)
