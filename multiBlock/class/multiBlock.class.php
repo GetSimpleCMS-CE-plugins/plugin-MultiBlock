@@ -28,6 +28,19 @@ class MultiBlock
         }
     }
 
+    public function date($value)
+    {
+        global $getmb;
+        if (isset($getmb->$value)) {
+
+            $string = $getmb->$value;
+            $timestamp = strtotime($string);
+            $newFormat = date("d.m.Y", $timestamp);
+            echo $newFormat;
+        }
+    }
+
+
     public function r_text($value)
     {
         global $getmb;

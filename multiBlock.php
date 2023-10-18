@@ -137,6 +137,12 @@ function mbvaluetext($value)
 	$mb->text($value);
 };
 
+function mbdate($value)
+{
+	global $mb;
+	$mb->date($value);
+};
+
 
 function r_mbvaluetext($value)
 {

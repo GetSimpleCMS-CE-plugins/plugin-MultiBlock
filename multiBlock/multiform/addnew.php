@@ -288,6 +288,12 @@
 
 			<code style=""> &#60;?php r_mbvalue('valuename');?&#62; </code> <br>
 
+
+			<b>Date function</b><br>
+
+			<code style=""> &#60;?php mbdate('valuename');?&#62; </code> <br>
+
+
 			<b><?php echo i18n_r("multiBlock/DROPDOWPLACEHOLDER"); ?></b><br>
 
 			<code style=""> &#60;?php mbdropdown('valuename');?&#62; </code><br>

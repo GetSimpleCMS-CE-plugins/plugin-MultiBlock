@@ -116,7 +116,7 @@ if (isset($_GET['namefile'])) {
 			$nis = str_replace(" ", "", $category->label);
 
 			if (isset($dater)) {
-				$valer = $dater->$nis;
+				$valer = @$dater->$nis;
 			} else {
 				$valer = $category->value;
 			}
