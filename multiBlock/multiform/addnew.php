@@ -200,6 +200,7 @@
 							<option value="color">' . i18n_r("multiBlock/COLOR") . '</option>
 							<option value="date">' . i18n_r("multiBlock/DATE") . '</option>
 							<option value="image">' . i18n_r("multiBlock/IMAGE") . '</option>
+							<option value="file">File (audio,video,doc)</option>
 							<option value="dropdown">' . i18n_r("multiBlock/DROPDOWN") . '</option>
 							<option value="link">' . i18n_r("multiBlock/LINK") . '</option>
 						</select>
@@ -385,6 +386,7 @@
 			<option value="color"><?php echo i18n_r("multiBlock/COLOR"); ?></option>
 			<option value="date"><?php echo i18n_r("multiBlock/DATE"); ?></option>
 			<option value="image"><?php echo i18n_r("multiBlock/IMAGE"); ?></option>
+			<option value="file">File (audio,video,doc)</option>
 			<option value="dropdown"><?php echo i18n_r("multiBlock/DROPDOWN"); ?></option>
 			<option value="link"><?php echo i18n_r("multiBlock/LINK"); ?></option>
 		</select>

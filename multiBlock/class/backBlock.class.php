@@ -181,6 +181,29 @@ class BackBlock
 						';
 
                 echo "</span>";
+            } elseif ($category->select == 'file') {
+
+                global $SITEURL;
+
+                echo '<span class="formedit">';
+                echo '<p style="margin: 0;
+						margin-top: 0px;
+						margin-top: 20px;
+						font-weight: 400px;
+						font-size: 15px;">' . $category->title . ' :</p>
+
+						<div class="mb_img">';
+                if ($valer !== 'undefined') {
+                    echo ' <img src="' . $valer . '" style="width:80px;height:80px;object-fit:cover;">';
+                };
+
+                echo '
+							<input type="text" class="mb_file file mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
+							<button class="mb_filebtn choose-image">Choose File</button>
+						</div>
+						';
+
+                echo "</span>";
             } elseif ($category->select == 'textarea') {
 
                 echo '<p style="margin: 0;
@@ -268,7 +291,7 @@ class BackBlock
 
         $owncategory = $_GET['newmulticategory'];
 
-        $name = str_replace(" ", "-", $_POST['name']);
+        $name = str_replace(" ", "-", $_POST['namemultiblock']);
 
         $folder        = GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
         $filename      = $folder . $name . '.json';
@@ -282,9 +305,9 @@ class BackBlock
         }
 
         if ($_POST['nameolder'] !== '') {
-            if ($_POST['nameolder'] !== $_POST['name']) {
+            if ($_POST['nameolder'] !== $_POST['namemultiblock']) {
 
-                rename($folder . str_replace(" ", "-", $_POST['nameolder']) . '.json', $folder . str_replace(" ", "-", $_POST['name']) . '.json');
+                rename($folder . str_replace(" ", "-", $_POST['nameolder']) . '.json', $folder . str_replace(" ", "-", $_POST['namemultiblock']) . '.json');
             };
         }
 

@@ -64,6 +64,24 @@ if (isset($_GET['namefile'])) {
 		margin-top: 10px;
 	}
 
+
+	.mb_file {
+		display: grid;
+		grid-template-columns: 1fr 200px;
+		align-items: center;
+		gap: 10px;
+		margin-top: 10px;
+	}
+
+	.mb_file .mb_filebtn {
+		height: 40px;
+		border: none;
+		background: #000;
+		color: #fff;
+		cursor: pointer;
+	}
+
+
 	.mb_img img {
 		outline: 1px solid #BABABA;
 		outline-offset: 3px;
@@ -84,8 +102,21 @@ if (isset($_GET['namefile'])) {
 
 <form method="POST" class="mbformer">
 
-	<div style="background:#fafafa;border:solid 1px #ddd; padding:10px;">
-		<?php echo i18n_r('multiBlock/SECTION'); ?>: <input type="text" name="cat" class="cat" disabled="disabled" style="width:200px;border:none;margin:0;font-size:13px;padding:0;" value="<?php echo @$_GET['newmulticategory']; ?>">
+	<div style="display:grid;grid-template-columns:80% 20%;width:100%;align-items:center;grid-gap:10px;padding:0;">
+
+		<div style="background:#fafafa;border:solid 1px #ddd; padding:15px;
+	width:100%;display:flex;">
+			<?php echo i18n_r('multiBlock/SECTION'); ?>: <input type="text" name="cat" class="cat" disabled="disabled" style="width:100%;border:none;margin:0;font-size:13px;padding:0;" value="<?php echo @$_GET['newmulticategory']; ?>">
+		</div>
+
+		<a href="<?php global $SITEURL;
+					global $GSADMIN;
+					echo $SITEURL . $GSADMIN . '/load.php?id=multiBlock&newmultiblock&newmulticategory' . $_GET['newmulticategory']; ?>" style="height: 40px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;;text-decoration:none;padding:10px 15px;display:inline-block;width:100%;box-sizing:border-box;text-align:center;
+  padding:15px;height:48px;">Back to list</a>
 	</div>
 
 	<input type="text" style="display:none" name="nameolder" class="namefileolder" placeholder="title" pattern="[A-Za-z0-9]+" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>">
@@ -94,7 +125,7 @@ if (isset($_GET['namefile'])) {
 	<h4 style="margin-top:20px"><?php echo i18n_r("multiBlock/BLOCKTITLE"); ?></h4>
 
 	<input type="text" required="required" name="nametitle" class="nametitle" placeholder="<?php echo i18n_r("multiBlock/BLOCKTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['nametitle'] ?? ''); ?>">
-	<input type="text" required="required" name="name" class="namefile" placeholder="<?php echo i18n_r("multiBlock/SLUGTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>" pattern="[A-Za-z0-9]+">
+	<input type="text" required="required" name="namemultiblock" class="namefile" placeholder="<?php echo i18n_r("multiBlock/SLUGTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>" pattern="[A-Za-z0-9]+">
 
 	<p style="font-size:12px;margin:5px 0;font-style:italic; padding:0;color:#444;"><?php echo i18n_r("multiBlock/NAMEREQUIRED"); ?></p>
 
@@ -151,6 +182,26 @@ if (isset($_GET['namefile'])) {
 				echo '
 							<input type="text" class="mb_foto foto mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
 							<button class="mb_fotobtn choose-image">' . i18n_r("multiBlock/CHOOSEIMAGE") . '</button>
+						</div>
+						';
+
+				echo "</span>";
+			} elseif ($category->select == 'file') {
+
+				global $SITEURL;
+
+				echo '<span class="formedit-file">';
+				echo '<p style="margin: 0;
+						margin-top: 0px;
+						margin-top: 20px;
+						font-weight: 400px;
+						font-size: 15px;">' . $category->title . ' :</p>
+
+						<div class="mb_file">';
+
+				echo '
+							<input type="text" class="mb_file file mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
+							<button class="mb_filebtn choose-file">Choose File</button>
 						</div>
 						';
 
@@ -313,13 +364,37 @@ if (isset($_POST['saveblock'])) {
 			.querySelectorAll('.formedit')
 			.forEach((e, i) => {
 
-				e
-					.querySelector('.choose-image')
+				e.querySelector('.choose-image')
 					.addEventListener('click', y => {
 						y.preventDefault();
 
 						const url = "<?php global $SITEURL;
 										echo $SITEURL . "plugins/multiBlock/files/imagebrowser.php?"; ?>&func=" + e.querySelector('input[type="text"]').getAttribute('name');
+
+						const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
+
+						win.window.focus();
+					});
+
+			})
+	};
+
+
+
+	if (document.querySelector('.mb_file') !== null) {
+
+		let data = 0;
+
+		document
+			.querySelectorAll('.formedit-file')
+			.forEach((e, i) => {
+
+				e.querySelector('.choose-file')
+					.addEventListener('click', y => {
+						y.preventDefault();
+
+						const url = "<?php global $SITEURL;
+										echo $SITEURL . "plugins/multiBlock/files/filebrowser.php?"; ?>&type=all&func=" + e.querySelector('input[type="text"]').getAttribute('name');
 
 						const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
 
