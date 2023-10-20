@@ -111,7 +111,7 @@ if (isset($_GET['namefile'])) {
 
 		<a href="<?php global $SITEURL;
 					global $GSADMIN;
-					echo $SITEURL . $GSADMIN . '/load.php?id=multiBlock&newmultiblock&newmulticategory' . $_GET['newmulticategory']; ?>" style="height: 40px;
+					echo $SITEURL . $GSADMIN . '/load.php?id=multiBlock&newmultiblock&newmulticategory=' . $_GET['newmulticategory']; ?>" style="height: 40px;
   border: none;
   background: #000;
   color: #fff;
