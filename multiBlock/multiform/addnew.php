@@ -277,11 +277,11 @@
 			<b><?php echo i18n_r("multiBlock/DEFAULT").' '. i18n_r("multiBlock/RETURN"); ?></b><br>
 			<code style=""> &#60;?php r_mbvaluetext('valuename');?&#62; </code> <br>
 
-			<b><?php echo i18n_r("multiBlock/WHSIWYGPLACEHOLDER"); ?></b><br>
+			<b><?php echo i18n_r("multiBlock/WYSIWYGPLACEHOLDER"); ?></b><br>
 
 			<code style=""> &#60;?php mbvalue('valuename');?&#62; </code> <br>
 
-			<b><?php echo i18n_r("multiBlock/WHSIWYGPLACEHOLDER").' '. i18n_r("multiBlock/RETURN"); ?></b><br>
+			<b><?php echo i18n_r("multiBlock/WYSIWYGPLACEHOLDER").' '. i18n_r("multiBlock/RETURN"); ?></b><br>
 
 			<code style=""> &#60;?php r_mbvalue('valuename');?&#62; </code> <br>
 
