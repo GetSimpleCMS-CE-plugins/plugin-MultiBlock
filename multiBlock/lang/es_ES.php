@@ -1,4 +1,4 @@
-z<?php
+<?php
 
 $i18n = [
 	'MULTIBLOCK' 	=> 'MutliBlock', 
@@ -23,12 +23,14 @@ $i18n = [
 	'DEFAULTVALUE' 	=> 'Valor por Defecto', 
 	'FIELDTYPE' 	=> 'Tipo de Campo', 
 	'TEMPLATE' 		=> 'Tu plantilla', 
-	'TEMPLATE1' 	=> 'Códigos de marcador de posición para mostrar en plantillas de páginas', 
-	'TEMPLATE2' 	=> 'Marcador de posición predeterminado:', 
-	'TEMPLATE3' 	=> 'Marcador de posición Wysiwyg:', 
-	'TEMPLATE4' 	=> 'Si desea forzar el orden de la lista (el valor predeterminado es aleatorio), colóquelo en el elemento raíz de la plantilla:', 
-	'TEMPLATE5' 	=> 'Coloque esto en la plantilla de página:', 
-	'TEMPLATE6' 	=> 'Coloque esto si desea forzar el orden de la lista:', 
+	'PLACEHOLDERS' 	=> 'Códigos de marcador de posición para mostrar en plantillas de páginas', 
+	'DEFAULT' 	=> 'Marcador de posición predeterminado:', 
+	'RETURN' 		=> '(return)',
+	'WYSIWYGPLACEHOLDER' 	=> 'Marcador de posición Wysiwyg:', 
+	'DATEFUNCTION' 	=> 'Date function:', 
+	'LISTCALL' 	=> 'Coloque esto en la plantilla de página:',
+	'FORCELISTORDER' 	=> 'Para forzar el orden de la lista (el valor predeterminado es aleatorio), agregue lo siguiente al primer contenedor de elementos de la plantilla MB arriba:', 
+	'FORCELISTORDER2' 	=> 'En la plantilla de página agregue lo siguiente, donde el ID o Clase también se agrega al elemento envolvente:', 
 	'SAVECAT' 		=> 'Guardar Sección', 
 	'DELETE' 		=> 'Eliminar', 
 	'EDIT' 			=> 'Editar', 
@@ -66,8 +68,8 @@ $i18n = [
 	'IMAGE'  		=> 'Imagen',
 	'DROPDOWN'  	=> 'Desplegable',
 	'LINK'  		=> 'Enlace',
+	'FILE'  		=> 'File (audio,video,doc)',
 
-	
 	'OLDDOMAIN' => 'URL Antigua',
 	'NEWDOMAIN' => 'Nueva URL',
 	'REPLACEURL' => 'Actualizar URL',
