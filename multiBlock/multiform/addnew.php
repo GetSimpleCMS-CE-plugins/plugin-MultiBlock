@@ -138,7 +138,7 @@
 		color: green;
 	}
 	pre{
-		background:#fff;border:1px solid #ddd;border-left:3px solid var(--main-color);;color:#2e94b9;page-break-inside:avoid;font-family:monospace;font-size:15px;line-height:1.6;margin-bottom:1.6em;max-width:100%;overflow:auto;padding:1em 1.5em;display:block;word-wrap:break-word
+		background:#fff; border:1px solid #ddd; border-left:3px solid var(--main-color); color:#2e94b9; page-break-inside:avoid; font-family:monospace; font-size:15px; line-height:1.6; margin-bottom:1.6em; max-width:100%; overflow:auto; padding:1em 1.5em; display:block; word-wrap:break-word
 	}
 </style>
 
