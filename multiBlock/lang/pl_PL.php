@@ -23,12 +23,14 @@ $i18n = [
 	'DEFAULTVALUE' 	=> 'Domyślna Wartość',
 	'FIELDTYPE' 	=> 'Typ Pola',
 	'TEMPLATE' 		=> 'Twój Szablon',
-	'TEMPLATE1' 	=> 'Placeholdery do wyświetlania w Szablonie:',
-	'TEMPLATE2' 	=> 'Domyślny Placeholder:',
-	'TEMPLATE3' 	=> 'Wysiwyg Placeholder:',
-	'TEMPLATE4' 	=> 'Jeśli chcesz wymuśić kolejność (domyślnie losowe), wklej w root-owym elemencie szablonu:',
-	'TEMPLATE5' 	=> 'Wstaw to w szablonie strony:',
-	'TEMPLATE6' 	=> 'Wstaw to jeśli chcesz wymusić kolejność:',
+	'PLACEHOLDERS' 	=> 'Placeholdery do wyświetlania w Szablonie:',
+	'DEFAULT' 	=> 'Domyślny Placeholder:',
+	'RETURN' 		=> '(return)',
+	'WYSIWYGPLACEHOLDER' 	=> 'Wysiwyg Placeholder:',
+	'DATEFUNCTION' 	=> 'Date function:',
+	'LISTCALL' 	=> 'Wstaw to w szablonie strony:',
+	'FORCELISTORDER' 	=> 'Jeśli chcesz wymuśić kolejność (domyślnie losowe), wklej w root-owym elemencie szablonu:',
+	'FORCELISTORDER2' 	=> 'Wstaw to jeśli chcesz wymusić kolejność:',
 	'SAVECAT' 		=> 'Zapisz Sekcję',
 	'DELETE' 		=> 'Usuń',
 	'EDIT' 			=> 'Edytuj',
@@ -48,7 +50,7 @@ $i18n = [
 	'CACHETHUMB' 	=> 'Wyczyść Cache Miniatur 🗑️',
 	'ONEBLOCKHELP' 	=> 'Oneblock, stworzony dla ustawień szablonu - przydatny gdy nie chcesz tworzyć pętli.<br>Dodaj placeholder bezpośrednio w szablonie.',
 	'MIGRATEBTN' => 'Migracja URL',
-
+	
 	'DISABLEDELSECTION' => 'Wyłącz usuwanie sekcji',
 	'DISABLEADDSECTION' => 'Wyłącz dodawanie nowych sekcji',
 	'MULTIBLOCKSETTINGSHIDE' => 'Ustawienia MultiBlock',
@@ -66,11 +68,14 @@ $i18n = [
 	'IMAGE'  		=> 'Zdjęcie',
 	'DROPDOWN'  	=> 'Lista',
 	'LINK'  		=> 'Link',
-
+	'FILE'  		=> 'File (audio,video,doc)',
 
 	'OLDDOMAIN' => 'Stary adres domeny',
 	'NEWDOMAIN' => 'Nowy adres domeny',
 	'REPLACEURL' => 'Zmień URL',
 	'REPLACEDURL' => 'MultiBlock został zaktualizowany',
 	'DELETEQUESTION' => 'Chcesz usunąć ten element?'
-];;
+
+];
+
+;?>

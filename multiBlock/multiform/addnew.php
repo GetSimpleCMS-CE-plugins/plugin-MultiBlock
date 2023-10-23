@@ -137,6 +137,9 @@
 		margin: 10px 0;
 		color: green;
 	}
+	pre{
+		background:#fff; border:1px solid #ddd; border-left:3px solid var(--main-color); color:#2e94b9; page-break-inside:avoid; font-family:monospace; font-size:15px; line-height:1.6; margin-bottom:1.6em; max-width:100%; overflow:auto; padding:1em 1.5em; display:block; word-wrap:break-word
+	}
 </style>
 
 <h3><?php echo i18n_r("multiBlock/MULTIBLOCK"); ?> - <?php echo i18n_r("multiBlock/ADDNEWCATEGORY"); ?></h3>
@@ -200,7 +203,7 @@
 							<option value="color">' . i18n_r("multiBlock/COLOR") . '</option>
 							<option value="date">' . i18n_r("multiBlock/DATE") . '</option>
 							<option value="image">' . i18n_r("multiBlock/IMAGE") . '</option>
-							<option value="file">File (audio,video,doc)</option>
+							<option value="file">' . i18n_r("multiBlock/FILE") . '</option>
 							<option value="dropdown">' . i18n_r("multiBlock/DROPDOWN") . '</option>
 							<option value="link">' . i18n_r("multiBlock/LINK") . '</option>
 						</select>
@@ -242,17 +245,11 @@
 			}
 		</style>
 
-
-
-
-
-
-		<textarea name="template" class="mb_textarea"> <?php
-														if (isset($_GET['categoryname'])) {
-															echo file_get_contents(GSDATAOTHERPATH . 'multiBlock/category/' . str_replace(" ", "-", $_GET['categoryname']) . '.txt');
-														};
-														?> </textarea>
-
+		<textarea name="template" class="mb_textarea"><?php
+		if (isset($_GET['categoryname'])) {
+			echo file_get_contents(GSDATAOTHERPATH . 'multiBlock/category/' . str_replace(" ", "-", $_GET['categoryname']) . '.txt');
+		};
+		?> </textarea>
 
 		<script>
 			var editor = CodeMirror.fromTextArea(document.querySelector(".mb_textarea"), {
@@ -266,34 +263,34 @@
 				mode: "htmlmixed"
 			});
 		</script>
+		
+		<div style="width:100%; background:#fafafa; display:flex; justify-content:flex-end; padding:5px; box-sizing:border-box; border:solid 1px #ddd; margin-top:20px;">
+			<input type="submit" name="savecat" class="mb_submit" value="<?php echo i18n_r("multiBlock/SAVECAT"); ?>">
+		</div>
 
 		<br>
 
-		<h3><?php echo i18n_r("multiBlock/TEMPLATE1"); ?></h3>
+		<h3><?php echo i18n_r("multiBlock/PLACEHOLDERS"); ?></h3>
 
 		<div style="width:100%; height:auto; padding:15px; background:#fafafa; border:solid 1px #ddd; margin:10px 0; font-size:12px !important; box-sizing:border-box">
 
-			<b><?php echo i18n_r("multiBlock/TEMPLATE2"); ?></b><br>
+			<b><?php echo i18n_r("multiBlock/DEFAULT"); ?></b><br>
 			<code style=""> &#60;?php mbvaluetext('valuename');?&#62; </code> <br>
 
-
-
-			<b><?php echo i18n_r("multiBlock/TEMPLATE2"); ?> (return)</b><br>
+			<b><?php echo i18n_r("multiBlock/DEFAULT").' '. i18n_r("multiBlock/RETURN"); ?></b><br>
 			<code style=""> &#60;?php r_mbvaluetext('valuename');?&#62; </code> <br>
 
-			<b><?php echo i18n_r("multiBlock/TEMPLATE3"); ?></b><br>
+			<b><?php echo i18n_r("multiBlock/WYSIWYGPLACEHOLDER"); ?></b><br>
 
 			<code style=""> &#60;?php mbvalue('valuename');?&#62; </code> <br>
 
-			<b><?php echo i18n_r("multiBlock/TEMPLATE3"); ?> (return)</b><br>
+			<b><?php echo i18n_r("multiBlock/WYSIWYGPLACEHOLDER").' '. i18n_r("multiBlock/RETURN"); ?></b><br>
 
 			<code style=""> &#60;?php r_mbvalue('valuename');?&#62; </code> <br>
 
-
-			<b>Date function</b><br>
+			<b><?php echo i18n_r("multiBlock/DATEFUNCTION"); ?></b><br>
 
 			<code style=""> &#60;?php mbdate('valuename','d.m.Y');?&#62; </code> <br>
-
 
 			<b><?php echo i18n_r("multiBlock/DROPDOWPLACEHOLDER"); ?></b><br>
 
@@ -306,37 +303,77 @@
 
 			<b><?php echo i18n_r("multiBlock/THUMBNAILPLACEHOLDER"); ?></b><br>
 
-			<code style=""> &#60;?php mbthumb('imageslug',300 or different number width);?&#62; </code> <br>
+			<code style=""> &#60;?php mbthumb('imageslug','350');?&#62; </code> <br>
 
 			<hr style="margin: 20px 0; border: 0; border-bottom: 1px dashed #ccc; background: #999;">
 
-			<b><?php echo i18n_r("multiBlock/TEMPLATE5"); ?></b><br>
+			<b><?php echo i18n_r("multiBlock/LISTCALL"); ?></b><br>
 
 			<code style="color:blue;"> &#60;?php getMultiBlock('categoryname');?&#62; </code><br>
 
-			<b><?php echo i18n_r("multiBlock/TEMPLATE4"); ?></b><br>
+			<b><?php echo i18n_r("multiBlock/FORCELISTORDER"); ?></b><br>
 			<code style=""> &#60;?php mborder();?&#62; </code> <br>
 
-			<b><?php echo i18n_r("multiBlock/TEMPLATE6"); ?></b><br>
+			<b><?php echo i18n_r("multiBlock/FORCELISTORDER2"); ?></b><br>
 
 			<code style="color:blue;"> &#60;?php getMultiBlock('categoryname' , '#idContainer or .classContainer');?&#62; </code>
 
-			<br>
+			<hr style="margin: 20px 0; border: 0; border-bottom: 1px dashed #ccc; background: #999;">
+			
+			<span style="color:grey;">Page theme example:</span>
+<pre>
+&#60;div class="wrapper" <span style="color:green">id="sort-me"></span>
+	<span style="color:blue" >&#60;?php getMultiBlock('SomeSlug','<span style="color:green" >#sort-me</span>');?></span>
+&#60;/div>
+</pre>
+				
+			<span style="color:grey;">MB template example:</span>
+<pre>
+&#60;div class="block" <span style="color:green">&#60;?php mborder();?></span>>
+	&#60;h4 class="card-title m-0"><span style="color:blue">&#60;?php mbvaluetext('title');?></span> &#60;/h4>
+	&#60;img src="&#60;img src="<span style="color:blue">&#60;?php mbthumb('photo','300');?></span>">
+	&#60;p class="date"><span style="color:blue">&#60;?php mbdate('pub-date','d.m.Y');?></span> &#60;/p>
+	&#60;span class="info"><span style="color:blue">&#60;?php mbvalue('valuename');?></span>&#60;/span>
+	<span style="color:red" >&#60;?php if(r_mbvaluetext('docs') !== ''):?></span>
+	&#60;a href="<span style="color:blue">&#60;?php mbvaluetext('docs');?></span>">Download PDF &#60;/a>
+	<span style="color:red" >&#60;?php endif;?></span>
+&#60;/div> 
+</pre>
+
+<style>
+	.row {
+		display : flex;
+		align-items : center;
+		margin-bottom: 15px;
+	}
+	.key {
+		position: relative;
+		height: 15px;
+		width: 15px;
+		margin: 0 5px 0 20px;
+		border: 1px solid black;
+	}
+	.red {
+		background-color: red;
+	}
+	.green {
+		background-color: green;
+	}
+	.blue {
+		background-color: blue;
+	}
+</style>
+<div class="row">
+	<p><div class="key green"></div>Enable manual sorting <div class="key blue"></div>Placeholders <div class="key red"></div>IF value exits, display the following</p>
+</div>
 
 		</div>
-
-		<div style="width:100%; background:#fafafa; display:flex; justify-content:flex-end; padding:5px; box-sizing:border-box; border:solid 1px #ddd; margin-top:20px;">
-			<input type="submit" name="savecat" class="mb_submit" value="<?php echo i18n_r("multiBlock/SAVECAT"); ?>">
-		</div>
-
 
 	</div>
-
 
 </form>
 
 <br><br>
-
 
 <script>
 	document.querySelector('.mb_template').style.display = "none";
@@ -386,7 +423,7 @@
 			<option value="color"><?php echo i18n_r("multiBlock/COLOR"); ?></option>
 			<option value="date"><?php echo i18n_r("multiBlock/DATE"); ?></option>
 			<option value="image"><?php echo i18n_r("multiBlock/IMAGE"); ?></option>
-			<option value="file">File (audio,video,doc)</option>
+			<option value="file"><?php echo i18n_r("multiBlock/FILE"); ?></option>
 			<option value="dropdown"><?php echo i18n_r("multiBlock/DROPDOWN"); ?></option>
 			<option value="link"><?php echo i18n_r("multiBlock/LINK"); ?></option>
 		</select>
@@ -422,8 +459,7 @@
 	})
 </script>
 
-<script src="<?php global $SITEURL;
-				echo $SITEURL; ?>plugins/multiBlock/js/Sortable.min.js"></script>
+<script src="<?php global $SITEURL; echo $SITEURL; ?>plugins/multiBlock/js/Sortable.min.js"></script>
 
 <script>
 	var el = document.getElementById('mb_inputs');

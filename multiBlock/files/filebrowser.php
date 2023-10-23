@@ -132,7 +132,7 @@ $urlPath = "";
                 <tr class="All">
                   <td class="" colspan="5">
                     <img src="../../../<?php echo $admin; ?>/template/images/folder.png" width="11" />
-                    <a href="imagebrowser.php?path=<?php echo $p; ?>&amp;func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&autoclose=1&CKEditor=post-content&func=<?php echo $_GET['func']; ?>" title="<?php echo $upload['name']; ?>"><strong><?php echo $upload['name']; ?></strong></a>
+                    <a href="filebrowser.php?path=<?php echo $p; ?>&amp;func=<?php echo $func; ?>&amp;w=<?php echo $w; ?>&amp;h=<?php echo $h; ?>&autoclose=1&CKEditor=post-content&func=<?php echo $_GET['func']; ?>" title="<?php echo $upload['name']; ?>"><strong><?php echo $upload['name']; ?></strong></a>
                   </td>
                 </tr>
               <?php
