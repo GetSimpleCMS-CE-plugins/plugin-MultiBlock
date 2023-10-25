@@ -11,6 +11,7 @@ $i18n = [
 	'BACKBTN'		=> 'Volver a la lista de Secciones', 
 	'ADDNEWBTN' 	=> 'Añadir Nuevo Campo', 
 	'ADDNEWBTN2' 	=> 'Añadir Nuevo', 
+	'BACKTOLIST' 	=> 'Volver al Listado',
 	'ADDNEWMBBTN' 	=> 'Agregar Nuevo MultiBlock', 
 	'ADDNEWOBBTN' 	=> 'Agregar Nuevo OneBlock', 
 	'ADDNEWCATEGORY' 	=> 'Agregar / Actualizar', 

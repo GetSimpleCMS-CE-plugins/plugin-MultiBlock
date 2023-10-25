@@ -11,6 +11,7 @@ $i18n = [
 	'BACKBTN'		=> 'Powrót do listy Sekcji',
 	'ADDNEWBTN' 	=> 'Dodaj nowe pole',
 	'ADDNEWBTN2' 	=> 'Dodaj nowe',
+	'BACKTOLIST' 	=> 'Powrót do aukcji',
 	'ADDNEWMBBTN' 	=> 'Dodaj nowy MultiBlock',
 	'ADDNEWOBBTN' 	=> 'Dodaj nowy OneBlock',
 	'ADDNEWCATEGORY' 	=> 'Dodaj/ Zaktualizuj',
