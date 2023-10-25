@@ -109,14 +109,11 @@ if (isset($_GET['namefile'])) {
 			<?php echo i18n_r('multiBlock/SECTION'); ?>: <input type="text" name="cat" class="cat" disabled="disabled" style="width:100%;border:none;margin:0;font-size:13px;padding:0;" value="<?php echo @$_GET['newmulticategory']; ?>">
 		</div>
 
-		<a href="<?php global $SITEURL;
-					global $GSADMIN;
-					echo $SITEURL . $GSADMIN . '/load.php?id=multiBlock&newmultiblock&newmulticategory=' . $_GET['newmulticategory']; ?>" style="height: 40px;
-  border: none;
-  background: #000;
-  color: #fff;
-  cursor: pointer;;text-decoration:none;padding:10px 15px;display:inline-block;width:100%;box-sizing:border-box;text-align:center;
-  padding:15px;height:48px;">Back to list</a>
+		<a href="<?php global $SITEURL; global $GSADMIN;
+			echo $SITEURL . $GSADMIN . '/load.php?id=multiBlock&newmultiblock&newmulticategory=' . $_GET['newmulticategory']; ?>" style="border: none; background: #000; color: #fff; cursor: pointer; text-decoration:none; padding:10px 15px; display:inline-block; width:100%; box-sizing:border-box; text-align:center; padding:15px; height:48px;"><?php echo i18n_r('multiBlock/BACKTOLIST'); ?></a>
+
+		<a href="<?php global $SITEURL; global $GSADMIN;
+			echo $SITEURL . $GSADMIN . '/load.php?id=multiBlock&newblock&newmulticategory=' . $_GET['newmulticategory']; ?>" style="border: none; background: #000; color: #fff; cursor: pointer; text-decoration:none; display:inline-block; width:150px; box-sizing:border-box; text-align:center; padding:10px 15px;"><?php echo i18n_r('multiBlock/ADDNEWBTN2'); ?> ➕</a>
 	</div>
 
 	<input type="text" style="display:none" name="nameolder" class="namefileolder" placeholder="title" pattern="[A-Za-z0-9]+" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>">
