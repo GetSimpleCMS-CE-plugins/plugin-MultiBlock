@@ -148,7 +148,7 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 
 		if (isset($_GET['newmulticategory'])) {
 
-			echo '<input type="text" id="filtermb" placeholder="🔎"> <span style="font-style:italic;background:#fafafa;font-size:12px;color:#111;border:solid 1px #ddd;padding:5px;margin-left:10px;">&#60;?php getMultiBlock("' . $_GET['newmulticategory'] . '" ) ;?></span>';
+			echo '<input type="text" id="filtermb" placeholder="🔎" style="padding:5px;"> <span style="font-style:italic;background:#fafafa;font-size:12px;color:#111;border:solid 1px #ddd;padding:5px;margin-left:10px;">&#60;?php getMultiBlock("' . $_GET['newmulticategory'] . '" ) ;?></span>';
 		};
 
 		echo '</h3>
