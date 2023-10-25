@@ -144,24 +144,17 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 
 		echo '<br>
 			<h3 style="display:flex;justify-content:space-between">' . i18n_r("multiBlock/MULTIBLOCKIN") . '
-
-
-			';
-
+		';
 
 		if (isset($_GET['newmulticategory'])) {
 
-			echo '<span style="font-style:italic;background:#fafafa;font-size:12px;color:#111;border:solid 1px #ddd;padding:5px;margin-left:10px;">&#60;?php getMultiBlock("' . $_GET['newmulticategory'] . '" ) ;?></span>';
+			echo '<input type="text" id="filtermb" placeholder="🔎"> <span style="font-style:italic;background:#fafafa;font-size:12px;color:#111;border:solid 1px #ddd;padding:5px;margin-left:10px;">&#60;?php getMultiBlock("' . $_GET['newmulticategory'] . '" ) ;?></span>';
 		};
 
-
-
-		echo '
-		</h3>
-		<br>
-			<br>
+		echo '</h3>
+			<br><br>
 			<ul id="mb_catlist_list" class="mb_catlist_list">
-			';
+		';
 
 		foreach (glob(GSDATAOTHERPATH . "/multiBlock/" . str_replace(" ", "-", $_GET['newmulticategory']) . "/*.json") as $filename) {
 			global $SITEURL;
@@ -266,6 +259,25 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 
 		}
 
+	});
+</script>
+
+<script>
+	var input = document.getElementById('filtermb');
+	var ul = document.getElementById('mb_catlist_list');
+	var li = ul.getElementsByTagName('li');
+
+	input.addEventListener('input', function () {
+		var filter = input.value.toLowerCase();
+
+		for (var i = 0; i < li.length; i++) {
+			var text = li[i].textContent.toLowerCase();
+			if (text.includes(filter)) {
+				li[i].style.display = '';
+			} else {
+				li[i].style.display = 'none';
+			}
+		}
 	});
 </script>
 

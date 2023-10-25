@@ -11,6 +11,7 @@ $i18n = [
 	'BACKBTN'		=> 'Back to Section List',
 	'ADDNEWBTN' 	=> 'Add New Field',
 	'ADDNEWBTN2' 	=> 'Add New',
+	'BACKTOLIST' 	=> 'Back to List',
 	'ADDNEWMBBTN' 	=> 'Add New MultiBlock',
 	'ADDNEWOBBTN' 	=> 'Add New OneBlock',
 	'ADDNEWCATEGORY' 	=> 'Add / Update',
