@@ -11,13 +11,8 @@ i18n_merge($plugin_id) || i18n_merge($plugin_id, 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MultiBlock 🧱', 	//Plugin name
-<<<<<<< Updated upstream
 	'4.0', 		//Plugin version
 	'Mateusz Skrzypczak',  //Plugin author
-=======
-	'5.2.3', 		//Plugin version
-	'Multicolor',  //Plugin author
->>>>>>> Stashed changes
 	'https://discord.gg/d5s83yk4R6', //author website
 	'create block what you want', //Plugin description
     'pages',
@@ -38,20 +33,11 @@ add_action( 'pages-sidebar', 'createSideMenu', [$thisfile, 'OneBlock 🧱', 'new
 add_action( 'plugins-sidebar', 'createSideMenu', [$thisfile, i18n_r('multiBlock/MULTIBLOCKSETTINGS').' 🧱', 'category'] );
 
 # functions
-<<<<<<< Updated upstream
 function multiblock() {
     
     if( isset( $_GET[ 'category' ] ) ){
 	
         include('multiBlock/category.php');
-=======
- 
-$counterShowHide;
-
-function multiblock()
-{
-	global $paypal;
->>>>>>> Stashed changes
 
 		echo '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="box-sizing:border-box;display:grid; width:100%;grid-template-columns:1fr auto; padding:10px;background:#fafafa;border:solid 1px #ddd;margin-top:20px;">
 			<p style="margin:0;padding:0;"> '.i18n_r('multiBlock/PAYPAL').'  </p>
@@ -161,34 +147,16 @@ function mbdropdown($value){
 	echo  str_replace("^"," ",$getmb->$value);
 };
 
-<<<<<<< Updated upstream
 //dropdonwend
-=======
-function mbshowhide($value)
-{
-	 
-	global $mb;
-	$mb->showhide($value);
-};
-
->>>>>>> Stashed changes
 
 ///thumb generate - new on 2.0
 
-<<<<<<< Updated upstream
 function mbthumb($value,$width){
 
 	global $getmb;
 	global $SITEURL;
 
 $file = file_get_contents($getmb->$value);
-=======
-function mbvalue($value)
-{
-	global $mb;
-	$mb->value($value);
-};
->>>>>>> Stashed changes
 
 $folder =GSPLUGINPATH."multiBlock/thumb/";
 
