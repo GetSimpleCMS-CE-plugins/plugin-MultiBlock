@@ -40,13 +40,34 @@ class MultiBlock
         }
     }
 
-
     public function r_text($value)
     {
         global $getmb;
         return (string)$getmb->$value;
     }
 
+    public function showhide($value)
+    {
+
+        global $getmb;
+
+        $val = @$getmb->$value;
+        $name = $getmb->namemultiblock;
+
+        global $counterShowHide;
+
+        if ($val !== '') {
+            echo $val;
+        } else {
+
+            echo '<span data-hide="' . $name . '"></span>';
+            echo '<script>
+            document.querySelector(`[data-hide="' . $name . '"]`).parentElement.remove();
+            </script>';
+
+            $counterShowHide++;
+        }
+    }
 
     //mbvalue 
 

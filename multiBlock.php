@@ -11,7 +11,7 @@ i18n_merge($plugin_id) || i18n_merge($plugin_id, 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MultiBlock 🧱', 	//Plugin name
-	'5.2.2', 		//Plugin version
+	'5.2.3', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://discord.gg/d5s83yk4R6', //author website
 	'create block what you want', //Plugin description
@@ -60,6 +60,9 @@ $paypal = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" ta
 
 
 # functions
+ 
+$counterShowHide;
+
 function multiblock()
 {
 	global $paypal;
@@ -143,14 +146,19 @@ function mbdate($value, $format = "d.m.Y")
 	$mb->date($value, $format);
 };
 
+function mbshowhide($value)
+{
+	 
+	global $mb;
+	$mb->showhide($value);
+};
+
 
 function r_mbvaluetext($value)
 {
 	global $mb;
 	$mb->r_text($value);
 };
-
-
 
 function mbvalue($value)
 {

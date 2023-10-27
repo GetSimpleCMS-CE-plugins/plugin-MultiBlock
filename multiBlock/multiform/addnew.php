@@ -249,7 +249,7 @@
 		if (isset($_GET['categoryname'])) {
 			echo file_get_contents(GSDATAOTHERPATH . 'multiBlock/category/' . str_replace(" ", "-", $_GET['categoryname']) . '.txt');
 		};
-		?> </textarea>
+		?></textarea>
 
 		<script>
 			var editor = CodeMirror.fromTextArea(document.querySelector(".mb_textarea"), {
@@ -304,6 +304,10 @@
 			<b><?php echo i18n_r("multiBlock/THUMBNAILPLACEHOLDER"); ?></b><br>
 
 			<code style=""> &#60;?php mbthumb('imageslug','350');?&#62; </code> <br>
+			
+			<b><?php echo i18n_r("multiBlock/HIDEDATA"); ?>. <?php echo i18n_r("multiBlock/HIDEDATA2"); ?></b><br>
+
+			<code style="color:green;"> &#60;?php mbshowhide('valuename');?&#62; </code>
 
 			<hr style="margin: 20px 0; border: 0; border-bottom: 1px dashed #ccc; background: #999;">
 
@@ -320,23 +324,23 @@
 
 			<hr style="margin: 20px 0; border: 0; border-bottom: 1px dashed #ccc; background: #999;">
 			
-			<span style="color:grey;">Page theme example:</span>
+			<span style="color:grey;"><?php echo i18n_r("multiBlock/PAGETHEME"); ?></span>
 <pre>
 &#60;div class="wrapper" <span style="color:green">id="sort-me"></span>
 	<span style="color:blue" >&#60;?php getMultiBlock('SomeSlug','<span style="color:green" >#sort-me</span>');?></span>
 &#60;/div>
 </pre>
 				
-			<span style="color:grey;">MB template example:</span>
+			<span style="color:grey;"><?php echo i18n_r("multiBlock/MBTEMPLATE"); ?></span>
 <pre>
 &#60;div class="block" <span style="color:green">&#60;?php mborder();?></span>>
 	&#60;h4 class="card-title m-0"><span style="color:blue">&#60;?php mbvaluetext('title');?></span> &#60;/h4>
 	&#60;img src="&#60;img src="<span style="color:blue">&#60;?php mbthumb('photo','300');?></span>">
 	&#60;p class="date"><span style="color:blue">&#60;?php mbdate('pub-date','d.m.Y');?></span> &#60;/p>
 	&#60;span class="info"><span style="color:blue">&#60;?php mbvalue('valuename');?></span>&#60;/span>
-	<span style="color:red" >&#60;?php if(r_mbvaluetext('docs') !== ''):?></span>
-	&#60;a href="<span style="color:blue">&#60;?php mbvaluetext('docs');?></span>">Download PDF &#60;/a>
-	<span style="color:red" >&#60;?php endif;?></span>
+	&#60;span class="downloads <span style="color:red" >docs</span>">
+		&#60;a href="<span style="color:red">&#60;?php mbshowhide('docs');?></span>">Download PDF &#60;/a>
+	&#60;/span>
 &#60;/div> 
 </pre>
 
@@ -364,7 +368,7 @@
 	}
 </style>
 <div class="row">
-	<p><div class="key green"></div>Enable manual sorting <div class="key blue"></div>Placeholders <div class="key red"></div>IF value exits, display the following</p>
+	<p><div class="key green"></div><?php echo i18n_r("multiBlock/ENABLESORTING"); ?> <div class="key blue"></div><?php echo i18n_r("multiBlock/PLACEHOLDERS"); ?> <div class="key red"></div><?php echo i18n_r("multiBlock/HIDEDATA"); ?></p>
 </div>
 
 		</div>
