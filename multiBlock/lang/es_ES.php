@@ -45,6 +45,12 @@ $i18n = [
 	'THUMBNAILPLACEHOLDER' 	=> 'Marcador de posición de miniaturas:', 
 	'DROPDOWNVALUE' => '  Si desea utilizar un menú desplegable, el valor predeterminado es: ', 
 	'DROPDOWPLACEHOLDER' 	=> 'Marcador de posición desplegable:',
+	'HIDEDATA' 		=> 'Hide if no data:',
+	'HIDEDATA2' 	=> '("valuename" needs to be added to class of surrounding element):',
+	'PAGETHEME' 	=> 'Page theme example:',
+	'MBTEMPLATE' 	=> 'MB template example:',
+	'ENABLESORTING' => 'Enable manual sorting',
+	'PLACEHOLDERS' 	=> 'Placeholders',
 	'CACHETHUMB' 	=> 'Borrar caché de miniaturas 🗑️',
 	'ONEBLOCKHELP' 	=> 'OneBlock, creado para la configuración de la plantilla cuando no desea usar el bucle.<br>Agregue marcadores de posición directamente a su plantilla de tema.',
 
