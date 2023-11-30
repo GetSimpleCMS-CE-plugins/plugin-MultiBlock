@@ -14,13 +14,12 @@ register_plugin(
 	'5.2.3', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://discord.gg/d5s83yk4R6', //author website
-	'create block what you want', //Plugin description
+	'Create category blocks from templates and custom fields. (Catalogue, product listing, services, team, food menu, etc.)', //Plugin description
 	'pages',
 	'multiblock'  //main function (administration)
 );
 
-
-#add menu 
+# add menu 
 
 add_action('pages-sidebar', 'createSideMenu', [$thisfile, i18n_r('multiBlock/MULTIBLOCK') . ' 🧱', 'newmultiblock']);
 $turnOneBlock = glob(GSDATAOTHERPATH . 'oneBlock/*/*.json');
@@ -29,9 +28,7 @@ if (count($turnOneBlock) > 0) {
 };
 add_action('plugins-sidebar', 'createSideMenu', [$thisfile, i18n_r('multiBlock/MULTIBLOCKSETTINGS') . ' 🧱', 'category']);
 
-
-
-#class for all function
+# class for all function
 
 include(GSPLUGINPATH . 'multiBlock/class/multiBlock.class.php');
 $mb = new MultiBlock();
@@ -45,9 +42,7 @@ $frontMb = new FrontMultiBlock();
 include(GSPLUGINPATH . 'multiBlock/class/backBlock.class.php');
 $bb = new BackBlock();
 
-
-#paypal 
-
+# paypal 
 
 $paypal = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style=" box-sizing:border-box;display:grid; width:100%;grid-template-columns:1fr auto; padding:10px;background:#fafafa;border:solid 1px #ddd;margin-top:20px;">
 	<p style="margin:0;padding:0;"> ' . i18n_r('multiBlock/PAYPAL') . ' </p>
@@ -56,8 +51,6 @@ $paypal = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" ta
 	<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" border="0">
 	<img alt="" src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" border="0">
 </form>';
-
-
 
 # functions
  
@@ -72,7 +65,6 @@ function multiblock()
 		include(GSPLUGINPATH . 'multiBlock/category.php');
 
 		echo $paypal;
-
 
 		echo '<form  method="post" style="background:#fafafa;padding:10px;border:solid 1px #ddd;margin-top:10px;">
 		<input type="submit" value="' . i18n_r("multiBlock/CACHETHUMB") . '" class="cleanthumb" style="padding:5px 10px;border:none;background:red;color:#fff;" name="cleanthumb">
@@ -106,11 +98,9 @@ function multiblock()
 		echo $paypal;
 	};
 
-
 	if (isset($_GET['newblock'])) {
 		include(GSPLUGINPATH . 'multiBlock/multiform/newblock.php');
 	};
-
 
 	if (isset($_GET['newblock1'])) {
 		include(GSPLUGINPATH . 'multiBlock/oneform/newblock1.php');
@@ -125,8 +115,7 @@ function multiblock()
 	};
 }
 
-
-//function multiblock
+// function multiblock
 
 function mbOrder()
 {
@@ -153,7 +142,6 @@ function mbshowhide($value)
 	$mb->showhide($value);
 };
 
-
 function r_mbvaluetext($value)
 {
 	global $mb;
@@ -166,14 +154,11 @@ function mbvalue($value)
 	$mb->value($value);
 };
 
-
 function r_mbvalue($value)
 {
 	global $mb;
 	$mb->r_value($value);
 };
-
-
 
 function mbdropdown($value)
 {
@@ -181,15 +166,13 @@ function mbdropdown($value)
 	$mb->mbdropdown($value);
 };
 
-
 function mbthumb($value, $width)
 {
 	global $mb;
 	$mb->thumb($value, $width);
 }
 
-
-/// function multiBlock front
+// function multiBlock front
 
 function getMultiBlock($category, $orderid = '')
 {
@@ -197,8 +180,7 @@ function getMultiBlock($category, $orderid = '')
 	$frontMb->get($category, $orderid);
 };
 
-
-/// OneBlock function front
+// OneBlock function front
 
 function getOneBlock($category, $name, $input)
 {
@@ -218,8 +200,6 @@ function getOneBlockThumb($category, $name, $input, $width)
 	global $ob;
 	$ob->thumb($category, $name, $input, $width);
 };
-
-
 
 # function post
 
