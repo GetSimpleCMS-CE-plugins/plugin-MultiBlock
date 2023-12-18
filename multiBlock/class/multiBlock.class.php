@@ -84,7 +84,7 @@ class MultiBlock
     {
         global $getmb;
         if (isset($getmb->$value)) {
-            echo html_entity_decode($getmb->$value);
+            return html_entity_decode($getmb->$value);
         };
     }
 
