@@ -3,13 +3,10 @@
 class frontMultiBlock
 {
 
-
 	public function get($category, $orderid)
 	{
 		global $getmb;
 		$getmb;
-
-
 
 		$orders = @file_get_contents(GSDATAOTHERPATH . 'multiBlock/' . $category . '/order.txt');
 

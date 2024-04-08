@@ -80,8 +80,6 @@
 
 		$content = json_decode(file_get_contents($filename), true);
 
-
-
 		$info = pathinfo($filename);
 		echo '
 		<li> 
@@ -97,8 +95,7 @@
 	}; ?>
 </ul>
 
-<br>
-<hr><br>
+<br><hr><br>
 
 <h3><?php echo i18n_r("multiBlock/OBLIST"); ?></h3>
 
@@ -123,8 +120,7 @@
 	}; ?>
 </ul>
 
-<br>
-<hr>
+<br><hr>
 
 <?php
 if (isset($_GET['deletecatOneBlock'])) {
@@ -157,7 +153,6 @@ if (isset($_GET['deletecat'])) {
 	unlink(GSDATAOTHERPATH . "multiBlock/category/" . $_GET['deletecat'] . ".txt");
 
 	echo '<script> location.replace("' . $SITEURL . 'admin/load.php?id=multiBlock&category");</script>';
-
 
 	function removeDir($path)
 	{

@@ -2,7 +2,6 @@
 
 class BackBlock
 {
-
     public function cleanThumb()
     {
         $imager = glob(GSDATAOTHERPATH . 'multiBlock/thumb/*', GLOB_BRACE);
@@ -11,16 +10,12 @@ class BackBlock
         };
     }
 
-
     // multiblock function backend;
-
 
     public function saveCatMulti()
     {
 
         $costa = '[';
-
-
 
         foreach ($_POST['label'] as $key => $value) {
 
@@ -48,8 +43,6 @@ class BackBlock
 
         $templatedata = @$_POST['template'];
 
-
-
         $folder        = GSDATAOTHERPATH . '/multiBlock/category/';
         $filename      = $folder . $categoryname . '.json';
         $template    = $folder . $categoryname . '.txt';
@@ -71,9 +64,7 @@ class BackBlock
         echo ("<meta http-equiv='refresh' content='0'>");
     }
 
-
     //save cat one
-
 
     public function saveCatOne()
     {
@@ -125,7 +116,6 @@ class BackBlock
         echo ("<meta http-equiv='refresh' content='0'>");
     }
 
-
     //new block multiblock options
 
     public function newBlockOptions()
@@ -148,16 +138,11 @@ class BackBlock
             }
 
             if ($category->select == 'wysywig') {
-
-                echo '<p style="margin: 0;
-					margin:0;
-					margin-top: 20px;
-					font-weight: 400px;
-					font-size: 15px;
-					margin-bottom:5px;">' . $category->title . ' :</p>
+                echo '
+				<p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px; margin-bottom:5px;">' . $category->title . ' :</p>
 			 
-					<textarea id="post-content" name="' . str_replace(" ", "", $category->label) . '" style="width:100%;display:block;height:250px;" class="mbinput">' . html_entity_decode($valer) . '</textarea>
-					';
+				<textarea id="post-content" name="' . str_replace(" ", "", $category->label) . '" style="width:100%; display:block; height:250px;" class="mbinput">' . html_entity_decode($valer) . '</textarea>
+				';
             } elseif ($category->select == 'image') {
 
                 global $SITEURL;
@@ -314,9 +299,7 @@ class BackBlock
         echo ("<meta http-equiv='refresh' content='0'>");
     }
 
-
     //saveOneBlock 
-
 
     public function saveOneBlock()
     {
@@ -362,9 +345,7 @@ class BackBlock
         echo ("<meta http-equiv='refresh' content='0'>");
     }
 
-
     //save order
-
 
     public function saveOrder()
     {

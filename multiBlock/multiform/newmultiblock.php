@@ -141,14 +141,14 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 				<a class="addnewblock">' . i18n_r("multiBlock/ADDNEWBTN2") . ' ➕</a>
 			</div>';
 
-
-		echo '<br>
+		echo '
+			<br>
 			<h3 style="display:flex;justify-content:space-between">' . i18n_r("multiBlock/MULTIBLOCKIN") . '
 		';
 
 		if (isset($_GET['newmulticategory'])) {
-
-			echo '<input type="text" id="filtermb" placeholder="🔎" style="padding:5px;"> <span style="font-style:italic;background:#fafafa;font-size:12px;color:#111;border:solid 1px #ddd;padding:5px;margin-left:10px;">&#60;?php getMultiBlock("' . $_GET['newmulticategory'] . '" ) ;?></span>';
+			echo '
+			<input type="text" id="filtermb" placeholder="🔎" style="padding:5px;"> <span style="font-style:italic;background:#fafafa;font-size:12px;color:#111;border:solid 1px #ddd;padding:5px;margin-left:10px;">&#60;?php getMultiBlock("' . $_GET['newmulticategory'] . '" ) ;?></span>';
 		};
 
 		echo '</h3>
@@ -163,33 +163,26 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 			$name = str_replace('-', ' ', basename($filename, '.' . $info['extension']));
 			$content = json_decode(file_get_contents($filename));
 
+			echo '
+				<li data-id="' . $counterlist . '"><p>' . $content->nametitle  . '<span style="font-size:12px;opacity:0.6;margin-left:10px;"> slug: ' . $name . '</span></p>
+					<a href="' . $SITEURL . 'admin/load.php?id=multiBlock&newblock&nametitle=' . $content->nametitle . '&newmulticategory=' . $_GET['newmulticategory'] . '&namefile=' . $name . '" class="mb_edit" style="width:45px;">' . i18n_r("multiBlock/EDIT") . '</a>
 
+					<form method="post"  onclick="return confirm(`' . i18n_r('multiBlock/DELETEQUESTION') . '`);"  style="display:inline-flex">
+						<input type="text"  style="display:none;" name="delthis" value="' . basename($filename, '.' . $info['extension']) . '">
 
-			echo '<li data-id="' . $counterlist . '"><p>' . $content->nametitle  . '<span style="font-size:12px;opacity:0.6;margin-left:10px;"> slug: ' . $name . '</span></p>
-				
-
-				<a href="' . $SITEURL . 'admin/load.php?id=multiBlock&newblock&nametitle=' . $content->nametitle . '&newmulticategory=' . $_GET['newmulticategory'] . '&namefile=' . $name . '" class="mb_edit" style="width:45px;">' . i18n_r("multiBlock/EDIT") . '</a>
-
-				<form method="post"  onclick="return confirm(`' . i18n_r('multiBlock/DELETEQUESTION') . '`);" 
-				style="display:inline-flex" 
-				>
-
-				<input type="text"  style="display:none;" name="delthis" value="' . basename($filename, '.' . $info['extension']) . '">
-
-				<input type="submit" name="delthisbtn" value="' . i18n_r("multiBlock/DELETE") . ' " class="mb_edit mb_edit_delete"> 
-				</form>
-				
+						<input type="submit" name="delthisbtn" value="' . i18n_r("multiBlock/DELETE") . ' " class="mb_edit mb_edit_delete"> 
+					</form>
 				</li>';
 
 			$counterlist++;
 		}
 	}
-	echo '</ul>';
+		echo '
+			</ul>';
 
 	if (isset($_GET['newmulticategory'])) {
 		global $SITEURL;
 		echo '
-			 
 			<form method="post" style="margin-top:20px;" action="' . $SITEURL . 'admin/load.php?id=multiBlock&newmultiblock&newmulticategory=' . $_GET['newmulticategory'] . '">
 			<input type="text" style="display:none" class="array" name="array" value="' . @file_get_contents(GSDATAOTHERPATH . 'multiBlock/' . $_GET['newmulticategory'] . '/order.txt') . '">
 			<input type="submit" class="button-3" value="' . i18n_r("multiBlock/SAVEORDER") . ' 🎢" name="saveorder">
@@ -200,8 +193,6 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 	<script>
 		const arraylist = '<?php echo @file_get_contents(GSDATAOTHERPATH . 'multiBlock/' . $_GET['newmulticategory'] . '/order.txt'); ?>';
 		const arraychange = arraylist.split(',');
-
-
 
 		arraychange.forEach((x, i) => {
 			if (document.querySelector(`.mb_catlist_list li[data-id="${x}"]`) !== null) {
@@ -221,7 +212,6 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 																		echo $SITEURL; ?>admin/load.php?id=multiBlock&newblock&newmulticategory=' + document.querySelector('.mb_category').value);
 	}
 
-
 	document.querySelector('.mb_category').addEventListener('click', (x) => {
 		x.preventDefault();
 		document.querySelector('.cats').setAttribute('action', '<?php global $SITEURL;
@@ -238,8 +228,7 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 	}; ?>
 </script>
 
-<script src="<?php global $SITEURL;
-				echo $SITEURL; ?>plugins/multiBlock/js/Sortable.min.js"></script>
+<script src="<?php global $SITEURL; echo $SITEURL; ?>plugins/multiBlock/js/Sortable.min.js"></script>
 
 <script>
 	var el = document.getElementById('mb_catlist_list');
@@ -287,7 +276,6 @@ if (isset($_POST['saveorder'])) {
 	global $bb;
 	$bb->saveOrder();
 };
-
 
 if (isset($_POST['delthisbtn'])) {
 

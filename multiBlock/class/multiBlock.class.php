@@ -17,7 +17,6 @@ class MultiBlock
         $counterOrder++;
     }
 
-
     //mbtext 
 
     public function text($value)
@@ -48,7 +47,6 @@ class MultiBlock
 
     public function showhide($value)
     {
-
         global $getmb;
 
         $val = @$getmb->$value;
@@ -79,7 +77,6 @@ class MultiBlock
         };
     }
 
-
     public function r_value($value)
     {
         global $getmb;
@@ -107,7 +104,6 @@ class MultiBlock
         $file = file_get_contents($getmb->$value);
 
         $folder = GSDATAOTHERPATH . "multiBlock/thumb/";
-
 
         if (file_exists($folder) == null) {
             mkdir($folder, 0755);

@@ -2,10 +2,6 @@
 
 global $SITEURL;
 
-
-
-
-
 echo '
 
 <style>
@@ -17,7 +13,6 @@ echo '
         border-radius: 5px;
         border: solid 1px #ddd;
     }
-
 
     .button-18 {
         align-items: center;
@@ -78,14 +73,11 @@ echo '
 
 <h3>MultiBlock Migrator</h3>';
 
-
 if (isset($_GET['info'])) {
-
     echo '<div class="ok">'.i18n_r('multiBlock/REPLACEDURL').'</div>';
 }
 
 echo '
-
 <form method="post" action="' . $SITEURL . 'admin/load.php?id=multiBlock&migrator&info" style="padding:10px;background:#fafafa;border-radius:5px;border:solid 1px #ddd">
     <p style="margin:0;padding:0;margin-top:10px;">' . i18n_r('multiBlock/OLDDOMAIN') . '</p>
     <input class="inputer" required type="text" name="old" placeholder="http://youroldadress.com/" value="">
@@ -96,7 +88,6 @@ echo '
     <input type="submit" name="replace" class="button-18" value="' . i18n_r('multiBlock/REPLACEURL') . '">
 </form>';
 
-
 echo '
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style=" box-sizing:border-box;display:grid; width:100%;grid-template-columns:1fr auto; padding:10px;background:#fafafa;border:solid 1px #ddd;margin-top:20px;">
     <p style="margin:0;padding:0;"> ' . i18n_r('multiBlock/PAYPAL') . ' </p>
@@ -106,8 +97,6 @@ echo '
     <img alt="" src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" border="0">
 </form>';
 
-
-
 if (isset($_POST['replace'])) {
 
     $folder = GSDATAOTHERPATH . 'multiBlock/**/*.{txt,json}';
@@ -116,11 +105,8 @@ if (isset($_POST['replace'])) {
         $old = str_replace(" ", "", $_POST['old']);
         $new = str_replace(" ", "", $_POST['new']);
 
-
         $oldcontent = file_get_contents($file);
         $newcontent = str_replace([$old, $old . '/'], [$new, $new . '/'], $oldcontent);
-
-
 
         file_put_contents($file, $newcontent);
     };
@@ -131,11 +117,8 @@ if (isset($_POST['replace'])) {
         $old = str_replace(" ", "", $_POST['old']);
         $new = str_replace(" ", "", $_POST['new']);
 
-
         $oldcontent = file_get_contents($file);
         $newcontent = str_replace([$old, $old . '/'], [$new, $new . '/'], $oldcontent);
-
-
 
         file_put_contents($file, $newcontent);
     };

@@ -64,7 +64,6 @@ if (isset($_GET['namefile'])) {
 		margin-top: 10px;
 	}
 
-
 	.mb_file {
 		display: grid;
 		grid-template-columns: 1fr 200px;
@@ -80,7 +79,6 @@ if (isset($_GET['namefile'])) {
 		color: #fff;
 		cursor: pointer;
 	}
-
 
 	.mb_img img {
 		outline: 1px solid #BABABA;
@@ -104,8 +102,7 @@ if (isset($_GET['namefile'])) {
 
 	<div style="display:grid;grid-template-columns:80% 20%;width:100%;align-items:center;grid-gap:10px;padding:0;">
 
-		<div style="background:#fafafa;border:solid 1px #ddd; padding:15px;
-	width:100%;display:flex;">
+		<div style="background:#fafafa;border:solid 1px #ddd; padding:15px; width:100%;display:flex;">
 			<?php echo i18n_r('multiBlock/SECTION'); ?>: <input type="text" name="cat" class="cat" disabled="disabled" style="width:100%;border:none;margin:0;font-size:13px;padding:0;" value="<?php echo @$_GET['newmulticategory']; ?>">
 		</div>
 
@@ -117,7 +114,6 @@ if (isset($_GET['namefile'])) {
 	</div>
 
 	<input type="text" style="display:none" name="nameolder" class="namefileolder" placeholder="title" pattern="[A-Za-z0-9]+" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>">
-
 
 	<h4 style="margin-top:20px"><?php echo i18n_r("multiBlock/BLOCKTITLE"); ?></h4>
 
@@ -299,7 +295,6 @@ if (isset($_GET['namefile'])) {
 
 		});
 
-
 	document
 		.querySelector('.nametitle')
 		.addEventListener('keyup', () => {
@@ -375,8 +370,6 @@ if (isset($_POST['saveblock'])) {
 
 			})
 	};
-
-
 
 	if (document.querySelector('.mb_file') !== null) {
 

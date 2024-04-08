@@ -129,7 +129,7 @@ if (isset($_GET['namefile'])) {
                 };
 
 
-                echo ' </p>
+                echo '</p>
 
 				<textarea id="post-content" name="' . str_replace(" ", "", $category->label) . '" style="width:100%;display:block;height:250px;" class="mbinput">' . html_entity_decode($valer) . '</textarea>
 				';
@@ -147,20 +147,17 @@ if (isset($_GET['namefile'])) {
                     echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
                 };
 
-
                 echo '</p>
 
 		<div class="mb_img">';
+			if ($valer !== 'undefined') {
+				echo ' <img src="' . $valer . '" style="width:80px;height:80px;object-fit:cover;">';
+			};
 
-                if ($valer !== 'undefined') {
-                    echo ' <img src="' . $valer . '" style="width:80px;height:80px;object-fit:cover;">';
-                };
-
-                echo '
-				<input type="text" class="mb_foto foto mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
-        
-				<button class="mb_fotobtn choose-image">' . i18n_r("multiBlock/CHOOSEIMAGE") . '</button>
-
+			echo '
+			<input type="text" class="mb_foto foto mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
+	
+			<button class="mb_fotobtn choose-image">' . i18n_r("multiBlock/CHOOSEIMAGE") . '</button>
         </div>
 
         </span>
@@ -190,7 +187,6 @@ if (isset($_GET['namefile'])) {
                     echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
                 };
 
-
                 echo ' </p>';
 
                 echo '<select style="width:100%;padding:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
@@ -207,7 +203,6 @@ if (isset($_GET['namefile'])) {
  document.querySelector("select.' . str_replace(" ", "", $category->label) . '").value = "' . str_replace(" ", "^", $valer) . '"; </script>';
             } elseif ($category->select == 'link') {
 
-
                 echo '
         <p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px; margin-bottom:20px !important;display: flex;
         justify-content: space-between;align-items:center;">' . $category->title;
@@ -216,7 +211,6 @@ if (isset($_GET['namefile'])) {
                 if (isset($_GET['namefile'])) {
                     echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
                 };
-
 
                 echo '</p> 
         <select style="width:100%;padding:15px;display:block;border:solid 1px #ddd; background:#fff;margin-top:10px; margin-bottom:20px !important;display:block;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
@@ -232,7 +226,6 @@ if (isset($_GET['namefile'])) {
 
                 echo '</select>';
 
-
                 echo '<script> document.querySelector("select.' . $category->label . '").value = "' . $valer . '"; </script>';
             } else {
 
@@ -245,7 +238,6 @@ if (isset($_GET['namefile'])) {
 
                 echo '</p>
                  <input class="mbinput" type="' . $category->select . '" name="' . str_replace(" ", "", $category->label) . '" value="' . html_entity_decode($valer) . '">
-        
         ';
             }
         }
@@ -342,7 +334,6 @@ if (isset($_POST['saveblock'])) {
         document
             .querySelectorAll('.formedit')
             .forEach((e, i) => {
-
                 e
                     .querySelector('.choose-image')
                     .addEventListener('click', y => {
@@ -355,8 +346,6 @@ if (isset($_POST['saveblock'])) {
 
                         win.window.focus();
                     });
-
             })
-
     }
 </script>

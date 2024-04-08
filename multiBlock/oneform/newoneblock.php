@@ -112,7 +112,6 @@
 
 </form>
 
-
 <?php
 $folder = GSDATAOTHERPATH . '/multiBlockSettings/';
 $fileDelete = $folder . 'hideOneDelete.txt';
@@ -264,12 +263,6 @@ if (isset($_POST['saveorder'])) {
 	}
 	echo ("<meta http-equiv='refresh' content='0'>");
 };
-
-
-
-
-
-
 
 if (isset($_POST['delthisbtn'])) {
 	unlink(GSDATAOTHERPATH . "oneBlock/" . str_replace(" ", "-", $_GET['newmulticategory']) . "/" . $_POST['delthis'] . ".json");

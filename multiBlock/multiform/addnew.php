@@ -3,7 +3,6 @@
 		width: 100%;
 		padding: 10px;
 	}
-
 	.mb_textarea {
 		width: 100%;
 		height: 400px;
@@ -11,7 +10,6 @@
 		box-sizing: border-box;
 		border: solid 2px #676767;
 	}
-
 	.mb_submit {
 		background: #000;
 		width: 150px;
@@ -20,7 +18,6 @@
 		border: none;
 		cursor: pointer;
 	}
-
 	.mb_buttons {
 		margin-right: 0;
 		margin-left: auto;
@@ -29,7 +26,6 @@
 		justify-content: end;
 		gap: 5px;
 	}
-
 	.mb_btngeneral,
 	.mb_btntemplate,
 	.backtolist {
@@ -42,11 +38,9 @@
 		text-decoration: none !important;
 		cursor: pointer;
 	}
-
 	.backtolist {
 		background: #222;
 	}
-
 	.mb_inputs {
 		margin: 0 !important;
 		padding: 0 !important;
@@ -55,7 +49,6 @@
 		display: block;
 		box-sizing: border-box !important;
 	}
-
 	.mb_inputs li,
 	.info {
 		display: grid;
@@ -66,19 +59,16 @@
 		padding: 10px;
 		box-sizing: border-box;
 	}
-
 	.info {
 		text-align: center;
 		background: #fafafa;
 		border: solid 1px #ddd;
 		margin-top: 20px;
 	}
-
 	.info p {
 		margin: 0;
 		padding: 0;
 	}
-
 	.mb_inputs li p {
 		font-size: 12px;
 		margin: 0 !important;
@@ -86,22 +76,18 @@
 		text-align: center;
 		font-weight: bold;
 	}
-
 	.mb_inputs li:nth-child(odd) {
 		background: #fafafa;
 	}
-
 	.mb_inputs li input,
 	.mb_inputs li select {
 		width: 100%;
 		padding: 5px;
 	}
-
 	.mb_addbtndiv {
 		width: 100%;
 		margin-top: 20px;
 	}
-
 	.mb_close {
 		background-color: red;
 		font-size: 14px;
@@ -110,7 +96,6 @@
 		height: 100%;
 		cursor: pointer;
 	}
-
 	.mb_newinput {
 		background: #000;
 		color: #fff;
@@ -119,16 +104,13 @@
 		padding: 10px 15px;
 		cursor: pointer;
 	}
-
 	.mb_inputs li input,
 	.mb_inputs li select {
 		box-sizing: border-box;
 	}
-
 	input {
 		box-sizing: border-box;
 	}
-
 	code {
 		border: solid 1px #ddd;
 		background: #fafafa;
@@ -147,19 +129,50 @@
 <form method="post">
 	<input type="text" style="display:none" value="<?php echo str_replace(" ", "-", @$_GET['categoryname']); ?>" name="check">
 	<input type="text" style="display:none" value="<?php echo str_replace(" ", "-", @$_GET['categorytitle']); ?>" name="checktitle">
-	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER"); ?>" style="width: 100%;
-		padding: 10px;" name="categorytitle" class="mb_title_name" required value="<?php echo str_replace('-', ' ', @$_GET['categorytitle'] ?? ''); ?>">
+	
+	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER"); ?>" style="width: 100%; padding: 10px;" name="categorytitle" class="mb_title_name" required value="<?php echo str_replace('-', ' ', @$_GET['categorytitle'] ?? ''); ?>" id="categorytitle">
 	<br><br>
-	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/SLUGTITLE"); ?>" class="mb_title" name="categoryname" value="<?php echo str_replace('-', ' ', @$_GET['categoryname'] ?? ''); ?>" pattern="[A-Za-z0-9]+">
+	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/SLUGTITLE"); ?>" class="mb_title" name="categoryname" value="<?php echo str_replace('-', ' ', @$_GET['categoryname'] ?? ''); ?>" pattern="[A-Za-z0-9]+"  id="categoryname">
 
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const categoryTitleInput = document.getElementById('categorytitle');
+		const categorySlugInput = document.getElementById('categoryname');
+
+		categoryTitleInput.addEventListener('input', function() {
+			const inputValue = this.value.trim();
+			const slugValue = removeSpecialCharacters(inputValue);
+			categorySlugInput.value = slugValue;
+		});
+
+		function removeSpecialCharacters(str) {
+			const accentsMap = {
+				'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
+				'à': 'a', 'è': 'e', 'ì': 'i', 'ò': 'o', 'ù': 'u',
+				'â': 'a', 'ê': 'e', 'î': 'i', 'ô': 'o', 'û': 'u',
+				'ä': 'a', 'ë': 'e', 'ï': 'i', 'ö': 'o', 'ü': 'u',
+				'ã': 'a', 'õ': 'o',
+				'ñ': 'n', 'ç': 'c',
+				'ā': 'a', 'ē': 'e', 'ī': 'i', 'ō': 'o', 'ū': 'u',
+				'ă': 'a', 'ĕ': 'e', 'ĭ': 'i', 'ŏ': 'o', 'ŭ': 'u',
+				'ą': 'a', 'ę': 'e', 'į': 'i', 'ų': 'u',
+				'đ': 'd', 'ı': 'i',
+				'ß': 'ss', 'Þ': 'th', 'þ': 'th', 'Ð': 'dh', 'ð': 'dh'
+			};
+
+			return str.replace(/[^\w\s]/gi, function(match) {
+				return accentsMap[match] || match;
+			}).replace(/\s+/g, '').toLowerCase();
+		}
+	});
+	</script>
 
 	<hr style="margin: 20px 0; border: 0; border-bottom: 2px dashed #ddd; background: #999;">
 
 	<div class="mb_buttons" style="width:100%;background:#fafafa;display:flex; justify-content:flex-end;padding:5px;box-sizing:border-box;border:solid 1px #ddd;margin-bottom:20px;">
 		<button class="mb_btngeneral"><?php echo i18n_r("multiBlock/GENERALBTN"); ?></button>
 		<button class="mb_btntemplate"><?php echo i18n_r("multiBlock/TEMPLATEBTN"); ?></button>
-		<a href="<?php global $SITEURL;
-					echo $SITEURL; ?>admin/load.php?id=multiBlock&category" class="backtolist"><?php echo i18n_r("multiBlock/BACKBTN"); ?></a>
+		<a href="<?php global $SITEURL; echo $SITEURL; ?>admin/load.php?id=multiBlock&category" class="backtolist"><?php echo i18n_r("multiBlock/BACKBTN"); ?></a>
 	</div>
 
 	<div class="mb_general">
@@ -184,11 +197,7 @@
 
 				$count = 0;
 
-
-
 				foreach ($multicategory as $category) {
-
-
 
 					echo '
 						<li>
@@ -224,10 +233,8 @@
 
 	</div>
 
-
 	<div class="mb_template">
 		<h3><?php echo i18n_r("multiBlock/TEMPLATE"); ?></h3>
-
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -325,51 +332,54 @@
 			<hr style="margin: 20px 0; border: 0; border-bottom: 1px dashed #ccc; background: #999;">
 			
 			<span style="color:grey;"><?php echo i18n_r("multiBlock/PAGETHEME"); ?></span>
-<pre>
-&#60;div class="wrapper" <span style="color:green">id="sort-me"></span>
-	<span style="color:blue" >&#60;?php getMultiBlock('SomeSlug','<span style="color:green" >#sort-me</span>');?></span>
-&#60;/div>
-</pre>
+			
+			<pre>
+			&#60;div class="wrapper" <span style="color:green">id="sort-me"></span>
+				<span style="color:blue" >&#60;?php getMultiBlock('SomeSlug','<span style="color:green" >#sort-me</span>');?></span>
+			&#60;/div>
+			</pre>
 				
 			<span style="color:grey;"><?php echo i18n_r("multiBlock/MBTEMPLATE"); ?></span>
-<pre>
-&#60;div class="block" <span style="color:green">&#60;?php mborder();?></span>>
-	&#60;h4 class="card-title m-0"><span style="color:blue">&#60;?php mbvaluetext('title');?></span> &#60;/h4>
-	&#60;img src="&#60;img src="<span style="color:blue">&#60;?php mbthumb('photo','300');?></span>">
-	&#60;p class="date"><span style="color:blue">&#60;?php mbdate('pub-date','d.m.Y');?></span> &#60;/p>
-	&#60;span class="info"><span style="color:blue">&#60;?php mbvalue('valuename');?></span>&#60;/span>
-	&#60;span class="downloads <span style="color:red" >docs</span>">
-		&#60;a href="<span style="color:red">&#60;?php mbshowhide('docs');?></span>">Download PDF &#60;/a>
-	&#60;/span>
-&#60;/div> 
-</pre>
+			
+			<pre>
+			&#60;div class="block" <span style="color:green">&#60;?php mborder();?></span>>
+				&#60;h4 class="card-title m-0"><span style="color:blue">&#60;?php mbvaluetext('title');?></span> &#60;/h4>
+				&#60;img src="&#60;img src="<span style="color:blue">&#60;?php mbthumb('photo','300');?></span>">
+				&#60;p class="date"><span style="color:blue">&#60;?php mbdate('pub-date','d.m.Y');?></span> &#60;/p>
+				&#60;span class="info"><span style="color:blue">&#60;?php mbvalue('valuename');?></span>&#60;/span>
+				&#60;span class="downloads <span style="color:red" >docs</span>">
+					&#60;a href="<span style="color:red">&#60;?php mbshowhide('docs');?></span>">Download PDF &#60;/a>
+				&#60;/span>
+			&#60;/div> 
+			</pre>
 
-<style>
-	.row {
-		display : flex;
-		align-items : center;
-		margin-bottom: 15px;
-	}
-	.key {
-		position: relative;
-		height: 15px;
-		width: 15px;
-		margin: 0 5px 0 20px;
-		border: 1px solid black;
-	}
-	.red {
-		background-color: red;
-	}
-	.green {
-		background-color: green;
-	}
-	.blue {
-		background-color: blue;
-	}
-</style>
-<div class="row">
-	<p><div class="key green"></div><?php echo i18n_r("multiBlock/ENABLESORTING"); ?> <div class="key blue"></div><?php echo i18n_r("multiBlock/PLACEHOLDERS"); ?> <div class="key red"></div><?php echo i18n_r("multiBlock/HIDEDATA"); ?></p>
-</div>
+			<style>
+				.row {
+					display : flex;
+					align-items : center;
+					margin-bottom: 15px;
+				}
+				.key {
+					position: relative;
+					height: 15px;
+					width: 15px;
+					margin: 0 5px 0 20px;
+					border: 1px solid black;
+				}
+				.red {
+					background-color: red;
+				}
+				.green {
+					background-color: green;
+				}
+				.blue {
+					background-color: blue;
+				}
+			</style>
+			
+			<div class="row">
+				<p><div class="key green"></div><?php echo i18n_r("multiBlock/ENABLESORTING"); ?> <div class="key blue"></div><?php echo i18n_r("multiBlock/PLACEHOLDERS"); ?> <div class="key red"></div><?php echo i18n_r("multiBlock/HIDEDATA"); ?></p>
+			</div>
 
 		</div>
 
@@ -391,7 +401,6 @@
 		} else if (document.querySelector('.mb_template').style.display == "block") {
 			document.querySelector('.mb_template').style.display = "none";
 			document.querySelector('.mb_general').style.display = "block";
-
 		}
 
 	});
@@ -475,15 +484,12 @@
 
 		document.querySelector('form').setAttribute('action', '<?php global $SITEURL;
 																echo $SITEURL; ?>admin/load.php?id=multiBlock&addnew&categorytitle=' + document.querySelector('.mb_title_name').value + '&categoryname=' + document.querySelector('.mb_title').value)
-
 	})
-
 
 	document.querySelector('.mb_title_name').addEventListener('keyup', x => {
 
 		document.querySelector('form').setAttribute('action', '<?php global $SITEURL;
 																echo $SITEURL; ?>admin/load.php?id=multiBlock&addnew&categorytitle=' + document.querySelector('.mb_title_name').value + '&categoryname=' + document.querySelector('.mb_title').value)
-
 	})
 </script>
 

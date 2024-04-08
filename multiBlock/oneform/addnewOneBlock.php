@@ -3,14 +3,12 @@
 		width: 100%;
 		padding: 10px;
 	}
-
 	.mb_textarea {
 		width: 100%;
 		height: 400px;
 		padding: 10px;
 		box-sizing: border-box;
 	}
-
 	.mb_submit {
 		background: #000;
 		width: 150px;
@@ -19,7 +17,6 @@
 		border: none;
 		cursor: pointer;
 	}
-
 	.mb_buttons {
 		margin-right: 0;
 		margin-left: auto;
@@ -28,7 +25,6 @@
 		justify-content: end;
 		gap: 5px;
 	}
-
 	.mb_btngeneral,
 	.mb_btntemplate,
 	.backtolist {
@@ -41,11 +37,9 @@
 		text-decoration: none !important;
 		cursor: pointer;
 	}
-
 	.backtolist {
 		background: #222;
 	}
-
 	.mb_inputs {
 		margin: 0 !important;
 		padding: 0 !important;
@@ -54,7 +48,6 @@
 		display: block;
 		box-sizing: border-box !important;
 	}
-
 	.mb_inputs li,
 	.info {
 		display: grid;
@@ -65,19 +58,16 @@
 		padding: 10px;
 		box-sizing: border-box;
 	}
-
 	.info {
 		text-align: center;
 		background: #fafafa;
 		border: solid 1px #ddd;
 		margin-top: 20px;
 	}
-
 	.info p {
 		margin: 0;
 		padding: 0;
 	}
-
 	.mb_inputs li p {
 		font-size: 12px;
 		margin: 0 !important;
@@ -85,22 +75,18 @@
 		text-align: center;
 		font-weight: bold;
 	}
-
 	.mb_inputs li:nth-child(odd) {
 		background: #fafafa;
 	}
-
 	.mb_inputs li input,
 	.mb_inputs li select {
 		width: 100%;
 		padding: 5px;
 	}
-
 	.mb_addbtndiv {
 		width: 100%;
 		margin-top: 20px;
 	}
-
 	.mb_close {
 		background-color: red;
 		font-size: 14px;
@@ -109,7 +95,6 @@
 		height: 100%;
 		cursor:pointer;
 	}
-
 	.mb_newinput {
 		background: #000;
 		color: #fff;
@@ -118,16 +103,13 @@
 		padding: 10px 15px;
 		cursor: pointer;
 	}
-
 	.mb_inputs li input,
 	.mb_inputs li select {
 		box-sizing: border-box;
 	}
-
 	input {
 		box-sizing: border-box;
 	}
-
 	code {
 		border: solid 1px #ddd;
 		background: #fafafa;
@@ -144,11 +126,42 @@
 	<input type="text" style="display:none" value="<?php echo str_replace(" ", "-", @$_GET['categoryname']); ?>" name="check">
 	<input type="text" style="display:none" value="<?php echo str_replace(" ", "-", @$_GET['categorytitle']); ?>" name="checktitle">
 
-	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER"); ?>" style="width: 100%;
-		padding: 10px;" name="categorytitle" class="mb_title_name" required value="<?php echo str_replace('-', ' ', @$_GET['categorytitle'] ?? ''); ?>">
+	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER"); ?>" style="width: 100%; padding: 10px;" name="categorytitle" class="mb_title_name" required value="<?php echo str_replace('-', ' ', @$_GET['categorytitle'] ?? ''); ?>" id="categorytitle">
 	<br><br>
-	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/SLUG"); ?>" class="mb_title" pattern="[A-Za-z0-9]+" name="categoryname" value="<?php echo str_replace('-', ' ', @$_GET['categoryname'] ?? ''); ?>">
+	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/SLUG"); ?>" class="mb_title" pattern="[A-Za-z0-9]+" name="categoryname" value="<?php echo str_replace('-', ' ', @$_GET['categoryname'] ?? ''); ?>" id="categoryname">
 
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const categoryTitleInput = document.getElementById('categorytitle');
+		const categorySlugInput = document.getElementById('categoryname');
+
+		categoryTitleInput.addEventListener('input', function() {
+			const inputValue = this.value.trim();
+			const slugValue = removeSpecialCharacters(inputValue);
+			categorySlugInput.value = slugValue;
+		});
+
+		function removeSpecialCharacters(str) {
+			const accentsMap = {
+				'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
+				'à': 'a', 'è': 'e', 'ì': 'i', 'ò': 'o', 'ù': 'u',
+				'â': 'a', 'ê': 'e', 'î': 'i', 'ô': 'o', 'û': 'u',
+				'ä': 'a', 'ë': 'e', 'ï': 'i', 'ö': 'o', 'ü': 'u',
+				'ã': 'a', 'õ': 'o',
+				'ñ': 'n', 'ç': 'c',
+				'ā': 'a', 'ē': 'e', 'ī': 'i', 'ō': 'o', 'ū': 'u',
+				'ă': 'a', 'ĕ': 'e', 'ĭ': 'i', 'ŏ': 'o', 'ŭ': 'u',
+				'ą': 'a', 'ę': 'e', 'į': 'i', 'ų': 'u',
+				'đ': 'd', 'ı': 'i',
+				'ß': 'ss', 'Þ': 'th', 'þ': 'th', 'Ð': 'dh', 'ð': 'dh'
+			};
+
+			return str.replace(/[^\w\s]/gi, function(match) {
+				return accentsMap[match] || match;
+			}).replace(/\s+/g, '').toLowerCase();
+		}
+	});
+	</script>
 
 	<hr style="margin: 20px 0; border: 0; border-bottom: 2px dashed #ddd; background: #999;">
 

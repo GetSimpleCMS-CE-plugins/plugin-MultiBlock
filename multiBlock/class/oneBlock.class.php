@@ -2,8 +2,6 @@
 
 class OneBlock
 {
-
-
     public function get($category, $name, $input)
     {
         $value = GSDATAOTHERPATH . 'oneBlock/' . $category . '/' . $name . '.json';
@@ -20,7 +18,6 @@ class OneBlock
         echo html_entity_decode($json->$input);
     }
 
-
     public function thumb($category, $name, $input, $width)
     {
         $value = GSDATAOTHERPATH . 'oneBlock/' . $category . '/' . $name . '.json';
@@ -33,9 +30,7 @@ class OneBlock
 
         $file = file_get_contents($img);
 
-
         $folder = GSDATAOTHERPATH . "multiBlock/thumb/";
-
 
         if (file_exists($folder) == null) {
             mkdir($folder, 0755);
@@ -47,7 +42,6 @@ class OneBlock
         $base = pathinfo($img, PATHINFO_BASENAME);
 
         $finalfile = $folder . $width . "-" . $base;
-
 
         if (file_exists($finalfile)) {
         } else {

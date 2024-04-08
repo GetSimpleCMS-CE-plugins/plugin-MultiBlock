@@ -11,7 +11,7 @@ i18n_merge($plugin_id) || i18n_merge($plugin_id, 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MultiBlock 🧱', 	//Plugin name
-	'5.3', 		//Plugin version
+	'5.4', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://discord.gg/d5s83yk4R6', //author website
 	'Create category blocks from templates and custom fields. (Catalogue, product listing, services, team, food menu, etc.)', //Plugin description
@@ -56,8 +56,7 @@ $paypal = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" ta
  
 $counterShowHide;
 
-function multiblock()
-{
+function multiblock() {
 	global $paypal;
 
 	if (isset($_GET['category'])) {
@@ -72,29 +71,22 @@ function multiblock()
 	};
 
 	if (isset($_GET['addnew'])) {
-
 		include(GSPLUGINPATH . 'multiBlock/multiform/addnew.php');
 	};
 
 	if (isset($_GET['addnewOneBlock'])) {
-
 		include(GSPLUGINPATH . 'multiBlock/oneform/addnewOneBlock.php');
 	};
 
-
 	if (isset($_GET['newmultiblock'])) {
-
 		include('multiBlock/multiform/newmultiblock.php');
-
 		echo $paypal;
 	};
 
 	//oneblock
 
 	if (isset($_GET['newoneblock'])) {
-
 		include('multiBlock/oneform/newoneblock.php');
-
 		echo $paypal;
 	};
 
@@ -117,95 +109,78 @@ function multiblock()
 
 // function multiblock
 
-function mbOrder()
-{
+function mbOrder() {
 	global $mb;
 	$mb->order();
 };
 
-function mbvaluetext($value)
-{
+function mbvaluetext($value) {
 	global $mb;
 	$mb->text($value);
 };
 
-function mbdate($value, $format = "d.m.Y")
-{
+function mbdate($value, $format = "d.m.Y") {
 	global $mb;
 	$mb->date($value, $format);
 };
 
-function mbshowhide($value)
-{
-	 
+function mbshowhide($value) {
 	global $mb;
 	$mb->showhide($value);
 };
 
-function r_mbvaluetext($value)
-{
+function r_mbvaluetext($value) {
 	global $mb;
 	return $mb->r_text($value);
 };
 
-function mbvalue($value)
-{
+function mbvalue($value) {
 	global $mb;
 	$mb->value($value);
 };
 
-function r_mbvalue($value)
-{
+function r_mbvalue($value) {
 	global $mb;
 	return $mb->r_value($value);
-	 
 };
 
-function mbdropdown($value)
-{
+function mbdropdown($value) {
 	global $mb;
 	$mb->mbdropdown($value);
 };
 
-function mbthumb($value, $width)
-{
+function mbthumb($value, $width) {
 	global $mb;
 	$mb->thumb($value, $width);
 }
 
 // function multiBlock front
 
-function getMultiBlock($category, $orderid = '')
-{
+function getMultiBlock($category, $orderid = '') {
 	global $frontMb;
 	$frontMb->get($category, $orderid);
 };
 
 // OneBlock function front
 
-function getOneBlock($category, $name, $input)
-{
+function getOneBlock($category, $name, $input) {
 	global $ob;
 	$ob->get($category, $name, $input);
 };
 
-function getOneBlockWysywig($category, $name, $input)
-{
+function getOneBlockWysywig($category, $name, $input) {
 	global $ob;
 	$ob->wysywig($category, $name, $input);
 };
 
-function getOneBlockThumb($category, $name, $input, $width)
-{
-
+function getOneBlockThumb($category, $name, $input, $width) {
 	global $ob;
 	$ob->thumb($category, $name, $input, $width);
 };
 
 # function post
 
-function mbCleanThumb()
-{
+function mbCleanThumb() {
 	global $bb;
 	$bb->cleanThumb();
 };
