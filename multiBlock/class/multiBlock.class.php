@@ -9,12 +9,10 @@ class MultiBlock
     {
         global $counterOrder;
 
-        if ($counterOrder == '') {
-            $counterOrder = 0;
-        };
+        global $getmb;
 
-        echo "data-id='" . $counterOrder . "' ";
-        $counterOrder++;
+        echo "data-id='".$getmb->namemultiblock."' ";
+     
     }
 
     //mbtext 

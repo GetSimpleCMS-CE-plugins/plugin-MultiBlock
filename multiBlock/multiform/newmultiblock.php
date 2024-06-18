@@ -165,7 +165,7 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 			$content = json_decode(file_get_contents($filename));
 
 			echo '
-				<li data-id="' . $counterlist . '"><p>' . $content->nametitle  . '<span style="font-size:12px;opacity:0.6;margin-left:10px;"> slug: ' . $name . '</span></p>
+				<li data-id="'.$name.'"><p>' . $content->nametitle  . '<span style="font-size:12px;opacity:0.6;margin-left:10px;"> slug: ' . $name . '</span></p>
 					<a href="' . $SITEURL . 'admin/load.php?id=multiBlock&newblock&nametitle=' . $content->nametitle . '&newmulticategory=' . $_GET['newmulticategory'] . '&namefile=' . $name . '" class="mb_edit" style="width:45px;">' . i18n_r("multiBlock/EDIT") . '</a>
 
 					<form method="post"  onclick="return confirm(`' . i18n_r('multiBlock/DELETEQUESTION') . '`);"  style="display:inline-flex">
@@ -175,7 +175,7 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 					</form>
 				</li>';
 
-			$counterlist++;
+			
 		}
 	}
 		echo '

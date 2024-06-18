@@ -120,8 +120,7 @@ if (isset($_GET['namefile'])) {
 	<input type="text" required="required" name="nametitle" class="nametitle" placeholder="<?php echo i18n_r("multiBlock/BLOCKTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['nametitle'] ?? ''); ?>">
 	<input type="text" required="required" name="namemultiblock" class="namefile" placeholder="<?php echo i18n_r("multiBlock/SLUGTITLE"); ?>" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>" pattern="[A-Za-z0-9]+">
 
-	<p style="font-size:12px;margin:5px 0;font-style:italic; padding:0;color:#444;"><?php echo i18n_r("multiBlock/NAMEREQUIRED"); ?></p>
-
+ 
 	<hr style="margin: 20px 0; border: 0; border-bottom: 2px dashed #ddd; background: #999;">
 
 	<h4 style="margin-top:20px;margin-bottom:10px;"><?php echo i18n_r("multiBlock/OPTIONS"); ?></h4>

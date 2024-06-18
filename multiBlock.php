@@ -11,7 +11,7 @@ i18n_merge($plugin_id) || i18n_merge($plugin_id, 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MultiBlock 🧱', 	//Plugin name
-	'5.4', 		//Plugin version
+	'5.5', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://discord.gg/d5s83yk4R6', //author website
 	'Create category blocks from templates and custom fields. (Catalogue, product listing, services, team, food menu, etc.)', //Plugin description
@@ -105,6 +105,9 @@ function multiblock() {
 	if (isset($_GET['migrator'])) {
 		include(GSPLUGINPATH . 'multiBlock/migrator.php');
 	};
+	
+	include(GSPLUGINPATH.'multiBlock/createAutomaticSlug.php');
+	
 }
 
 // function multiblock
