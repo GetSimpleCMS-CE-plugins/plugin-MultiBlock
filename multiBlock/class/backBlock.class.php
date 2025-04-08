@@ -7,360 +7,298 @@ class BackBlock
         $imager = glob(GSDATAOTHERPATH . 'multiBlock/thumb/*', GLOB_BRACE);
         foreach ($imager as $img) {
             unlink($img);
-        };
+        }
     }
-
-    // multiblock function backend;
 
     public function saveCatMulti()
     {
+        $costa = [];
 
-        $costa = '[';
-
-        foreach ($_POST['label'] as $key => $value) {
-
-            if ($key > 0) {
-                $costa .= ',';
+        if (isset($_POST['label']) && is_array($_POST['label'])) {
+            foreach ($_POST['label'] as $key => $value) {
+                $costa[] = [
+                    'name' => isset($_POST['categorytitle']) ? htmlspecialchars($_POST['categorytitle'], ENT_QUOTES, 'UTF-8') : '',
+                    'key' => (int) $key,
+                    'title' => isset($_POST['title'][$key]) ? htmlspecialchars($_POST['title'][$key], ENT_QUOTES, 'UTF-8') : '',
+                    'label' => isset($_POST['label'][$key]) ? str_replace(" ", "-", strtolower(trim($_POST['label'][$key]))) : '',
+                    'value' => isset($_POST['value'][$key]) ? htmlspecialchars($_POST['value'][$key], ENT_QUOTES, 'UTF-8') : '',
+                    'select' => isset($_POST['select'][$key]) ? htmlspecialchars($_POST['select'][$key], ENT_QUOTES, 'UTF-8') : ''
+                ];
             }
+        }
 
-            $costa .= json_encode([
-                'name' => $_POST['categorytitle'],
-                'key' => $key,
-                'title' => $_POST['title'][$key],
-                'label' => str_replace(" ", "-", strtolower($_POST['label'][$key])),
-                'value' => $_POST['value'][$key],
-                'select' => $_POST['select'][$key],
-            ], true);
-        };
+        $costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-        $costa .= ']';
+        $categoryname = isset($_POST['savecat']) && !empty($_POST['categoryname'])
+            ? str_replace(" ", "-", trim($_POST['categoryname']))
+            : (isset($_GET['categoryname']) ? str_replace(" ", "-", trim($_GET['categoryname'])) : '');
 
-        if (isset($_POST['savecat'])) {
-            $categoryname = str_replace(" ", "-", $_POST['categoryname']);
+        $templatedata = isset($_POST['template']) ? htmlspecialchars($_POST['template'], ENT_QUOTES, 'UTF-8') : '';
+
+        $folder = GSDATAOTHERPATH . '/multiBlock/category/';
+        $filename = $folder . $categoryname . '.json';
+        $template = $folder . $categoryname . '.txt';
+        $chmod_mode = 0755;
+
+        if (!file_exists($folder)) {
+            if (!mkdir($folder, $chmod_mode, true) && !is_dir($folder)) {
+                echo "Error: Could not create directory.";
+                return;
+            }
+        }
+
+        if (file_exists($folder)) {
+            if (file_put_contents($filename, $costaJson) === false || file_put_contents($template, $templatedata) === false) {
+                echo "Error: Failed to write files.";
+                return;
+            }
         } else {
-            $categoryname = str_replace(" ", "-", $_GET['categoryname']);
+            echo "Error: Directory does not exist.";
+            return;
         }
 
-        $templatedata = @$_POST['template'];
+        if (isset($_POST['check']) && $_POST['check'] !== $_POST['categoryname']) {
+            $oldName = str_replace(" ", "-", trim($_POST['check']));
+            $newJson = $folder . $categoryname . '.json';
+            $newTxt = $folder . $categoryname . '.txt';
+            $oldJson = $folder . $oldName . '.json';
+            $oldTxt = $folder . $oldName . '.txt';
 
-        $folder        = GSDATAOTHERPATH . '/multiBlock/category/';
-        $filename      = $folder . $categoryname . '.json';
-        $template    = $folder . $categoryname . '.txt';
-        $chmod_mode    = 0755;
-        $folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode, true);
-
-        // Save the file (assuming that the folder indeed exists)
-        if ($folder_exists) {
-            file_put_contents($filename, $costa);
-            file_put_contents($template, $templatedata);
-            echo ("<meta http-equiv='refresh' content='0'>");
+            if (file_exists($oldJson) && !rename($oldJson, $newJson)) {
+                echo "Error: Failed to rename JSON file.";
+                return;
+            }
+            if (file_exists($oldTxt) && !rename($oldTxt, $newTxt)) {
+                echo "Error: Failed to rename template file.";
+                return;
+            }
         }
 
-        if ($_POST['check'] !== $_POST['categoryname']) {
-            rename(GSDATAOTHERPATH . '/multiBlock/category/' . str_replace(" ", "-", $_POST['check']) . '.json', GSDATAOTHERPATH . '/multiBlock/category/' . str_replace(" ", "-", $_POST['categoryname']) . '.json');
-            rename(GSDATAOTHERPATH . '/multiBlock/category/' . str_replace(" ", "-", $_POST['check']) . '.txt', GSDATAOTHERPATH . '/multiBlock/category/' . str_replace(" ", "-", $_POST['categoryname']) . '.txt');
-        };
-
-        echo ("<meta http-equiv='refresh' content='0'>");
+        echo "<meta http-equiv='refresh' content='0'>";
     }
-
-    //save cat one
 
     public function saveCatOne()
     {
+        $costa = [];
 
-        $costa = '[';
-
-        foreach ($_POST['label'] as $key => $value) {
-
-            if ($key > 0) {
-                $costa .= ',';
+        if (isset($_POST['label']) && is_array($_POST['label'])) {
+            foreach ($_POST['label'] as $key => $value) {
+                $costa[] = [
+                    'name' => isset($_POST['categorytitle']) ? htmlspecialchars($_POST['categorytitle'], ENT_QUOTES, 'UTF-8') : '',
+                    'key' => (int) $key,
+                    'title' => isset($_POST['title'][$key]) ? htmlspecialchars($_POST['title'][$key], ENT_QUOTES, 'UTF-8') : '',
+                    'label' => isset($_POST['label'][$key]) ? str_replace(" ", "-", strtolower(trim($_POST['label'][$key]))) : '',
+                    'value' => isset($_POST['value'][$key]) ? htmlspecialchars($_POST['value'][$key], ENT_QUOTES, 'UTF-8') : '',
+                    'select' => isset($_POST['select'][$key]) ? htmlspecialchars($_POST['select'][$key], ENT_QUOTES, 'UTF-8') : ''
+                ];
             }
-
-            $costa .= json_encode([
-                'name' => $_POST['categorytitle'],
-                'key' => $key,
-                'title' => $_POST['title'][$key],
-                'label' => str_replace(" ", "-", strtolower($_POST['label'][$key])),
-                'value' => $_POST['value'][$key],
-                'select' => $_POST['select'][$key],
-            ], true);
-        };
-
-        $costa .= ']';
-
-        if (isset($_POST['savecat'])) {
-            $categoryname = str_replace(" ", "-", $_POST['categoryname']);
-        } else {
-            $categoryname = str_replace(" ", "-", $_GET['categoryname']);
         }
 
-        $templatedata = @$_POST['template'];
+        $costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-        $folder        = GSDATAOTHERPATH . '/oneBlock/category/';
-        $filename      = $folder . $categoryname . '.json';
+        $categoryname = isset($_POST['savecat']) && !empty($_POST['categoryname'])
+            ? str_replace(" ", "-", trim($_POST['categoryname']))
+            : (isset($_GET['categoryname']) ? str_replace(" ", "-", trim($_GET['categoryname'])) : '');
 
-        $chmod_mode    = 0755;
-        $folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode, true);
+        $folder = GSDATAOTHERPATH . '/oneBlock/category/';
+        $filename = $folder . $categoryname . '.json';
+        $chmod_mode = 0755;
 
-        // Save the file (assuming that the folder indeed exists)
-        if ($folder_exists) {
-            file_put_contents($filename, $costa);
-            echo ("<meta http-equiv='refresh' content='0'>");
+        if (!file_exists($folder)) {
+            if (!mkdir($folder, $chmod_mode, true) && !is_dir($folder)) {
+                echo "Error: Could not create directory.";
+                return;
+            }
         }
 
-        if ($_POST['check'] !== $_POST['categoryname']) {
-            rename(GSDATAOTHERPATH . '/oneBlock/category/' . str_replace(" ", "-", $_POST['check']) . '.json', GSDATAOTHERPATH . '/oneBlock/category/' . str_replace(" ", "-", $_POST['categoryname']) . '.json');
-        };
+        if (file_put_contents($filename, $costaJson) === false) {
+            echo "Error: Failed to write JSON file.";
+            return;
+        }
 
-        echo ("<meta http-equiv='refresh' content='0'>");
+        if (isset($_POST['check']) && $_POST['check'] !== $_POST['categoryname']) {
+            $oldName = str_replace(" ", "-", trim($_POST['check']));
+            $oldFile = $folder . $oldName . '.json';
+            $newFile = $folder . $categoryname . '.json';
+            if (file_exists($oldFile) && !rename($oldFile, $newFile)) {
+                echo "Error: Failed to rename JSON file.";
+                return;
+            }
+        }
+
+        echo "<meta http-equiv='refresh' content='0'>";
     }
-
-    //new block multiblock options
 
     public function newBlockOptions()
     {
-
         $cat = @file_get_contents(GSDATAOTHERPATH . 'multiBlock/category/' . str_replace(" ", "-", $_GET['newmulticategory']) . '.json');
-        $multicategory = json_decode($cat);
-
-        $multicategory = $multicategory == '' ? [] : $multicategory;
-
-        $count = 0;
+        $multicategory = json_decode($cat, true) ?? [];
 
         foreach ($multicategory as $category) {
-            $nis = str_replace(" ", "", $category->label);
+            $nis = str_replace(" ", "", $category['label']);
+            $valer = isset($dater->$nis) ? $dater->$nis : ($category['value'] ?? '');
 
-            if (isset($dater)) {
-                $valer = $dater->$nis;
-            } else {
-                $valer = $category->value;
-            }
-
-            if ($category->select == 'wysywig') {
+            if ($category['select'] === 'wysywig') {
                 echo '
-				<p style="margin: 0; margin:0; margin-top: 20px; font-weight: 400px; font-size: 15px; margin-bottom:5px;">' . $category->title . ' :</p>
-			 
-				<textarea id="post-content" name="' . str_replace(" ", "", $category->label) . '" style="width:100%; display:block; height:250px;" class="mbinput">' . html_entity_decode($valer) . '</textarea>
-				';
-            } elseif ($category->select == 'image') {
-
+                    <p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;margin-bottom:5px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+                    <textarea id="post-content" name="' . $nis . '" style="width:100%;display:block;height:250px;" class="mbinput">' . html_entity_decode($valer, ENT_QUOTES, 'UTF-8') . '</textarea>
+                ';
+            } elseif ($category['select'] === 'image') {
                 global $SITEURL;
-
                 echo '<span class="formedit">';
-                echo '<p style="margin: 0;
-						margin-top: 0px;
-						margin-top: 20px;
-						font-weight: 400px;
-						font-size: 15px;">' . $category->title . ' :</p>
-
-						<div class="mb_img">';
-                if ($valer !== 'undefined') {
-                    echo ' <img src="' . $valer . '" style="width:80px;height:80px;object-fit:cover;">';
-                };
-
-                echo '
-							<input type="text" class="mb_foto foto mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
-							<button class="mb_fotobtn choose-image">' . i18n_r("multiBlock/CHOOSEIMAGE") . '</button>
-						</div>
-						';
-
-                echo "</span>";
-            } elseif ($category->select == 'file') {
-
-                global $SITEURL;
-
-                echo '<span class="formedit">';
-                echo '<p style="margin: 0;
-						margin-top: 0px;
-						margin-top: 20px;
-						font-weight: 400px;
-						font-size: 15px;">' . $category->title . ' :</p>
-
-						<div class="mb_img">';
-                if ($valer !== 'undefined') {
-                    echo ' <img src="' . $valer . '" style="width:80px;height:80px;object-fit:cover;">';
-                };
-
-                echo '
-							<input type="text" class="mb_file file mbinput" name="' . str_replace(" ", "", $category->label) . '" value="' . $valer . '">
-							<button class="mb_filebtn choose-image">Choose File</button>
-						</div>
-						';
-
-                echo "</span>";
-            } elseif ($category->select == 'textarea') {
-
-                echo '<p style="margin: 0;
-					margin-top: 0px;
-					margin-top: 20px;
-					font-weight: 400px;
-					font-size: 15px;display:inline-block;">' . $category->title . ' :</p>.
-					
-					<textarea class="mbinput" style="width:100%;height:250px;" name="' . str_replace(" ", "", $category->label) . '">' . html_entity_decode($valer) . '</textarea>';
-            } elseif ($category->select == 'dropdown') {
-
-                $ars = explode('|', trim($category->value));
-
-                echo '<p style="margin: 0;
-					margin-top: 0px;
-					margin-top: 20px;
-					font-weight: 400px;
-					font-size: 15px;display:inline-block;">' . $category->title . ' :</p>';
-
-                echo '<select style="width:100%;padding:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
-
-                foreach ($ars as $sel) {
-                    echo '<option value="' . str_replace(" ", "^", $sel) . '" >' . $sel . '</option>';
+                echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+                    <div class="mb_img">';
+                if ($valer !== 'undefined' && !empty($valer)) {
+                    echo ' <img src="' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '" style="width:80px;height:80px;object-fit:cover;">';
                 }
-
-                echo '</select>';
-
-                echo '<script>
-						document.querySelector("select.' . str_replace(" ", "", $category->label) . '").value = "' . str_replace(" ", "^", $valer) . '"; 
-					</script>';
-            } elseif ($category->select == 'link') {
-
                 echo '
-					<p style="margin: 0;
-					margin:0;
-					margin-top: 20px;
-					font-weight: 400px;
-					font-size: 15px;">' . $category->title . ' :</p> 
-					<select style="width:100%;padding:15px;display:block;border:solid 1px #ddd; background:#fff;margin-top:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
-
-                foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
-
-                    $path_parts = pathinfo($page);
-
-                    global $SITEURL;
-
-                    echo "<option value='" . $SITEURL . $path_parts['filename'] . "'  >" . $path_parts['filename'] . "</option>";
-                };
-
+                        <input type="text" class="mb_foto foto mbinput" name="' . $nis . '" value="' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '">
+                        <button class="mb_fotobtn choose-image">' . i18n_r("multiBlock/CHOOSEIMAGE") . '</button>
+                    </div></span>';
+            } elseif ($category['select'] === 'file') {
+                global $SITEURL;
+                echo '<span class="formedit">';
+                echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+                    <div class="mb_img">';
+                if ($valer !== 'undefined' && !empty($valer)) {
+                    echo ' <img src="' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '" style="width:80px;height:80px;object-fit:cover;">';
+                }
+                echo '
+                        <input type="text" class="mb_file file mbinput" name="' . $nis . '" value="' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '">
+                        <button class="mb_filebtn choose-image">Choose File</button>
+                    </div></span>';
+            } elseif ($category['select'] === 'textarea') {
+                echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;display:inline-block;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+                    <textarea class="mbinput" style="width:100%;height:250px;" name="' . $nis . '">' . html_entity_decode($valer, ENT_QUOTES, 'UTF-8') . '</textarea>';
+            } elseif ($category['select'] === 'dropdown') {
+                $ars = explode('|', trim($category['value']));
+                echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;display:inline-block;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+                    <select style="width:100%;padding:10px;" class="' . $nis . '" name="' . $nis . '">';
+                foreach ($ars as $sel) {
+                    $selValue = str_replace(" ", "^", $sel);
+                    echo '<option value="' . htmlspecialchars($selValue, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($sel, ENT_QUOTES, 'UTF-8') . '</option>';
+                }
                 echo '</select>';
-
-                echo '<script> document.querySelector("select.' . $category->label . '").value = "' . $valer . '"; </script>';
+                echo '<script>document.querySelector("select.' . $nis . '").value = "' . htmlspecialchars(str_replace(" ", "^", $valer), ENT_QUOTES, 'UTF-8') . '";</script>';
+            } elseif ($category['select'] === 'link') {
+                echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+                    <select style="width:100%;padding:15px;display:block;border:solid 1px #ddd;background:#fff;margin-top:10px;" class="' . $nis . '" name="' . $nis . '">';
+                foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
+                    $path_parts = pathinfo($page);
+                    global $SITEURL;
+                    $pageUrl = $SITEURL . $path_parts['filename'];
+                    echo "<option value='" . htmlspecialchars($pageUrl, ENT_QUOTES, 'UTF-8') . "'>" . htmlspecialchars($path_parts['filename'], ENT_QUOTES, 'UTF-8') . "</option>";
+                }
+                echo '</select>';
+                echo '<script>document.querySelector("select.' . $nis . '").value = "' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '";</script>';
             } else {
-
-                echo '<p style="margin: 0;
-					margin:0;
-					margin-top: 20px;
-					font-weight: 400px;
-					font-size: 15px;">' . $category->title . ' :</p>
-
-					<input class="mbinput" type="' . $category->select . '" name="' . str_replace(" ", "", $category->label) . '" value="' . html_entity_decode($valer) . '">
-					';
+                echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+                    <input class="mbinput" type="' . htmlspecialchars($category['select'], ENT_QUOTES, 'UTF-8') . '" name="' . $nis . '" value="' . html_entity_decode($valer, ENT_QUOTES, 'UTF-8') . '">';
             }
         }
     }
-
-    //saveMultiBlock
 
     public function saveMultiBlock()
     {
-        $costa = '{';
-
+        $costa = [];
         foreach ($_POST as $key => $value) {
+            $costa[$key] = trim(preg_replace('/\s\s+/', ' ', htmlentities($value, ENT_QUOTES, 'UTF-8')));
+        }
+        $costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-            if ($coner > 0) {
-                $costa .= ',';
+        $owncategory = $_GET['newmulticategory'] ?? '';
+        $name = str_replace(" ", "-", trim($_POST['namemultiblock'] ?? ''));
+
+        $folder = GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
+        $filename = $folder . $name . '.json';
+        $chmod_mode = 0755;
+
+        if (!file_exists($folder)) {
+            if (!mkdir($folder, $chmod_mode, true) && !is_dir($folder)) {
+                echo "Error: Could not create directory.";
+                return;
             }
-
-            $costa .= '"' . $key . '":"' . trim(preg_replace('/\s\s+/', ' ', htmlentities($value))) . '"';
-
-            $coner++;
-        };
-
-        $costa .= '}';
-
-        $owncategory = $_GET['newmulticategory'];
-
-        $name = str_replace(" ", "-", $_POST['namemultiblock']);
-
-        $folder        = GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
-        $filename      = $folder . $name . '.json';
-        $chmod_mode    = 0755;
-        $folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode);
-
-        // Save the file (assuming that the folder indeed exists)
-        if ($folder_exists) {
-            file_put_contents($filename, $costa);
-            echo ("<meta http-equiv='refresh' content='0'>");
         }
 
-        if ($_POST['nameolder'] !== '') {
-            if ($_POST['nameolder'] !== $_POST['namemultiblock']) {
-
-                rename($folder . str_replace(" ", "-", $_POST['nameolder']) . '.json', $folder . str_replace(" ", "-", $_POST['namemultiblock']) . '.json');
-            };
+        if (file_put_contents($filename, $costaJson) === false) {
+            echo "Error: Failed to write JSON file.";
+            return;
         }
 
-        echo ("<meta http-equiv='refresh' content='0'>");
+        if (!empty($_POST['nameolder']) && $_POST['nameolder'] !== $_POST['namemultiblock']) {
+            $oldName = str_replace(" ", "-", trim($_POST['nameolder']));
+            $oldFile = $folder . $oldName . '.json';
+            $newFile = $folder . $name . '.json';
+            if (file_exists($oldFile) && !rename($oldFile, $newFile)) {
+                echo "Error: Failed to rename JSON file.";
+                return;
+            }
+        }
+
+        echo "<meta http-equiv='refresh' content='0'>";
     }
-
-    //saveOneBlock 
 
     public function saveOneBlock()
     {
-
-        $costa = '{';
-
+        $costa = [];
         foreach ($_POST as $key => $value) {
+            $costa[$key] = trim(preg_replace('/\s\s+/', ' ', htmlentities($value, ENT_QUOTES, 'UTF-8')));
+        }
+        $costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-            if ($coner > 0) {
-                $costa .= ',';
+        $owncategory = $_GET['newmulticategory'] ?? '';
+        $name = str_replace(" ", "-", trim($_POST['name'] ?? ''));
+
+        $folder = GSDATAOTHERPATH . 'oneBlock/' . $owncategory . '/';
+        $filename = $folder . $name . '.json';
+        $chmod_mode = 0755;
+
+        if (!file_exists($folder)) {
+            if (!mkdir($folder, $chmod_mode, true) && !is_dir($folder)) {
+                echo "Error: Could not create directory.";
+                return;
             }
-
-            $costa .= '"' . $key . '":"' . trim(preg_replace('/\s\s+/', ' ', htmlentities($value))) . '"';
-
-            $coner++;
-        };
-
-        $costa .= '}';
-
-        $owncategory = $_GET['newmulticategory'];
-
-        $name = str_replace(" ", "-", $_POST['name']);
-
-        $folder        = GSDATAOTHERPATH . 'oneBlock/' . $owncategory . '/';
-        $filename      = $folder . $name . '.json';
-        $chmod_mode    = 0755;
-        $folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode);
-
-        // Save the file (assuming that the folder indeed exists)
-        if ($folder_exists) {
-            file_put_contents($filename, $costa);
-
-            echo ("<meta http-equiv='refresh' content='0'>");
         }
 
-        if ($_POST['nameolder'] !== '') {
-            if ($_POST['nameolder'] !== $_POST['name']) {
-
-                rename($folder . str_replace(" ", "-", $_POST['nameolder']) . '.json', $folder . str_replace(" ", "-", $_POST['name']) . '.json');
-            };
+        if (file_put_contents($filename, $costaJson) === false) {
+            echo "Error: Failed to write JSON file.";
+            return;
         }
 
-        echo ("<meta http-equiv='refresh' content='0'>");
+        if (!empty($_POST['nameolder']) && $_POST['nameolder'] !== $_POST['name']) {
+            $oldName = str_replace(" ", "-", trim($_POST['nameolder']));
+            $oldFile = $folder . $oldName . '.json';
+            $newFile = $folder . $name . '.json';
+            if (file_exists($oldFile) && !rename($oldFile, $newFile)) {
+                echo "Error: Failed to rename JSON file.";
+                return;
+            }
+        }
+
+        echo "<meta http-equiv='refresh' content='0'>";
     }
-
-    //save order
 
     public function saveOrder()
     {
-        $owncategory = $_GET['newmulticategory'];
-        $arrayinfo = $_POST['array'];
+        $owncategory = $_GET['newmulticategory'] ?? '';
+        $arrayinfo = $_POST['array'] ?? '';
 
-        $folder        = GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
-        $filename      = $folder . 'order.txt';
-        $chmod_mode    = 0755;
-        $folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode);
+        $folder = GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
+        $filename = $folder . 'order.txt';
+        $chmod_mode = 0755;
 
-        // Save the file (assuming that the folder indeed exists)
-        if ($folder_exists) {
-            file_put_contents($filename, $arrayinfo);
+        if (!file_exists($folder)) {
+            if (!mkdir($folder, $chmod_mode, true) && !is_dir($folder)) {
+                echo "Error: Could not create directory.";
+                return;
+            }
         }
-        echo ("<meta http-equiv='refresh' content='0'>");
+
+        if (file_put_contents($filename, $arrayinfo) === false) {
+            echo "Error: Failed to write order file.";
+            return;
+        }
+
+        echo "<meta http-equiv='refresh' content='0'>";
     }
-};
+}
