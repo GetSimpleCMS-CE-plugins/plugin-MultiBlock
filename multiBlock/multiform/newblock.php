@@ -321,6 +321,28 @@ if (isset($_POST['saveblock'])) {
 
 <script type="text/javascript" src="template/js/ckeditor/ckeditor.js?t=3.3.16"></script>
 
+<?php
+	global $EDTOOL;
+	global $toolbar;
+	global $options;
+	global $EDOPTIONS;
+
+
+	if (isset($EDTOOL))
+		$EDTOOL = returnJsArray($EDTOOL);
+	if (isset($toolbar))
+		$toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
+	else if (strpos(trim($EDTOOL), '[[') !== 0 && strpos(trim($EDTOOL), '[') === 0) {
+		$EDTOOL = "[$EDTOOL]";
+	}
+
+	if (isset($toolbar) && strpos(trim($toolbar), '[[') !== 0 && strpos($toolbar, '[') === 0) {
+		$toolbar = "[$toolbar]";
+	}
+	$toolbar = isset($EDTOOL) ? ",toolbar: " . trim($EDTOOL, ",") : '';
+	$options = isset($EDOPTIONS) ? ',' . trim($EDOPTIONS, ",") : '';
+	?>
+
 <script type="text/javascript">
 	document
 		.querySelectorAll(`#post-content`)
@@ -329,20 +351,26 @@ if (isset($_POST['saveblock'])) {
 			var editor = CKEDITOR.replace(c, {
 				skin: 'getsimple',
 				forcePasteAsPlainText: true,
-				language: 'en',
-				defaultLanguage: 'en',
-				entities: true,
+				entities: false,
 				// uiColor : '#FFFFFF',
-				height: '300px',
-				baseHref: '<?php global $SITEURL;
-							echo $SITEURL; ?>',
+				<?php
+				global $TEMPLATE;
+				if (file_exists(GSTHEMESPATH . $TEMPLATE . "/editor.css")) {
+					$fullpath = suggest_site_path();
+					?>
+											contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
+				<?php } ?>
+			height: '250px',
 				tabSpaces: 10,
 				filebrowserBrowseUrl: 'filebrowser.php?type=all',
 				filebrowserImageBrowseUrl: 'filebrowser.php?type=images',
 				filebrowserWindowWidth: '730',
-				filebrowserWindowHeight: '500',
-				toolbar: 'advanced'
+				filebrowserWindowHeight: '500'
+			
+			<?php echo $toolbar; ?>
+			<?php echo $options; ?>
 			});
+		
 		});
 </script>
 

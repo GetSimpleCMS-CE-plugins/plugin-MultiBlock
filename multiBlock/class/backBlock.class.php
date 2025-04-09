@@ -33,7 +33,7 @@ class BackBlock
             ? str_replace(" ", "-", trim($_POST['categoryname']))
             : (isset($_GET['categoryname']) ? str_replace(" ", "-", trim($_GET['categoryname'])) : '');
 
-        $templatedata = isset($_POST['template']) ? htmlspecialchars($_POST['template'], ENT_QUOTES, 'UTF-8') : '';
+        $templatedata = isset($_POST['template']) ? $_POST['template'] : '';
 
         $folder = GSDATAOTHERPATH . '/multiBlock/category/';
         $filename = $folder . $categoryname . '.json';
