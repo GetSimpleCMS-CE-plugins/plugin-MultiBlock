@@ -1,17 +1,14 @@
 <?php
 
-class BackBlock
-{
-	public function cleanThumb()
-	{
+class BackBlock {
+	public function cleanThumb() {
 		$imager = glob(GSDATAOTHERPATH . 'multiBlock/thumb/*', GLOB_BRACE);
 		foreach ($imager as $img) {
 			unlink($img);
 		}
 	}
 
-	public function saveCatMulti()
-	{
+	public function saveCatMulti() {
 		$costa = [];
 
 		if (isset($_POST['label']) && is_array($_POST['label'])) {
@@ -77,8 +74,7 @@ class BackBlock
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
 
-	public function saveCatOne()
-	{
+	public function saveCatOne() {
 		$costa = [];
 
 		if (isset($_POST['label']) && is_array($_POST['label'])) {
@@ -129,8 +125,7 @@ class BackBlock
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
 
-	public function newBlockOptions()
-	{
+	public function newBlockOptions() {
 		$cat = @file_get_contents(GSDATAOTHERPATH . 'multiBlock/category/' . str_replace(" ", "-", $_GET['newmulticategory']) . '.json');
 		$multicategory = json_decode($cat, true) ?? [];
 
@@ -143,6 +138,7 @@ class BackBlock
 					<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;margin-bottom:5px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
 					<textarea id="post-content" name="' . $nis . '" style="width:100%;display:block;height:250px;" class="mbinput">' . html_entity_decode($valer, ENT_QUOTES, 'UTF-8') . '</textarea>
 				';
+			
 			} elseif ($category['select'] === 'image') {
 				global $SITEURL;
 				echo '<span class="formedit">';
@@ -155,6 +151,7 @@ class BackBlock
 						<input type="text" class="mb_foto foto mbinput" name="' . $nis . '" value="' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '">
 						<button class="mb_fotobtn choose-image">' . i18n_r("multiBlock/CHOOSEIMAGE") . '</button>
 					</div></span>';
+			
 			} elseif ($category['select'] === 'file') {
 				global $SITEURL;
 				echo '<span class="formedit">';
@@ -167,9 +164,11 @@ class BackBlock
 						<input type="text" class="mb_file file mbinput" name="' . $nis . '" value="' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '">
 						<button class="mb_filebtn choose-image">Choose File</button>
 					</div></span>';
+			
 			} elseif ($category['select'] === 'textarea') {
 				echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;display:inline-block;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
 					<textarea class="mbinput" style="width:100%;height:250px;" name="' . $nis . '">' . html_entity_decode($valer, ENT_QUOTES, 'UTF-8') . '</textarea>';
+			
 			} elseif ($category['select'] === 'dropdown') {
 				$ars = explode('|', trim($category['value']));
 				echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;display:inline-block;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
@@ -180,26 +179,61 @@ class BackBlock
 				}
 				echo '</select>';
 				echo '<script>document.querySelector("select.' . $nis . '").value = "' . htmlspecialchars(str_replace(" ", "^", $valer), ENT_QUOTES, 'UTF-8') . '";</script>';
+			
 			} elseif ($category['select'] === 'link') {
-				echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
+				echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' : </p>
 					<select style="width:100%;padding:15px;display:block;border:solid 1px #ddd;background:#fff;margin-top:10px;" class="' . $nis . '" name="' . $nis . '">';
+				
+				global $SITEURL;
+				$pages = array();
+				
 				foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
-					$path_parts = pathinfo($page);
-					global $SITEURL;
-					$pageUrl = $SITEURL . $path_parts['filename'];
-					echo "<option value='" . htmlspecialchars($pageUrl, ENT_QUOTES, 'UTF-8') . "'>" . htmlspecialchars($path_parts['filename'], ENT_QUOTES, 'UTF-8') . "</option>";
+					$xml = simplexml_load_file($page);
+					
+					if ($xml) {
+						$url = (string)$xml->url;
+						$parent = (string)$xml->parent;
+						$title = (string)$xml->title;
+						
+						$fullPath = '';
+						if (!empty($parent)) {
+							$fullPath = $parent . '/' . $url;
+						} else {
+							$fullPath = $url;
+						}
+						
+						$displayText = (!empty($parent) ? $parent . ' » ' : '') . $title;
+						
+						$pages[] = array(
+							'path' => $fullPath,
+							'display' => $displayText
+						);
+					}
 				}
+				
+				usort($pages, function($a, $b) {
+					return strcasecmp($a['display'], $b['display']);
+				});
+				
+				echo '<option value="javascript:;"> -- </option>';
+				
+				foreach ($pages as $page) {
+					$pageUrl = $SITEURL . $page['path'];
+					echo "<option value='" . htmlspecialchars($pageUrl, ENT_QUOTES, 'UTF-8') . "'>" . htmlspecialchars($page['display'], ENT_QUOTES, 'UTF-8') . "</option>";
+				}
+				
 				echo '</select>';
 				echo '<script>document.querySelector("select.' . $nis . '").value = "' . htmlspecialchars($valer, ENT_QUOTES, 'UTF-8') . '";</script>';
+			
 			} else {
 				echo '<p style="margin:0;margin-top:20px;font-weight:400;font-size:15px;">' . htmlspecialchars($category['title'], ENT_QUOTES, 'UTF-8') . ' :</p>
 					<input class="mbinput" type="' . htmlspecialchars($category['select'], ENT_QUOTES, 'UTF-8') . '" name="' . $nis . '" value="' . html_entity_decode($valer, ENT_QUOTES, 'UTF-8') . '">';
 			}
+			
 		}
 	}
 
-	public function saveMultiBlock()
-	{
+	public function saveMultiBlock() {
 		$costa = [];
 		foreach ($_POST as $key => $value) {
 			$costa[$key] = trim(preg_replace('/\s\s+/', ' ', htmlentities($value, ENT_QUOTES, 'UTF-8')));
@@ -238,8 +272,7 @@ class BackBlock
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
 
-	public function saveOneBlock()
-	{
+	public function saveOneBlock() {
 		$costa = [];
 		foreach ($_POST as $key => $value) {
 			$costa[$key] = trim(preg_replace('/\s\s+/', ' ', htmlentities($value, ENT_QUOTES, 'UTF-8')));
@@ -278,8 +311,7 @@ class BackBlock
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
 
-	public function saveOrder()
-	{
+	public function saveOrder() {
 		$owncategory = $_GET['newmulticategory'] ?? '';
 		$arrayinfo = $_POST['array'] ?? '';
 

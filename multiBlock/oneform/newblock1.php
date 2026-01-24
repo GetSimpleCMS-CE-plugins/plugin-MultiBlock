@@ -73,9 +73,10 @@ if (isset($_GET['namefile'])) {
 	.mb_img .mb_fotobtn {
 		height: 40px;
 		border: none;
-		background: #000;
+		background: #FF9900;
 		color: #fff;
 		cursor: pointer;
+		border-radius:5px;
 	}
 </style>
 
@@ -83,8 +84,8 @@ if (isset($_GET['namefile'])) {
 
 <form method="POST" class="mbformer">
 
-	<div style="background:#fafafa;border:solid 1px #ddd; padding:10px;">
-		<?php echo i18n_r('multiBlock/SECTION'); ?>: <input type="text" name="cat" class="cat" disabled="disabled" style="width:200px;border:none;margin:0;font-size:13px;padding:0;" value="<?php echo @$_GET['newmulticategory']; ?>">
+	<div style="background:#fafafa;border:solid 1px #ddd; padding:15px; width:100%;display:flex;">
+		<?php echo i18n_r('multiBlock/SECTION'); ?>: <input type="text" name="cat" class="cat" disabled="disabled" style="width:100%; border:none; margin:0; font-size:16px; font-weight:600; padding:0 10px 0; color:red; text-transform: capitalize;" value="<?php echo @$_GET['newmulticategory']; ?>">
 	</div>
 
 	<input type="text" style="display:none" name="nameolder" class="namefileolder" placeholder="title" value="<?php echo str_replace("-", " ", @$_GET['namefile'] ?? ''); ?>">
@@ -274,7 +275,7 @@ if (isset($_GET['namefile'])) {
 	};; ?>
 
 	<div style="backgorund:#fafafa;border:solid 1px #ddd;padding:10px;box-sizing:border-box;display:flex;margin-top:10px;">
-		<input type="submit" name="saveblock" style="width:200px;background:#000;color:#fff;margin:0; border:none;cursor: pointer;" value="<?php echo i18n_r("multiBlock/UPDATE"); ?>">
+		<input type="submit" name="saveblock" style="width:200px; background:#000; color:#fff; margin:0; border:none; cursor: pointer; border-radius:5px" value="<?php echo i18n_r("multiBlock/UPDATE"); ?>">
 	</div>
 </form>
 

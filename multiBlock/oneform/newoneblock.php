@@ -20,6 +20,7 @@
 		color: #fff;
 		padding: 10px 15px;
 		box-sizing: border-box;
+		border-radius:5px;
 	}
 
 	.mb_catlist ul {
@@ -51,7 +52,7 @@
 
 	.addnewblock {
 		width: 150px;
-		background: #000;
+		background: #004F99;
 		padding: 10px 15px;
 		color: #fff !important;
 		border: none;
@@ -59,11 +60,12 @@
 		text-align: center;
 		text-decoration: none !important;
 		margin-bottom: 40px;
+		border-radius:5px;
 	}
 
 	.mb_edit {
 		all: unset;
-		background: #000;
+		background: #FF9900;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -74,13 +76,15 @@
 		margin-right: 10px;
 		text-align: center;
 		cursor: pointer;
-		padding: 10px;
+		padding: 10px 15px;
 		box-sizing: border-box;
+		border-radius:5px;
 	}
 
 	.mb_edit_delete {
 		background: red;
 		border: none;
+		font-weight:600;
 	}
 
 	.button-3 {
@@ -88,6 +92,7 @@
 		background: #000;
 		color: #fff;
 		border: none;
+		border-radius:5px;
 	}
 </style>
 
@@ -167,7 +172,7 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 
 				<input type="text"  style="display:none;" name="delthis" value="' . basename($filename, '.' . $info['extension']) . '">
 
-				<input type="submit" name="delthisbtn" value="' . i18n_r("multiBlock/DELETE") . ' " class="mb_edit mb_edit_delete"> 
+				<input type="submit" name="delthisbtn" value=" ✕ " class="mb_edit mb_edit_delete"> 
 				</form>
 				
 				</li>';
