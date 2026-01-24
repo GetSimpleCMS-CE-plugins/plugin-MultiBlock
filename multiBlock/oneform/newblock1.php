@@ -245,6 +245,8 @@ if (isset($_GET['namefile'])) {
 					return strcasecmp($a['display'], $b['display']);
 				});
 
+				echo "<option value='javascript:;'> -- </option>";
+				
 				global $SITEURL;
 				foreach ($pages as $page) {
 					echo "<option value='" . $SITEURL . $page['path'] . "/'>" . 
