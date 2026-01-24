@@ -5,22 +5,27 @@
 		padding: 10px 15px;
 		color: #fff !important;
 		border: none;
+		border-radius:5px;
 		display: inline-block;
 		text-align: center;
 		text-decoration: none !important;
 		margin-bottom: 40px;
 	}
+	
+	.mb_new {
+		background: #006600;
+	}
 
 	.mb_edit {
-		width: 70px;
 		background: #FFB71E;
+		padding: 10px 15px;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		text-decoration: none !important;
 		color: #fff !important;
-		height: 30px;
 		margin-right: 10px;
+		border-radius:5px;
 	}
 
 	.mb_edit_delete {
@@ -61,9 +66,9 @@
 <h3><?php echo i18n_r("multiBlock/MULTIBLOCKSETTINGS"); ?></h3>
 
 <a href="<?php global $SITEURL;
-			echo $SITEURL; ?>admin/load.php?id=multiBlock&addnew" class="mb_add"><?php echo i18n_r("multiBlock/ADDNEWMBBTN"); ?> ➕</a>
+			echo $SITEURL; ?>admin/load.php?id=multiBlock&addnew" class="mb_add mb_new"><?php echo i18n_r("multiBlock/ADDNEWMBBTN"); ?> ➕</a>
 <a href="<?php global $SITEURL;
-			echo $SITEURL; ?>admin/load.php?id=multiBlock&addnewOneBlock" class="mb_add"><?php echo i18n_r("multiBlock/ADDNEWOBBTN"); ?> ➕</a>
+			echo $SITEURL; ?>admin/load.php?id=multiBlock&addnewOneBlock" class="mb_add mb_new"><?php echo i18n_r("multiBlock/ADDNEWOBBTN"); ?> ➕</a>
 <a href="<?php global $SITEURL;
 			echo $SITEURL; ?>admin/load.php?id=multiBlock&blockoptions" class="mb_add"><?php echo i18n_r("multiBlock/BLOCKOPTIONSBTN"); ?> ⚙️</a>
 <a href="<?php global $SITEURL;
@@ -92,7 +97,8 @@
 				</form>
 			</div>
 		</li>';
-	}; ?>
+	};
+	?>
 </ul>
 
 <br><hr><br>
@@ -117,7 +123,8 @@
 				</form>
 			</div>
 		</li>';
-	}; ?>
+	};
+	?>
 </ul>
 
 <br><hr>
@@ -169,4 +176,5 @@ if (isset($_GET['deletecat'])) {
 
 	$katalog = GSDATAOTHERPATH . "multiBlock/" . $_GET['deletecat'] . "/";
 	removeDir($katalog);
-}; ?>
+};
+?>

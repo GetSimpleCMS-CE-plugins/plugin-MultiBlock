@@ -6,19 +6,19 @@ include("../../../${admin}/inc/common.php");
 $loggedin = cookie_check();
 if (!$loggedin) die("Not logged in!");
 if (!defined('IN_GS')) {
-  die('you cannot load this page directly.');
+	die('you cannot load this page directly.');
 }
 
 i18n_merge('i18n_gallery', substr($LANG, 0, 2));
 i18n_merge('i18n_gallery', 'en');
 
 if (isset($_GET['path'])) {
-  $subPath = preg_replace('/\.+\//', '', $_GET['path']);
-  if ($subPath) $subPath .= '/';
-  $path = "../../../data/uploads/" . $subPath;
+	$subPath = preg_replace('/\.+\//', '', $_GET['path']);
+	if ($subPath) $subPath .= '/';
+	$path = "../../../data/uploads/" . $subPath;
 } else {
-  $subPath = "";
-  $path = "../../../data/uploads/";
+	$subPath = "";
+	$path = "../../../data/uploads/";
 }
 $path = tsl($path);
 
@@ -33,8 +33,8 @@ $func = preg_replace('/[^\w]/', '', @$_GET['func'] ?? '');
 $w = (int) @$_GET['w'];
 $h = (int) @$_GET['h'];
 if (!$w && !$h) {
-  $w = 160;
-  $h = 120;
+	$w = 160;
+	$h = 120;
 }
 $autoclose = @$_GET['autoclose'];
 $debug = @$_GET['debug'];
@@ -154,7 +154,7 @@ $urlPath = "";
 							</td>
 							<td>
 								<a class="primarylink" href="javascript:void(0)" title="<?php i18n('SELECT_FILE') . ': ' . htmlspecialchars(@$upload['name']); ?>" onclick="<?php echo $onclick; ?>">
-							  <?php echo htmlspecialchars($upload['name']); ?>
+								<?php echo htmlspecialchars($upload['name']); ?>
 								</a>
 								<p>
 									<?php if (@$upload['title']) echo '<b>' . htmlspecialchars($upload['title']) . '</b><br/>'; ?>

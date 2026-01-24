@@ -1,10 +1,8 @@
 <?php
 
-class frontMultiBlock
-{
+class frontMultiBlock {
 
-	public function get($category, $orderid)
-	{
+	public function get($category, $orderid) {
 		global $getmb;
 		$getmb;
 
@@ -32,9 +30,9 @@ class frontMultiBlock
 			const arraychange" . str_replace('-', '', $category) . " = arraylist" . str_replace('-', '', $category) . ".split(',');
 			arraylist" . str_replace('-', '', $category) . ".split(',').forEach((x,i)=>{
 				if(document.querySelector(`" . $orderid . " [data-id='`+x+`']`)!== null){
-				  document.querySelector('" . $orderid . "').append(document.querySelector(`" . $orderid . " [data-id='`+x+`']`)); 
+					document.querySelector('" . $orderid . "').append(document.querySelector(`" . $orderid . " [data-id='`+x+`']`)); 
 				} 
-				 });
+			});
 		</script>";
 
 			global $counterOrder;

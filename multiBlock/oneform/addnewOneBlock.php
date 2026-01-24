@@ -8,6 +8,7 @@
 		height: 400px;
 		padding: 10px;
 		box-sizing: border-box;
+		border: solid 2px #676767;
 	}
 	.mb_submit {
 		background: #000;
@@ -16,6 +17,7 @@
 		padding: 10px 15px;
 		border: none;
 		cursor: pointer;
+		border-radius:5px;
 	}
 	.mb_buttons {
 		margin-right: 0;
@@ -29,13 +31,14 @@
 	.mb_btntemplate,
 	.backtolist {
 		all: unset;
-		background: #000;
+		background: #004F99;
 		color: #fff;
 		padding: 10px 15px;
 		border: none;
 		color: #fff !important;
 		text-decoration: none !important;
 		cursor: pointer;
+		border-radius:5px;
 	}
 	.backtolist {
 		background: #222;
@@ -94,14 +97,16 @@
 		border: none;
 		height: 100%;
 		cursor:pointer;
+		border-radius:5px;
 	}
 	.mb_newinput {
-		background: #000;
+		background: #FFAD33;
 		color: #fff;
 		display: inline-block;
 		border: none;
 		padding: 10px 15px;
 		cursor: pointer;
+		border-radius:5px;
 	}
 	.mb_inputs li input,
 	.mb_inputs li select {
@@ -116,7 +121,7 @@
 		padding: 5px;
 		display: inline-block;
 		margin: 10px 0;
-		color: blue;
+		color: green;
 	}
 </style>
 

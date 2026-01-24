@@ -106,7 +106,8 @@
 			$content = json_decode(file_get_contents($filename), true);
 
 			echo '<option value="' . $namevalue . '">' . $content[0]['name'] . '</option>';
-		}; ?>
+		}; 
+		?>
 	</select>
 
 	<input type="submit" name="choosecat" class="choosecat" value="<?php echo i18n_r("multiBlock/CHOOSESECTION"); ?>">
@@ -128,7 +129,8 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 	echo '<style>
 		.addnewblock{display:none !important;}
 		</style>';
-};; ?>
+};
+?>
 
 <div class="mb_catlist">
 
@@ -189,7 +191,8 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 			<input type="submit" class="button-3" value="' . i18n_r("multiBlock/SAVEORDER") . ' 🎢" name="saveorder">
 			</form>
 			';
-	}; ?>
+	}; 
+	?>
 
 	<script>
 		const arraylist = '<?php echo @file_get_contents(GSDATAOTHERPATH . 'multiBlock/' . $_GET['newmulticategory'] . '/order.txt'); ?>';
@@ -226,7 +229,8 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 		global $SITEURL;
 		echo "document.querySelector('.mb_category').value = '" . @$_GET['newmulticategory'] . "';";
 		echo "document.querySelector('.addnewblock').setAttribute('href','" . $SITEURL . "admin/load.php?id=multiBlock&newblock&newmulticategory=" . @$_GET['newmulticategory'] . "')";
-	}; ?>
+	}; 
+	?>
 </script>
 
 <script src="<?php global $SITEURL; echo $SITEURL; ?>plugins/multiBlock/js/Sortable.min.js"></script>
@@ -285,4 +289,5 @@ if (isset($_POST['delthisbtn'])) {
 	};
 
 	echo ("<meta http-equiv='refresh' content='0'>");
-};; ?>
+}; 
+?>

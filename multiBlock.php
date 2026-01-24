@@ -66,7 +66,7 @@ function multiblock() {
 		echo $paypal;
 
 		echo '<form  method="post" style="background:#fafafa;padding:10px;border:solid 1px #ddd;margin-top:10px;">
-		<input type="submit" value="' . i18n_r("multiBlock/CACHETHUMB") . '" class="cleanthumb" style="padding:5px 10px;border:none;background:red;color:#fff;" name="cleanthumb">
+		<input type="submit" value="' . i18n_r("multiBlock/CACHETHUMB") . '" class="cleanthumb" style="padding:5px 10px;border:none;border-radius:5px;background:#004F99!important;color:#fff;" name="cleanthumb">
 		</form>';
 	};
 
