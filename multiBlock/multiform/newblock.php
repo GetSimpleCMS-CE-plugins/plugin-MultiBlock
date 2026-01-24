@@ -238,14 +238,42 @@ if (isset($_GET['namefile'])) {
 					font-size: 15px;">' . $category->title . ' :</p> 
 					<select style="width:100%;padding:15px;display:block;border:solid 1px #ddd; background:#fff;margin-top:10px;" class="' . str_replace(" ", "", $category->label) . '" name="' . str_replace(" ", "", $category->label) . '">';
 
+				$pages = array();
+
 				foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
+					$xml = simplexml_load_file($page);
+					
+					if ($xml) {
+						$url = (string)$xml->url;
+						$parent = (string)$xml->parent;
+						$title = (string)$xml->title;
+						
+						$fullPath = '';
+						if (!empty($parent)) {
+							$fullPath = $parent . '/' . $url;
+						} else {
+							$fullPath = $url;
+						}
+						
+						$displayText = (!empty($parent) ? $parent . ' » ' : '') . $title;
+						
+						$pages[] = array(
+							'path' => $fullPath,
+							'display' => $displayText
+						);
+					}
+				}
 
-					$path_parts = pathinfo($page);
+				usort($pages, function($a, $b) {
+					return strcasecmp($a['display'], $b['display']);
+				});
 
-					global $SITEURL;
-
-					echo "<option value='" . $SITEURL . $path_parts['filename'] . "'  >" . $path_parts['filename'] . "</option>";
-				};
+				global $SITEURL;
+				foreach ($pages as $page) {
+					echo "<option value='" . $SITEURL . $page['path'] . "/'>" . 
+						 $page['display'] . 
+						 "</option>";
+				}
 
 				echo '</select>';
 
