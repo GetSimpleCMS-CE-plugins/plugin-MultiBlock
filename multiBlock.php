@@ -11,7 +11,7 @@ i18n_merge($plugin_id) || i18n_merge($plugin_id, 'en_US');
 register_plugin(
 	$thisfile, //Plugin id
 	'MultiBlock 🧱', 	//Plugin name
-	'5.6.3', 		//Plugin version
+	'6.0', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://discord.gg/d5s83yk4R6', //author website
 	'Create category blocks from templates and custom fields. (Catalogue, product listing, services, team, food menu, etc.)', //Plugin description
@@ -58,6 +58,10 @@ $counterShowHide;
 
 function multiblock() {
 	global $paypal;
+
+	if(isset($_GET['langsupport'])){
+		include(GSPLUGINPATH . 'multiBlock/langsupport.php');
+	}
 
 	if (isset($_GET['category'])) {
 

@@ -10,7 +10,6 @@ class MultiBlock {
 		global $getmb;
 
 		echo "data-id='".$getmb->namemultiblock."' ";
-	 
 	}
 
 	//mbtext 

@@ -136,8 +136,9 @@
 	
 	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER"); ?>" style="width: 100%; padding: 10px;" name="categorytitle" class="mb_title_name" required value="<?php echo str_replace('-', ' ', @$_GET['categorytitle'] ?? ''); ?>" id="categorytitle">
 	<br><br>
-	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/SLUGTITLE"); ?>" class="mb_title" name="categoryname" value="<?php echo str_replace('-', ' ', @$_GET['categoryname'] ?? ''); ?>" pattern="[A-Za-z0-9]+"  id="categoryname">
-
+	<div style="background: #f0f7ff; border-left: 3px solid #2196f3; padding: 10px; margin-top: 8px; font-size: 12px; border-radius: 3px;">
+		<strong>💡 <?php echo i18n_r("multiBlock/MULTILINGUAL_TITLE"); ?> (<?php echo i18n_r("multiBlock/MULTILINGUAL_REQUIRES"); ?>):</strong> <?php echo i18n_r("multiBlock/MULTILINGUAL_SUFFIX_HELP"); ?> <code>team_en</code>, <code>team_pl</code>, <code>team_es</code>. <?php echo i18n_r("multiBlock/MULTILINGUAL_FALLBACK_HELP"); ?>
+	</div>
 	<script>
 	document.addEventListener('DOMContentLoaded', function() {
 		const categoryTitleInput = document.getElementById('categorytitle');
@@ -161,12 +162,13 @@
 				'ă': 'a', 'ĕ': 'e', 'ĭ': 'i', 'ŏ': 'o', 'ŭ': 'u',
 				'ą': 'a', 'ę': 'e', 'į': 'i', 'ų': 'u',
 				'đ': 'd', 'ı': 'i',
-				'ß': 'ss', 'Þ': 'th', 'þ': 'th', 'Ð': 'dh', 'ð': 'dh'
+				'ß': 'ss', 'Þ': 'th', 'þ': 'th', 'Ð': 'dh', 'ð': 'dh',
+				'ć': 'c', 'ł': 'l', 'ń': 'n', 'ś': 's', 'ź': 'z', 'ż': 'z'
 			};
 
-			return str.replace(/[^\w\s]/gi, function(match) {
-				return accentsMap[match] || match;
-			}).replace(/\s+/g, '').toLowerCase();
+			return str.replace(/[^\w\s_]/gi, function(match) {
+				return accentsMap[match] || '';
+			}).replace(/\s+/g, '_').toLowerCase();
 		}
 	});
 	</script>

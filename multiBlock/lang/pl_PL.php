@@ -35,6 +35,7 @@ $i18n = [
 	'SAVECAT' 		=> 'Zapisz Sekcję',
 	'DELETE' 		=> 'Usuń',
 	'EDIT' 			=> 'Edytuj',
+	'DUPLICATE' 	=> 'Duplikuj',
 	'EDITBLOCK' 	=> 'Edytuj Block',
 	'BLOCKTITLE' 	=> 'Tytuł Block',
 	'OPTIONS' 		=> 'Opcje',
@@ -81,7 +82,13 @@ $i18n = [
 	'NEWDOMAIN' => 'Nowy adres domeny',
 	'REPLACEURL' => 'Zmień URL',
 	'REPLACEDURL' => 'MultiBlock został zaktualizowany',
-	'DELETEQUESTION' => 'Chcesz usunąć ten element?'
+	'DELETEQUESTION' => 'Chcesz usunąć ten element?',
+
+
+	'MULTILINGUAL_TITLE' => 'Obsługa wielojęzyczności',
+	'MULTILINGUAL_REQUIRES' => 'wymaga pluginu I18N',
+	'MULTILINGUAL_SUFFIX_HELP' => 'Użyj sufiksu z podkreślnikiem dla języków:',
+	'MULTILINGUAL_FALLBACK_HELP' => 'Utwórz kategorię bez sufiksu jako domyślny fallback.'
 
 ];
 

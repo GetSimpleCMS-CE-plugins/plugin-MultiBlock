@@ -35,6 +35,7 @@ $i18n = [
 	'SAVECAT' 		=> 'Save Section',
 	'DELETE' 		=> 'Delete',
 	'EDIT' 			=> 'Edit',
+	'DUPLICATE' 	=> 'Duplicate',
 	'EDITBLOCK' 	=> 'Edit Block',
 	'BLOCKTITLE' 	=> 'Block Title',
 	'OPTIONS' 		=> 'Options',
@@ -81,7 +82,12 @@ $i18n = [
 	'NEWDOMAIN' => 'New URL',
 	'REPLACEURL' => 'Update URL',
 	'REPLACEDURL' => 'MultiBlock has been updated',
-	'DELETEQUESTION' => 'You want to remove this item?'
+	'DELETEQUESTION' => 'You want to remove this item?',
+
+	'MULTILINGUAL_TITLE' => 'Multilingual Support',
+	'MULTILINGUAL_REQUIRES' => 'requires I18N plugin',
+	'MULTILINGUAL_SUFFIX_HELP' => 'Use underscore suffix for languages:',
+	'MULTILINGUAL_FALLBACK_HELP' => 'Create category without suffix as default fallback.'
 
 ];
 

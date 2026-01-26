@@ -91,6 +91,7 @@
 			<p>' . $content[0]['name'] . ' <span style="opacity:0.5;font-size:12px;margin-left:10px">slug: ' . basename($filename, '.' . $info['extension']) . '</span></p>
 			 <div>
 				<a href="' . $SITEURL . 'admin/load.php?id=multiBlock&addnew&&categorytitle=' . $content[0]['name'] . '&categoryname=' . basename($filename, '.' . $info['extension']) . '" class="mb_edit">' . i18n_r("multiBlock/EDIT") . '</a>
+				<a href="' . $SITEURL . 'admin/load.php?id=multiBlock&category&duplicatecat=' . basename($filename, '.' . $info['extension']) . '" class="mb_edit">' . i18n_r("multiBlock/DUPLICATE") . '</a>
 			
 				<form method="post"  onclick="return confirm(`' . i18n_r('multiBlock/DELETEQUESTION') . '`);" style="display:inline-flex" action="' . $SITEURL . 'admin/load.php?id=multiBlock&category&deletecat=' . basename($filename, '.' . $info['extension']) . '">
 					<input type="submit" value="✕" title="' . i18n_r("multiBlock/DELETE") . '" class="mb_edit mb_edit_delete"> 
@@ -117,6 +118,7 @@
 			<p>' . $content[0]['name'] . '<span style="opacity:0.5;font-size:12px;margin-left:10px">slug: ' . basename($filename, '.' . $info['extension']) . '</span></p> 
 			<div>
 				<a href="' . $SITEURL . 'admin/load.php?id=multiBlock&addnewOneBlock&categorytitle=' . $content[0]['name'] . '&categoryname=' . basename($filename, '.' . $info['extension']) . '" class="mb_edit">' . i18n_r("multiBlock/EDIT") . '</a>
+				<a href="' . $SITEURL . 'admin/load.php?id=multiBlock&category&duplicateOneBlock=' . basename($filename, '.' . $info['extension']) . '" class="mb_edit">' . i18n_r("multiBlock/DUPLICATE") . '</a>
 			
 				<form method="post"  onclick="return confirm(`' . i18n_r('multiBlock/DELETEQUESTION') . '`);" style="display:inline-flex" action="' . $SITEURL . 'admin/load.php?id=multiBlock&category&deletecatOneBlock=' . basename($filename, '.' . $info['extension']) . '">
 					<input type="submit" value="✕" title="' . i18n_r("multiBlock/DELETE") . '" class="mb_edit mb_edit_delete"> 
@@ -153,6 +155,51 @@ if (isset($_GET['deletecatOneBlock'])) {
 	removeDir($katalog);
 }
 
+if (isset($_GET['duplicateOneBlock'])) {
+	global $SITEURL;
+
+	$sourceCat = $_GET['duplicateOneBlock'];
+	$newCatName = $sourceCat . '_copy';
+	
+	$counter = 1;
+	while (file_exists(GSDATAOTHERPATH . "oneBlock/category/" . $newCatName . ".json")) {
+		$newCatName = $sourceCat . '_copy' . $counter;
+		$counter++;
+	}
+
+	copy(
+		GSDATAOTHERPATH . "oneBlock/category/" . $sourceCat . ".json",
+		GSDATAOTHERPATH . "oneBlock/category/" . $newCatName . ".json"
+	);
+
+	function copyDir($source, $dest)
+	{
+		if (!is_dir($dest)) {
+			mkdir($dest, 0755, true);
+		}
+		
+		$dir = new DirectoryIterator($source);
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				if ($fileinfo->isFile() || $fileinfo->isLink()) {
+					copy($fileinfo->getPathName(), $dest . '/' . $fileinfo->getFilename());
+				} elseif ($fileinfo->isDir()) {
+					copyDir($fileinfo->getPathName(), $dest . '/' . $fileinfo->getFilename());
+				}
+			}
+		}
+	}
+
+	$sourceDir = GSDATAOTHERPATH . "oneBlock/" . $sourceCat . "/";
+	$destDir = GSDATAOTHERPATH . "oneBlock/" . $newCatName . "/";
+	
+	if (is_dir($sourceDir)) {
+		copyDir($sourceDir, $destDir);
+	}
+
+	echo '<script> location.replace("' . $SITEURL . 'admin/load.php?id=multiBlock&category");</script>';
+}
+
 if (isset($_GET['deletecat'])) {
 	global $SITEURL;
 
@@ -177,4 +224,55 @@ if (isset($_GET['deletecat'])) {
 	$katalog = GSDATAOTHERPATH . "multiBlock/" . $_GET['deletecat'] . "/";
 	removeDir($katalog);
 };
+
+if (isset($_GET['duplicatecat'])) {
+	global $SITEURL;
+
+	 $sourceCat = $_GET['duplicatecat'];
+	$newCatName = $sourceCat . '_copy';
+	
+	 $counter = 1;
+	while (file_exists(GSDATAOTHERPATH . "multiBlock/category/" . $newCatName . ".json")) {
+		$newCatName = $sourceCat . '_copy' . $counter;
+		$counter++;
+	}
+
+	 copy(
+		GSDATAOTHERPATH . "multiBlock/category/" . $sourceCat . ".json",
+		GSDATAOTHERPATH . "multiBlock/category/" . $newCatName . ".json"
+	);
+	
+	copy(
+		GSDATAOTHERPATH . "multiBlock/category/" . $sourceCat . ".txt",
+		GSDATAOTHERPATH . "multiBlock/category/" . $newCatName . ".txt"
+	);
+
+	 function copyDir($source, $dest)
+	{
+		if (!is_dir($dest)) {
+			mkdir($dest, 0755, true);
+		}
+		
+		$dir = new DirectoryIterator($source);
+		foreach ($dir as $fileinfo) {
+			if (!$fileinfo->isDot()) {
+				if ($fileinfo->isFile() || $fileinfo->isLink()) {
+					copy($fileinfo->getPathName(), $dest . '/' . $fileinfo->getFilename());
+				} elseif ($fileinfo->isDir()) {
+					copyDir($fileinfo->getPathName(), $dest . '/' . $fileinfo->getFilename());
+				}
+			}
+		}
+	}
+
+	 $sourceDir = GSDATAOTHERPATH . "multiBlock/" . $sourceCat . "/";
+	$destDir = GSDATAOTHERPATH . "multiBlock/" . $newCatName . "/";
+	
+	if (is_dir($sourceDir)) {
+		copyDir($sourceDir, $destDir);
+	}
+
+	echo '<script> location.replace("' . $SITEURL . 'admin/load.php?id=multiBlock&category");</script>';
+}
+
 ?>

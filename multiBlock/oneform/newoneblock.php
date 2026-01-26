@@ -257,10 +257,10 @@ if (isset($_POST['saveorder'])) {
 	$owncategory = $_GET['newmulticategory'];
 	$arrayinfo = $_POST['array'];
 
-	$folder        = GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
-	$filename      = $folder . 'order.txt';
-	$chmod_mode    = 0755;
-	$folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode);
+	$folder		= GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
+	$filename	= $folder . 'order.txt';
+	$chmod_mode	= 0755;
+	$folder_exists	= file_exists($folder) || mkdir($folder, $chmod_mode);
 
 	// Save the file (assuming that the folder indeed exists)
 	if ($folder_exists) {
