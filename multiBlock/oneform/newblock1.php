@@ -129,7 +129,6 @@ if (isset($_GET['namefile'])) {
 					echo ' : <span style="font-style:italic;margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
 				};
 
-
 				echo '</p>
 
 				<textarea id="post-content" name="' . str_replace(" ", "", $category->label) . '" style="width:100%;display:block;height:250px;" class="mbinput">' . html_entity_decode($valer) . '</textarea>
@@ -172,7 +171,6 @@ if (isset($_GET['namefile'])) {
 					echo ': <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlockWysywig("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
 				};
 
-
 				echo ' </p>
 
 			<textarea class="mbinput" style="width:100%;height:250px;box-sizing:border-box;" name="' . str_replace(" ", "", $category->label) . '">' . html_entity_decode($valer) . '</textarea>';
@@ -182,7 +180,6 @@ if (isset($_GET['namefile'])) {
 
 				echo '<p style="margin: 0; margin-top: 0px; margin-top: 20px; font-weight: 400px; font-size: 15px;display:flex; justify-content:space-between;width:100%; 
 				margin-bottom:20px !important;align-items:center;">' . $category->title;
-
 
 				if (isset($_GET['namefile'])) {
 					echo ' : <span style="margin-left:5px;font-size:11px;background:#fafafa;padding:5px;border:solid 1px #ddd;font-style:italic;"> &#60;?php getOneBlock("' . @$_GET['newmulticategory'] . '" , "' . @$_GET['namefile'] . '" , "' . $category->label . '") ;?&#62;</span>';
@@ -233,7 +230,7 @@ if (isset($_GET['namefile'])) {
 							$fullPath = $url;
 						}
 						
-						$displayText = (!empty($parent) ? $parent . ' » ' : '') . $title;
+						$displayText = (!empty($parent) ? $parent . ' Â» ' : '') . $title;
 						
 						$pages[] = array(
 							'path' => $fullPath,
@@ -337,7 +334,6 @@ if (isset($_POST['saveblock'])) {
 	global $options;
 	global $EDOPTIONS;
 
-
 	if (isset($EDTOOL))
 		$EDTOOL = returnJsArray($EDTOOL);
 	if (isset($toolbar))
@@ -352,7 +348,6 @@ if (isset($_POST['saveblock'])) {
 	$toolbar = isset($EDTOOL) ? ",toolbar: " . trim($EDTOOL, ",") : '';
 	$options = isset($EDOPTIONS) ? ',' . trim($EDOPTIONS, ",") : '';
 	?>
-	
 	
 <script type="text/javascript">
 	document
@@ -370,7 +365,7 @@ if (isset($_POST['saveblock'])) {
 					?>
 											contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
 				<?php } ?>
-			height: '250px',
+				height: '250px',
 				tabSpaces: 10,
 				filebrowserBrowseUrl: 'filebrowser.php?type=all',
 				filebrowserImageBrowseUrl: 'filebrowser.php?type=images',

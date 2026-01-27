@@ -88,7 +88,16 @@ $i18n = [
 	'MULTILINGUAL_TITLE' => 'Obsługa wielojęzyczności',
 	'MULTILINGUAL_REQUIRES' => 'wymaga pluginu I18N',
 	'MULTILINGUAL_SUFFIX_HELP' => 'Użyj sufiksu z podkreślnikiem dla języków:',
-	'MULTILINGUAL_FALLBACK_HELP' => 'Utwórz kategorię bez sufiksu jako domyślny fallback.'
+	'MULTILINGUAL_FALLBACK_HELP' => 'Utwórz kategorię bez sufiksu jako domyślny fallback.',
+
+	'DUPLICATE_CATEGORY' => 'Duplikuj kategorię',
+	'NEW_CATEGORY_TITLE' => 'Tytuł nowej kategorii',
+	'NEW_CATEGORY_SLUG' => 'Slug (nazwa pliku)',
+	'CANCEL' => 'Anuluj',
+	'DUPLICATE' => 'Duplikuj',
+	'COPY' => 'kopia',
+	'TITLE_SLUG_EMPTY' => 'Tytuł i slug nie mogą być puste!',
+	'CATEGORY_EXISTS' => 'Kategoria o tym slugu już istnieje!',
 
 ];
 

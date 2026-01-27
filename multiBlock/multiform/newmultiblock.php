@@ -182,7 +182,6 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 					</form>
 				</li>';
 
-			
 		}
 	}
 		echo '

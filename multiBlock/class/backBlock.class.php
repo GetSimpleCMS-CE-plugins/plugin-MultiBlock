@@ -202,7 +202,7 @@ class BackBlock {
 							$fullPath = $url;
 						}
 						
-						$displayText = (!empty($parent) ? $parent . ' � ' : '') . $title;
+						$displayText = (!empty($parent) ? $parent . ' » ' : '') . $title;
 						
 						$pages[] = array(
 							'path' => $fullPath,
@@ -238,38 +238,79 @@ class BackBlock {
 		foreach ($_POST as $key => $value) {
 			$costa[$key] = trim(preg_replace('/\s\s+/', ' ', htmlentities($value, ENT_QUOTES, 'UTF-8')));
 		}
-		$costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
+	
 		$owncategory = $_GET['newmulticategory'] ?? '';
-		$name = str_replace(" ", "-", trim($_POST['namemultiblock'] ?? ''));
-
+		
+		// Get name (title) and generate slug
+		$name = trim($_POST['namemultiblock'] ?? '');
+		$slug = $this->generateSlug($name);
+		
+		// Store original name in JSON, not the slug
+		$costa['namemultiblock'] = $name;
+		
+		$costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		
 		$folder = GSDATAOTHERPATH . 'multiBlock/' . $owncategory . '/';
-		$filename = $folder . $name . '.json';
+		$filename = $folder . $slug . '.json';
 		$chmod_mode = 0755;
-
+		
+		// Create folder if doesn't exist
 		if (!file_exists($folder)) {
 			if (!mkdir($folder, $chmod_mode, true) && !is_dir($folder)) {
 				echo "Error: Could not create directory.";
 				return;
 			}
 		}
-
+		
+		// Write JSON file with slug as filename
 		if (file_put_contents($filename, $costaJson) === false) {
 			echo "Error: Failed to write JSON file.";
 			return;
 		}
-
+		
+		// Handle rename if name changed
 		if (!empty($_POST['nameolder']) && $_POST['nameolder'] !== $_POST['namemultiblock']) {
-			$oldName = str_replace(" ", "-", trim($_POST['nameolder']));
-			$oldFile = $folder . $oldName . '.json';
-			$newFile = $folder . $name . '.json';
-			if (file_exists($oldFile) && !rename($oldFile, $newFile)) {
-				echo "Error: Failed to rename JSON file.";
-				return;
+			$oldSlug = $this->generateSlug(trim($_POST['nameolder']));
+			$oldFile = $folder . $oldSlug . '.json';
+			$newFile = $folder . $slug . '.json';
+			
+			if (file_exists($oldFile) && $oldFile !== $newFile) {
+				if (!rename($oldFile, $newFile)) {
+					echo "Error: Failed to rename JSON file.";
+					return;
+				}
 			}
 		}
-
+		
 		echo "<meta http-equiv='refresh' content='0'>";
+	}
+
+	// Helper function to generate slug from name
+	private function generateSlug($text) {
+		// Convert to lowercase
+		$text = mb_strtolower($text, 'UTF-8');
+		
+		// Replace Polish characters
+		$text = str_replace(
+			['ą', 'ć', 'ę', 'ł', 'ń', 'ó', 'ś', 'ź', 'ż'],
+			['a', 'c', 'e', 'l', 'n', 'o', 's', 'z', 'z'],
+			$text
+		);
+		
+		// Replace Spanish characters
+		$text = str_replace(
+			['á', 'é', 'í', 'ó', 'ú', 'ñ'],
+			['a', 'e', 'i', 'o', 'u', 'n'],
+			$text
+		);
+		
+		// Replace spaces and special characters with underscores
+		$text = preg_replace('/[^a-z0-9]+/', '_', $text);
+		
+		// Remove leading/trailing underscores
+		$text = trim($text, '_');
+		
+		return $text;
 	}
 
 	public function saveOneBlock() {
@@ -277,37 +318,50 @@ class BackBlock {
 		foreach ($_POST as $key => $value) {
 			$costa[$key] = trim(preg_replace('/\s\s+/', ' ', htmlentities($value, ENT_QUOTES, 'UTF-8')));
 		}
-		$costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 		$owncategory = $_GET['newmulticategory'] ?? '';
-		$name = str_replace(" ", "-", trim($_POST['name'] ?? ''));
-
+	
+		// Get name (title) and generate slug
+		$name = trim($_POST['name'] ?? '');
+		$slug = $this->generateSlug($name);
+		
+		// Store original name in JSON, not the slug
+		$costa['name'] = $name;
+		
+		$costaJson = json_encode($costa, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		
 		$folder = GSDATAOTHERPATH . 'oneBlock/' . $owncategory . '/';
-		$filename = $folder . $name . '.json';
+		$filename = $folder . $slug . '.json';
 		$chmod_mode = 0755;
-
+		
+		// Create folder if doesn't exist
 		if (!file_exists($folder)) {
 			if (!mkdir($folder, $chmod_mode, true) && !is_dir($folder)) {
 				echo "Error: Could not create directory.";
 				return;
 			}
 		}
-
+		
+		// Write JSON file with slug as filename
 		if (file_put_contents($filename, $costaJson) === false) {
 			echo "Error: Failed to write JSON file.";
 			return;
 		}
-
+		
+		// Handle rename if name changed
 		if (!empty($_POST['nameolder']) && $_POST['nameolder'] !== $_POST['name']) {
-			$oldName = str_replace(" ", "-", trim($_POST['nameolder']));
-			$oldFile = $folder . $oldName . '.json';
-			$newFile = $folder . $name . '.json';
-			if (file_exists($oldFile) && !rename($oldFile, $newFile)) {
-				echo "Error: Failed to rename JSON file.";
-				return;
+			$oldSlug = $this->generateSlug(trim($_POST['nameolder']));
+			$oldFile = $folder . $oldSlug . '.json';
+			$newFile = $folder . $slug . '.json';
+			
+			if (file_exists($oldFile) && $oldFile !== $newFile) {
+				if (!rename($oldFile, $newFile)) {
+					echo "Error: Failed to rename JSON file.";
+					return;
+				}
 			}
 		}
-
+		
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
 

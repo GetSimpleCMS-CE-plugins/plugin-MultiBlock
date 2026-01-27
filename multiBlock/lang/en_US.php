@@ -87,8 +87,18 @@ $i18n = [
 	'MULTILINGUAL_TITLE' => 'Multilingual Support',
 	'MULTILINGUAL_REQUIRES' => 'requires I18N plugin',
 	'MULTILINGUAL_SUFFIX_HELP' => 'Use underscore suffix for languages:',
-	'MULTILINGUAL_FALLBACK_HELP' => 'Create category without suffix as default fallback.'
+	'MULTILINGUAL_FALLBACK_HELP' => 'Create category without suffix as default fallback.',
 
+
+	'DUPLICATE_CATEGORY' => 'Duplicate category',
+	'NEW_CATEGORY_TITLE' => 'New category title',
+	'NEW_CATEGORY_SLUG' => 'Slug (file name)',
+	'CANCEL' => 'Cancel',
+	'DUPLICATE' => 'Duplicate',
+	'COPY' => 'copy',
+	'TITLE_SLUG_EMPTY' => 'Title and slug cannot be empty!',
+	'CATEGORY_EXISTS' => 'Category with this slug already exists!',
+	
 ];
 
 ;?>

@@ -122,4 +122,4 @@ if (isset($_POST['replace'])) {
 
 		file_put_contents($file, $newcontent);
 	};
-};;
+};

@@ -87,7 +87,16 @@ $i18n = [
 	'MULTILINGUAL_TITLE' => 'Soporte Multiidioma',
 	'MULTILINGUAL_REQUIRES' => 'requiere plugin I18N',
 	'MULTILINGUAL_SUFFIX_HELP' => 'Use sufijo con guión bajo para idiomas:',
-	'MULTILINGUAL_FALLBACK_HELP' => 'Cree una categoría sin sufijo como respaldo predeterminado.'
+	'MULTILINGUAL_FALLBACK_HELP' => 'Cree una categoría sin sufijo como respaldo predeterminado.',
+
+	'DUPLICATE_CATEGORY' => 'Duplicar categoría',
+	'NEW_CATEGORY_TITLE' => 'Título de la nueva categoría',
+	'NEW_CATEGORY_SLUG' => 'Slug (nombre del archivo)',
+	'CANCEL' => 'Cancelar',
+	'DUPLICATE' => 'Duplicar',
+	'COPY' => 'copia',
+	'TITLE_SLUG_EMPTY' => '¡El título y el slug no pueden estar vacíos!',
+	'CATEGORY_EXISTS' => '¡Ya existe una categoría con este slug!',
 
 ];
 

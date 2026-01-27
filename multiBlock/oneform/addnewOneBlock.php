@@ -133,40 +133,11 @@
 
 	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/CATEGORYNAMEPLACEHOLDER"); ?>" style="width: 100%; padding: 10px;" name="categorytitle" class="mb_title_name" required value="<?php echo str_replace('-', ' ', @$_GET['categorytitle'] ?? ''); ?>" id="categorytitle">
 	<br><br>
-	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/SLUG"); ?>" class="mb_title" pattern="[A-Za-z0-9]+" name="categoryname" value="<?php echo str_replace('-', ' ', @$_GET['categoryname'] ?? ''); ?>" id="categoryname">
-
-	<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		const categoryTitleInput = document.getElementById('categorytitle');
-		const categorySlugInput = document.getElementById('categoryname');
-
-		categoryTitleInput.addEventListener('input', function() {
-			const inputValue = this.value.trim();
-			const slugValue = removeSpecialCharacters(inputValue);
-			categorySlugInput.value = slugValue;
-		});
-
-		function removeSpecialCharacters(str) {
-			const accentsMap = {
-				'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
-				'à': 'a', 'è': 'e', 'ì': 'i', 'ò': 'o', 'ù': 'u',
-				'â': 'a', 'ê': 'e', 'î': 'i', 'ô': 'o', 'û': 'u',
-				'ä': 'a', 'ë': 'e', 'ï': 'i', 'ö': 'o', 'ü': 'u',
-				'ã': 'a', 'õ': 'o',
-				'ñ': 'n', 'ç': 'c',
-				'ā': 'a', 'ē': 'e', 'ī': 'i', 'ō': 'o', 'ū': 'u',
-				'ă': 'a', 'ĕ': 'e', 'ĭ': 'i', 'ŏ': 'o', 'ŭ': 'u',
-				'ą': 'a', 'ę': 'e', 'į': 'i', 'ų': 'u',
-				'đ': 'd', 'ı': 'i',
-				'ß': 'ss', 'Þ': 'th', 'þ': 'th', 'Ð': 'dh', 'ð': 'dh'
-			};
-
-			return str.replace(/[^\w\s]/gi, function(match) {
-				return accentsMap[match] || match;
-			}).replace(/\s+/g, '').toLowerCase();
-		}
-	});
-	</script>
+	<input type="text" required placeholder="<?php echo i18n_r("multiBlock/SLUG"); ?>" class="mb_title"   name="categoryname" value="<?php echo str_replace('-', ' ', @$_GET['categoryname'] ?? ''); ?>" id="categoryname">
+	<div style="background: #f0f7ff; border-left: 3px solid #2196f3; padding: 10px; margin-top: 8px; font-size: 12px; border-radius: 3px;">
+		<strong>💡 <?php echo i18n_r("multiBlock/MULTILINGUAL_TITLE"); ?> (<?php echo i18n_r("multiBlock/MULTILINGUAL_REQUIRES"); ?>):</strong> <?php echo i18n_r("multiBlock/MULTILINGUAL_SUFFIX_HELP"); ?> <code>team_en</code>, <code>team_pl</code>, <code>team_es</code>. <?php echo i18n_r("multiBlock/MULTILINGUAL_FALLBACK_HELP"); ?>
+	</div>
+ 
 
 	<hr style="margin: 20px 0; border: 0; border-bottom: 2px dashed #ddd; background: #999;">
 

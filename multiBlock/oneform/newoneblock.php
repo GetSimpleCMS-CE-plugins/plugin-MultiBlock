@@ -145,7 +145,6 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 				<a class="addnewblock">' . i18n_r("multiBlock/ADDNEWBTN2") . ' ➕</a>
 			</div>';
 
-
 		echo '<hr><br>
 			<h3>' . i18n_r("multiBlock/MULTIBLOCKIN") . '</h3>
 			<br>
@@ -160,7 +159,6 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 			$name = str_replace('-', ' ', basename($filename, '.' . $info['extension']));
 
 			$content = json_decode(file_get_contents($filename));
-
 
 			echo '<li data-id="' . $counterlist . '"><p>' . $content->nametitle . '<span style="font-size:12px;opacity:0.6;margin-left:10px;"> slug: ' . $name . '</span> </p>
 				
@@ -228,9 +226,9 @@ if (file_exists($fileAddNew) && file_get_contents($fileAddNew) == 'on') {
 		echo "document.querySelector('.mb_category').value = '" . @$_GET['newmulticategory'] . "';";
 
 		echo "document.querySelector('.addnewblock').setAttribute('href','" . $SITEURL . "admin/load.php?id=multiBlock&newblock1&newmulticategory=" . @$_GET['newmulticategory'] . "')";
-	}
+	};
 
-	; ?>
+	?>
 </script>
 
 <script src="<?php global $SITEURL;
@@ -272,6 +270,5 @@ if (isset($_POST['saveorder'])) {
 if (isset($_POST['delthisbtn'])) {
 	unlink(GSDATAOTHERPATH . "oneBlock/" . str_replace(" ", "-", $_GET['newmulticategory']) . "/" . $_POST['delthis'] . ".json");
 	echo ("<meta http-equiv='refresh' content='0'>");
-}
-
-; ?>
+};
+?>

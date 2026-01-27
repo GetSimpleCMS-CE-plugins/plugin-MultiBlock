@@ -5,12 +5,8 @@
 	};
 </script>
 
-
-
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-
-
 
 			const nameTitleInput = document.querySelector('.nametitle');
 			const categorySlugInput = document.querySelector('.namefile');
@@ -84,11 +80,8 @@
 	);
 </script>
 
-
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-
-
 
 			const categoryTitleInput = document.getElementById('categorytitle');
 			const categorySlugInput = document.getElementById('categoryname');
